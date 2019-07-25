@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/daividvleal/juju/tree/master.svg?style=svg&circle-token=b6bbe6956b726655202f72465d0c9e9074c0e528)](https://circleci.com/gh/daividvleal/juju/tree/master)
 # Juju
 Aims to guide exercising the perineal muscles and develop self-awareness amongst woman
 
