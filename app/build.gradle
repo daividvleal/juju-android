@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "br.com.juju"
+        applicationId "br.com.jujuhealth"
         minSdkVersion 14
         targetSdkVersion 29
         versionCode 1

@@ -1,4 +1,4 @@
-package br.com.juju
+package br.com.jujuhealth
 
 import org.junit.Test
 

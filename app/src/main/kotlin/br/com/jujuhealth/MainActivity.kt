@@ -1,4 +1,4 @@
-package br.com.juju
+package br.com.jujuhealth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
