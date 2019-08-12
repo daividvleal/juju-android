@@ -12,4 +12,9 @@
         <item name="android:windowBackground">@drawable/launcher_screen</item>
     </style>
 
+    <style name="AppTheme.Text.Header" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:color">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/font_header_size</item>
+    </style>
+
 </resources>

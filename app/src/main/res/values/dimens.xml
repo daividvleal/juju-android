@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Region fonts -->
+    <dimen name="font_header_size">36sp</dimen>
+    <!-- end region -->
+
+    <!-- Region margins -->
+    <dimen name="header_margin">80dp</dimen>
+    <!-- end region -->
+</resources>

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Juju</string>
+    <string name="app_name_camel_case">JUJU</string>
 </resources>
