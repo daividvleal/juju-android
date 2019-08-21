@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_sign"
+    app:startDestination="@id/home_sign">
+
+    <fragment
+        android:id="@+id/home_sign"
+        android:name="br.com.jujuhealth.features.home.HomeSignFragment"
+        tools:layout="@layout/fragment_home_sign">
+
+        <action
+            android:id="@+id/go_to_sign_up"
+            app:destination="@id/sign_up" />
+
+
+        <action
+            android:id="@+id/go_to_sign_in"
+            app:destination="@id/sign_in" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/sign_in"
+        android:name="br.com.jujuhealth.features.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/go_to_sign_up"
+            app:destination="@id/sign_up" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/sign_up"
+        android:name="br.com.jujuhealth.features.login.LoginFragment"
+        tools:layout="@layout/fragment_login" >
+
+        <action
+            android:id="@+id/go_to_sign_in"
+            app:destination="@id/sign_in" />
+
+    </fragment>
+
+</navigation>

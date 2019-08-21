@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Juju</string>
-    <string name="app_name_camel_case">JUJU</string>
+
+    <!-- region home sign -->
+    <string name="welcome_text">Bem-vinda a Juju!\n\nSou um aplicativo que ajuda na realização\nde exercícios pélvicos.</string>
+    <string name="sign_in">Entrar</string>
+    <string name="sign_up">Cadastrar</string>
+    <!-- end region -->
 </resources>

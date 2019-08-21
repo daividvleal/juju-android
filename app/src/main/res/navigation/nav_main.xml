@@ -6,7 +6,7 @@
 
     <fragment
             android:id="@+id/home"
-            android:name="br.com.jujuhealth.features.home.HomeFragment"
-            tools:layout="@layout/fragment_home"/>
+            android:name="br.com.jujuhealth.features.home.HomeFragmentMain"
+            tools:layout="@layout/fragment_home_main"/>
 
 </navigation>

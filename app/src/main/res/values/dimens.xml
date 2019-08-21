@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Region fonts -->
+    <!-- Region fonts sizes-->
     <dimen name="font_header_size">36sp</dimen>
+    <dimen name="font_size_button_medium">16sp</dimen>
+    <dimen name="font_middle_text_size">16sp</dimen>
     <!-- end region -->
 
     <!-- Region margins -->
     <dimen name="header_margin">80dp</dimen>
+    <dimen name="common_text_margin">24dp</dimen>
     <!-- end region -->
+
+    <!-- Region padding -->
+    <dimen name="button_padding_medium">24dp</dimen>
+    <!-- end region -->
+
 </resources>
