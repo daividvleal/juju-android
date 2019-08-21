@@ -6,7 +6,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:scaleType="fitXY"
         android:src="@drawable/ic_bottom_bg"
         app:layout_constraintBottom_toBottomOf="parent"/>

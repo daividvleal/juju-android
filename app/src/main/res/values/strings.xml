@@ -6,4 +6,11 @@
     <string name="sign_in">Entrar</string>
     <string name="sign_up">Cadastrar</string>
     <!-- end region -->
+
+    <!-- region sign in -->
+    <string name="dont_have_account">Ainda não possui uma conta? Criar agora</string>
+    <!-- end region -->
+
+    <!-- region sign up -->
+    <!-- end region -->
 </resources>
