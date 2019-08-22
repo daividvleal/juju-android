@@ -12,5 +12,9 @@
     <!-- end region -->
 
     <!-- region sign up -->
+    <string name="email_info_text">E-mail</string>
+    <string name="pwd_info_text">Senha</string>
+    <string name="email_hint_text">Qual seu e-mail?</string>
+    <string name="pwd_hint_text">Qual sua senha?</string>
     <!-- end region -->
 </resources>
