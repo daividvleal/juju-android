@@ -9,12 +9,19 @@
 
     <!-- region sign in -->
     <string name="dont_have_account">Ainda não possui uma conta? Criar agora</string>
-    <!-- end region -->
-
-    <!-- region sign up -->
     <string name="email_info_text">E-mail</string>
     <string name="pwd_info_text">Senha</string>
     <string name="email_hint_text">Qual seu e-mail?</string>
     <string name="pwd_hint_text">Qual sua senha?</string>
     <!-- end region -->
+
+    <!-- region sign up -->
+    <string name="birthday_info_text">Data de nascimento</string>
+    <string name="name_info_text">Nome</string>
+    <string name="birthday_hint_text">Qual seu nome?</string>
+    <string name="name_hint_text">Quando você nasceu?</string>
+    <string name="pwd_new_hint_text">Crie um senha</string>
+    <string name="go_back">voltar</string>
+    <!-- end region -->
+
 </resources>

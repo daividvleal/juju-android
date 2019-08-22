@@ -1,6 +1,7 @@
 package br.com.jujuhealth.widget
 
 import android.content.Context
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,7 @@ class CustomTextView(
             if(drawable != 0){
                 edit_text.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,drawable,0)
             }
+            edit_text.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
     }
 

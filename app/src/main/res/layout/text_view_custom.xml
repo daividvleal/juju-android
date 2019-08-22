@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:theme="@style/AppTheme.Activity"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -16,6 +17,7 @@
         tools:text="E-mail" />
 
     <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        android:background="@drawable/text_box_underline_selector"
         android:id="@+id/edit_text"
         style="@style/AppTheme.AppCompatEditText"
         android:layout_width="match_parent"

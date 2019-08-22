@@ -14,21 +14,21 @@
         <item name="android:windowBackground">@drawable/launcher_screen</item>
     </style>
 
-    <style name="AppTheme.Text.Header" parent="TextAppearance.MaterialComponents.Headline1">
+    <style name="AppTheme.Text.Header" parent="Widget.AppCompat.TextView">
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/header_margin</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">@dimen/font_header_size</item>
     </style>
 
-    <style name="AppTheme.Text.Bottom" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="android:textStyle">bold</item>
+    <style name="AppTheme.Text.Bottom" parent="Widget.AppCompat.TextView">
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_marginBottom">@dimen/bottom_margin</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/font_bottom_size</item>
     </style>
 
-    <style name="AppTheme.Text.Middle" parent="TextAppearance.MaterialComponents.Headline1">
+    <style name="AppTheme.Text.Middle" parent="Widget.AppCompat.TextView">
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginTop">@dimen/header_margin</item>
@@ -59,17 +59,12 @@
     <style name="AppTheme.TextViewInfoInput" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/font_small_text_size</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.AppCompatEditText" parent="Widget.AppCompat.EditText">
         <item name="android:textSize">@dimen/font_middle_text_size</item>
         <item name="android:textColorHint">@color/colorTextNotFilled</item>
         <item name="android:textColor">@color/colorTextFilled</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:colorControlNormal">@color/colorPrimaryDark</item>
-        <item name="android:colorControlActivated">@android:color/white</item>
-        <item name="android:colorControlHighlight">@android:color/white</item>
     </style>
 
 </resources>

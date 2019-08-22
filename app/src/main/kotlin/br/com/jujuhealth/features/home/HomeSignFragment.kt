@@ -2,15 +2,12 @@ package br.com.jujuhealth.features.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import br.com.jujuhealth.R
+import br.com.jujuhealth.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home_sign.*
 
-class HomeSignFragment : Fragment(R.layout.fragment_home_sign){
-
-    private lateinit var navController: NavController
+class HomeSignFragment : BaseFragment(R.layout.fragment_home_sign){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

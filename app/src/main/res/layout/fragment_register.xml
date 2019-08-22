@@ -1,8 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
     android:theme="@style/AppTheme.Activity">
 
-    <include layout="@layout/image_background" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/AppTheme.Activity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <include layout="@layout/image_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_text_margin"
+            android:layout_marginTop="@dimen/common_medium_margin"
+            android:layout_marginRight="@dimen/common_text_margin"
+            android:layout_marginBottom="@dimen/common_medium_margin"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/sign_up"
+            app:layout_constraintTop_toBottomOf="@id/text_header">
+
+            <br.com.jujuhealth.widget.CustomTextView
+                android:id="@+id/txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_text_margin"
+                android:inputType="textEmailAddress"
+                app:hint_text="@string/name_hint_text"
+                app:text_info="@string/name_info_text" />
+
+            <br.com.jujuhealth.widget.CustomTextView
+                android:id="@+id/txt_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_text_margin"
+                android:inputType="date"
+                app:hint_text="@string/birthday_hint_text"
+                app:text_info="@string/birthday_info_text" />
+
+            <br.com.jujuhealth.widget.CustomTextView
+                android:id="@+id/txt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_text_margin"
+                android:inputType="textEmailAddress"
+                app:hint_text="@string/email_hint_text"
+                app:text_info="@string/email_info_text" />
+
+            <br.com.jujuhealth.widget.CustomTextView
+                android:id="@+id/txt_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                app:drawable_resource_right="@drawable/ic_remove_red_eye"
+                app:hint_text="@string/pwd_new_hint_text"
+                app:text_info="@string/pwd_info_text" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sign_up"
+            style="@style/AppTheme.Button.Medium.Light"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_margin_from_text_input"
+            android:layout_marginBottom="@dimen/common_small_margin"
+            android:text="@string/sign_up"
+            app:layout_constraintBottom_toTopOf="@id/text_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_bottom"
+            style="@style/AppTheme.Text.Bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/bottom_margin_big"
+            android:text="@string/go_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_header"
+            style="@style/AppTheme.Text.Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
