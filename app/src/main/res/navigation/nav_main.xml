@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/exercise">
+
+    <fragment
+            android:id="@+id/attendance"
+            android:name="br.com.jujuhealth.features.main.attendance.calendar.CalendarFragmentView"
+            tools:layout="@layout/fragment_attendance"/>
+
+    <fragment
+            android:id="@+id/star"
+            android:name="br.com.jujuhealth.features.main.star.StarFragment"
+            tools:layout="@layout/fragment_star"/>
+
+    <fragment
+            android:id="@+id/exercise"
+            android:name="br.com.jujuhealth.features.main.exercise.ExerciseFragment"
+            tools:layout="@layout/fragment_exercise"/>
+
+    <fragment
+            android:id="@+id/video"
+            android:name="br.com.jujuhealth.features.main.video.VideoFragment"
+            tools:layout="@layout/fragment_video"/>
+
+    <fragment
+            android:id="@+id/profile"
+            android:name="br.com.jujuhealth.features.main.profile.ProfileFragment"
+            tools:layout="@layout/fragment_profile"/>
+
+    <fragment
+        android:id="@+id/select_level"
+        android:name="br.com.jujuhealth.features.main.exercise.filter.LevelFragment"
+        tools:layout="@layout/fragment_level"/>
+
+    <action
+        android:id="@+id/go_to_filter"
+            app:destination="@id/select_level"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <action
+            android:id="@+id/go_to_attendance"
+            app:destination="@id/attendance"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <action
+            android:id="@+id/go_to_star"
+            app:destination="@id/star"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <action
+            android:id="@+id/go_to_exercise"
+            app:destination="@id/exercise"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+
+    <action
+            android:id="@+id/go_to_video"
+            app:destination="@id/video"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+
+    <action
+            android:id="@+id/go_to_profile"
+            app:destination="@id/profile"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+
+
+</navigation>

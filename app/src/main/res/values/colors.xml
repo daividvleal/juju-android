@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFA1AC</color>
+    <color name="colorPrimaryDark">#F27685</color>
+    <color name="colorAccent">#ECB2BA</color>
+
+    <color name="colorTextNotFilled">#D07884</color>
+    <color name="colorTextFilled">#BD616D</color>
+
+    <color name="softPink">#FFAFBA</color>
+
+    <color name="gray">#e3e7ea</color>
+    <color name="darkGray">#3b414b</color>
+
+    <color name="charcoalGrey">#3b414b</color>
+    <color name="superLightGray">#F8F8F8</color>
+    <color name="lightGray">#E3E7EA</color>
+</resources>

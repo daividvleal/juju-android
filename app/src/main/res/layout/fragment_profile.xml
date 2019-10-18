@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circle_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_elipse"
+            app:civ_border_color="@color/lightGray"
+            app:civ_border_width="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+
+    <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_profile_picture"
+            app:layout_constraintBottom_toBottomOf="@id/circle_profile"
+            app:layout_constraintEnd_toEndOf="@id/circle_profile"
+            app:layout_constraintStart_toStartOf="@id/circle_profile"
+            app:layout_constraintTop_toTopOf="@id/circle_profile" />
+
+    <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_big_margin"
+            android:textSize="@dimen/font_medium_big_button"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/circle_profile"
+            tools:text="Joana Maria" />
+
+    <TextView
+            android:id="@+id/txt_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_small_margin"
+            android:textSize="@dimen/font_middle_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_name"
+            tools:text="joana-maria@gmail.com" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.65" />
+
+    <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/superLightGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+
+    <TextView
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_big_big_margin"
+            android:layout_marginBottom="@dimen/common_big_margin"
+            android:text="@string/settings"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/font_middle_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/img_change_pwd"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+            android:id="@+id/img_change_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_big_big_margin"
+            android:src="@drawable/ic_change_pwd"
+            app:layout_constraintBottom_toBottomOf="@id/view"
+            app:layout_constraintStart_toStartOf="@id/view"
+            app:layout_constraintTop_toTopOf="@id/view" />
+
+    <TextView
+            android:id="@+id/change_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_big_margin"
+            android:text="@string/change_pwd"
+            android:textColor="@color/colorTextFilled"
+            android:textSize="@dimen/font_middle_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/view"
+            app:layout_constraintStart_toEndOf="@id/img_change_pwd"
+            app:layout_constraintTop_toTopOf="@id/view" />
+
+    <ImageView
+            android:id="@+id/img_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_big_big_margin"
+            android:layout_marginTop="@dimen/common_big_margin"
+            android:src="@drawable/ic_logout"
+            app:layout_constraintStart_toStartOf="@id/view"
+            app:layout_constraintTop_toBottomOf="@id/img_change_pwd" />
+
+    <TextView
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_last_icon_start"
+            android:layout_marginTop="@dimen/margin_last_icon_top"
+            android:text="@string/logout"
+            android:textColor="@color/colorTextFilled"
+            android:textSize="@dimen/font_middle_text_size"
+            app:layout_constraintStart_toEndOf="@id/img_logout"
+            app:layout_constraintTop_toBottomOf="@id/img_change_pwd" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+    <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading"
+            android:layout_width="@dimen/loading_animation_width"
+            android:layout_height="@dimen/loading_animation_height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loading.json"
+            app:lottie_loop="true" />
+
+    <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="circle_profile,img_profile,txt_name,txt_email" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

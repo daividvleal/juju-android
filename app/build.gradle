@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.0"
+    defaultConfig {
+        applicationId "br.com.jujuhealth"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+        debug { assets.srcDirs = ['src/debug/assets', 'src/debug/assets/'] }
+    }
+    buildTypes {
+        debug {
+
+            buildConfigField "String", "BASE_URL", '"https://jujuhealth.com.br"'
+            applicationIdSuffix ".debug"
+            testCoverageEnabled true
+        }
+        release {
+            buildConfigField "String", "BASE_URL", '"https://jujuhealth.com.br"'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    //default
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "androidx.core:core-ktx:$core_ktx"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview"
+    implementation "androidx.legacy:legacy-support-v4:$legacy_support_v4"
+    implementation "com.applandeo:material-calendar-view:$material_calendar_view"
+    implementation "de.hdodenhof:circleimageview:$circle_image_view"
+    implementation "com.airbnb.android:lottie:$lottie"
+
+    //Firebase
+    implementation "com.google.firebase:firebase-auth:$firebase_auth"
+    implementation "com.google.firebase:firebase-core:$firebase_core"
+    implementation "com.google.firebase:firebase-analytics:$firebase_analytics"
+    implementation "com.google.firebase:firebase-firestore:$firebase_firestore"
+
+    //Picasso
+    implementation "com.squareup.picasso:picasso:$picasso"
+    implementation "jp.wasabeef:picasso-transformations:$picasso_transformations"
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment:$navigation"
+    implementation "androidx.navigation:navigation-ui:$navigation"
+
+    //Shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmer"
+
+    //Koin
+    implementation "org.koin:koin-core:$koin"
+    implementation "org.koin:koin-android:$koin"
+    implementation "org.koin:koin-androidx-scope:$koin"
+    implementation "org.koin:koin-androidx-viewmodel:$koin"
+
+    //AndroidX ViewModel/LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_extensions"
+    implementation "com.google.android.material:material:$material"
+
+    //Unit Test
+    testImplementation "junit:junit:$junit"
+    testImplementation "org.koin:koin-test:$koin"
+    testImplementation "androidx.test:rules:$androidx_test_rules"
+    testImplementation "androidx.arch.core:core-testing:$core_testing"
+
+    //Instrumented Test
+    androidTestImplementation "androidx.test:runner:$runner"
+    androidTestImplementation "org.koin:koin-test:$koin"
+    androidTestImplementation "androidx.test:rules:$androidx_test_rules"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_rules"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core"
+}
+
+apply plugin: 'com.google.gms.google-services'

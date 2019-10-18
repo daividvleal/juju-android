@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">Juju</string>
+
+    <!-- region home sign -->
+    <string name="welcome_text">Sou um aplicativo que vai ajudar você\na realizar exercícios pélvicos!</string>
+    <string name="sign_in">Entrar</string>
+    <string name="sign_up">Cadastrar</string>
+    <!-- end region -->
+
+    <!-- region sign in -->
+    <string name="dont_have_account">Ainda não possui uma conta? Criar agora</string>
+    <string name="email_info_text">E-mail</string>
+    <string name="pwd_info_text">Senha</string>
+    <string name="email_hint_text">Qual seu e-mail?</string>
+    <string name="pwd_hint_text">Qual sua senha?</string>
+    <string name="success_logged">Logado com sucesso?</string>
+    <!-- end region -->
+
+    <!-- region sign up -->
+    <string name="birthday_info_text">Data de nascimento</string>
+    <string name="name_info_text">Nome</string>
+    <string name="birthday_hint_text">Qual seu nome?</string>
+    <string name="name_hint_text">Quando você nasceu?</string>
+    <string name="pwd_new_hint_text">Crie um senha</string>
+    <string name="go_back">voltar</string>
+    <!-- end region -->
+
+    <!-- action bar -->
+    <string name="calendar">Calendário</string>
+    <string name="star">Estrela</string>
+    <string name="exercise">Exercício</string>
+    <string name="video">Vídeo</string>
+    <string name="profile">Perfil</string>
+    <string name="empty_menu_title"/>
+    <!-- end region -->
+
+    <!-- level exercise -->
+    <string name="level_easy">Fácil</string>
+    <string name="level_medium">Médio</string>
+    <string name="level_hard">Difícil</string>
+    <!-- end region -->
+
+    <!-- main -->
+    <string name="start">Começar</string>
+    <string name="exercise_text">Aqui é onde você pratica o exercício\nde relaxamento e contração do períneo.</string>
+    <string name="soft_exercise">Treino Lento</string>
+    <string name="hard_exercise">Treino Rápido</string>
+    <!-- -->
+
+    <string name="daily_meta">Meta Diária</string>
+    <string name="contract">CONTRAIR</string>
+    <string name="relaxe">RELAXAR</string>
+
+    <string name="completed">Exercício Finalizado</string>
+    <string name="exercise_level">Nível do Exercício</string>
+
+    <string name="invalid_email">E-mail Inválido</string>
+    <string name="invalid_password">Senha Inválida</string>
+    <string name="obey">Campo obrigatório</string>
+
+    <string name="urine_loss">Perda de urina</string>
+
+    <string name="attendance">Acompanhamento</string>
+    
+    <string name="logout">Sair da conta</string>
+    <string name="change_pwd">Alterar senha</string>
+    <string name="settings">Configurações</string>
+
+    <string name="error_message">Não foi possível carregar os seus dados no momento.</string>
+
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools"
+
+        android:background="@drawable/bg_button_dark"
+        android:padding="@dimen/common_medium_margin">
+
+    <TextView
+            android:id="@+id/btn_text_start"
+            style="@style/AppTheme.TextCustomButtonBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/btn_text_end"
+            style="@style/AppTheme.TextCustomButtonSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/level_easy"
+            android:layout_marginRight="@dimen/common_small_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+            android:id="@+id/btn_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:src="@drawable/ic_slice"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

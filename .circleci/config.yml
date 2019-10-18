@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+    - image: circleci/android:api-29
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+    - checkout
+    - run:
+        name: CREATE GOOGLE SERVICES JSON FILE
+        command: touch /home/circleci/code/app/google-services.json
+    - run:
+        name: DECODE BASE64 GOOGLE SERVICE JSON
+        command: echo $google_services | base64 --decode > /home/circleci/code/app/google-services.json
+    - restore_cache:
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+    - run:
+        name: ACCEPTING ANDROID LICENSES #if permission for Gradlew Dependencies fail, use this.
+        command: yes | sdkmanager --licenses || exit 0
+    - run:
+        name: CHMOD PERMISSIONS #if permission for Gradlew Dependencies fail, use this.
+        command: sudo chmod +x ./gradlew
+    - run:
+        name: DOWNLOAD DEPENDENCIES
+        command: ./gradlew androidDependencies
+    - save_cache:
+        paths:
+        - ~/.gradle
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+    - run:
+        name: CLEAN BUILD
+        command: ./gradlew clean
+    - run:
+        name: RUN LINT
+        command: ./gradlew lintDebug
+    - run:
+        name: RUN UNIT TESTS
+        command: ./gradlew testDebugUnitTest
+    - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+        path: app/build/reports
+        destination: reports
+    - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+        path: app/build/test-results
+    # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples

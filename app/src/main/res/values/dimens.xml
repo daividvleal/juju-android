@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Region fonts sizes-->
+    <dimen name="font_header_size">36sp</dimen>
+    <dimen name="font_bottom_size">14sp</dimen>
+    <dimen name="font_size_button_medium">16sp</dimen>
+    <dimen name="font_middle_text_size">16sp</dimen>
+    <dimen name="font_middle_small_text_size">16sp</dimen>
+    <dimen name="font_small_text_size">12sp</dimen>
+    <dimen name="font_medium_big_button">20sp</dimen>
+    <dimen name="font_medium_button">14sp</dimen>
+    <!-- end region -->
+
+    <!-- Region margins -->
+    <dimen name="header_margin">80dp</dimen>
+    <dimen name="bottom_margin_big">80dp</dimen>
+    <dimen name="bottom_margin">32dp</dimen>
+    <dimen name="margin_last_icon_top">26dp</dimen>
+    <dimen name="margin_last_icon_start">26dp</dimen>
+    <dimen name="bottom_margin_from_text_input">40dp</dimen>
+    <dimen name="common_text_margin">24dp</dimen>
+    <dimen name="common_small_margin">8dp</dimen>
+    <dimen name="common_tiny_small_margin">2dp</dimen>
+    <dimen name="common_medium_margin">16dp</dimen>
+    <dimen name="common_width_bar">14dp</dimen>
+    <dimen name="common_small_high_bar">23dp</dimen>
+    <dimen name="common_medium_high_bar">46dp</dimen>
+    <dimen name="common_big_high_bar">69dp</dimen>
+    <dimen name="common_big_margin">32dp</dimen>
+    <dimen name="common_big_big_margin">42dp</dimen>
+    <!-- end region -->
+
+    <!-- Region sizes -->
+    <dimen name="button_size">144dp</dimen>
+    <!-- end region -->
+
+    <!-- Region padding -->
+    <dimen name="button_padding_medium">24dp</dimen>
+    <!-- end region -->
+
+    <dimen name="icon_level_hight">118dp</dimen>
+    <dimen name="icon_level_width">138dp</dimen>
+
+    <dimen name="loading_animation_width">150dp</dimen>
+    <dimen name="loading_animation_height">150dp</dimen>
+</resources>

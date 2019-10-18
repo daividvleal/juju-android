@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_margin="@dimen/common_medium_margin">
+
+    <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/common_medium_margin"
+            app:layout_constraintBottom_toTopOf="@id/barrier_play_stop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/what_doing">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:id="@+id/circle"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_exercicio_animation_complete"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- This initially-hidden ImageView will hold the expanded/zoomed version of
+             the images above. Without transformations applied, it takes up the entire
+             screen. To achieve the "zoom" animation, this view's bounds are animated
+             from the bounds of the thumbnail button above, to its final laid-out
+             bounds.
+             -->
+
+        <ImageView
+                android:id="@+id/expanded_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible" />
+
+    </FrameLayout>
+
+
+    <TextView
+            android:id="@+id/info"
+            style="@style/AppTheme.Text.Top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/exercise_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <br.com.jujuhealth.widget.CustomButton
+            android:id="@+id/btn_start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:btn_end_text="@string/level_easy"
+            app:btn_image="@drawable/ic_slice"
+            app:btn_start_text="@string/start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="info,btn_start" />
+
+    <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_doing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="meta,progress,what_doing,btn_play" />
+
+
+    <br.com.jujuhealth.widget.CustomTextViewMeta
+            android:id="@+id/meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progress"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_small_margin"
+            android:max="10"
+            android:progress="0"
+            android:progressDrawable="@drawable/progress_drawable"
+            app:layout_constraintTop_toBottomOf="@id/meta" />
+
+    <ImageView
+            android:id="@+id/image_pivot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_exercicio_animation"
+            app:layout_constraintBottom_toTopOf="@id/barrier_play_stop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/what_doing" />
+
+    <TextView
+            android:id="@+id/time_counter"
+            tools:text="10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textSize="50dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@id/image_pivot"
+            app:layout_constraintEnd_toEndOf="@id/image_pivot"
+            app:layout_constraintStart_toStartOf="@id/image_pivot"
+            app:layout_constraintTop_toTopOf="@id/image_pivot" />
+
+    <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_play_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="btn_play,btn_stop" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/what_doing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_big_margin"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/font_medium_big_button"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/progress" />
+
+    <ImageButton
+            android:id="@+id/btn_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_play"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageButton
+            android:id="@+id/btn_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_stop"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
