@@ -27,4 +27,11 @@ interface ServiceAuthContract {
         error: () -> Unit
     )
 
+    fun updatePassword(
+        pwd_actual: String,
+        pwd: String,
+        success: () -> Unit,
+        error: (Exception?) -> Unit
+    )
+
 }

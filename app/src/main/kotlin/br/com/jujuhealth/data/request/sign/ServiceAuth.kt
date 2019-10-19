@@ -24,12 +24,11 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
         success: (FirebaseUser?) -> Unit,
         error: (Exception?) -> Unit
     ) {
-
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("FIREBASE:", "createUserWithEmail:success")
+                    //Log.d("FIREBASE:", "createUserWithEmail:success")
                     val id = auth.currentUser?.uid?.let {
                         it
                     } ?: run { email }
@@ -42,11 +41,6 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
                             providerId = auth.currentUser?.providerId,
                             uId = auth.currentUser?.uid
                         )
-                    )
-
-                    database.collection(COLLECTION_TRAINING_DIARY).document(id).collection(
-                        COLLECTION_DIARY).document(DATE_FORMAT.format(Calendar.getInstance().time).toString()).set(
-                        TrainingDiary()
                     )
 
                 } else {
@@ -67,11 +61,11 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("FIREBASE:", "signInWithEmail:success")
+                    //Log.d("FIREBASE:", "signInWithEmail:success")
                     success(auth.currentUser)
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.d("FIREBASE:", "signInWithEmail:failure", task.exception)
+                    //Log.d("FIREBASE:", "signInWithEmail:failure", task.exception)
                     error(task.exception)
                 }
             }
@@ -90,6 +84,32 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
 
     override fun signOut() {
         auth.signOut()
+    }
+
+    override fun updatePassword(pwdActual: String, pwd: String, success: () -> Unit, error: (Exception?) -> Unit) {
+        auth.signInWithEmailAndPassword(auth.currentUser?.email!!, pwdActual)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    //Log.d("FIREBASE:", "signInWithEmail:success")
+                    auth.currentUser?.updatePassword(pwd)
+                        ?.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                //Log.d("FIREBASE:", "signInWithEmail:success")
+                                success()
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                //Log.d("FIREBASE:", "signInWithEmail:failure", task.exception)
+                                error(task.exception)
+                            }
+                        }
+                } else {
+                    // If sign in fails, display a message to the user.
+                    //Log.d("FIREBASE:", "signInWithEmail:failure", task.exception)
+                    error(task.exception)
+                }
+            }
     }
 
 }

@@ -21,19 +21,29 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         (activity as HostMainActivity).setUpToolbarTitle(R.string.profile)
         setObservable()
+        setUpView()
+    }
+
+    private fun setUpView(){
         viewModel.getUser((requireActivity() as HostMainActivity).getLoggedUser()?.uId)
-        logout.setOnClickListener {
-            signOut()
-        }
-        img_logout.setOnClickListener {
-            signOut()
+        signOut(logout)
+        signOut(img_logout)
+        navigateToChangePWd(img_change_pwd)
+        navigateToChangePWd(change_pwd)
+    }
+
+    private fun navigateToChangePWd(view: View){
+        view.setOnClickListener {
+            (requireContext() as HostMainActivity).findNavController().navigate(R.id.go_to_change_pwd)
         }
     }
 
-    private fun signOut() {
-        viewModel.signOut()
-        startActivity(Intent(requireActivity(), HostSignActivity::class.java))
-        requireActivity().finish()
+    private fun signOut(view: View) {
+        view.setOnClickListener {
+            viewModel.signOut()
+            startActivity(Intent(requireActivity(), HostSignActivity::class.java))
+            requireActivity().finish()
+        }
     }
 
     private fun setObservable() {
@@ -48,7 +58,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     group_profile.visibility = View.GONE
                     Snackbar.make(
                         requireView(),
-                        requireContext().getString(R.string.error_message) + it.error?.message,
+                        requireContext().getString(R.string.error_message),
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }

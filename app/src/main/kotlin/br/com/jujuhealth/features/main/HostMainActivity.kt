@@ -3,6 +3,7 @@ package br.com.jujuhealth.features.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isEmpty
 import androidx.navigation.NavController
@@ -10,6 +11,7 @@ import androidx.navigation.Navigation
 import br.com.jujuhealth.FIREBASE_USER
 import br.com.jujuhealth.R
 import br.com.jujuhealth.data.model.User
+import br.com.jujuhealth.features.main.changepassword.ChangePasswordFragment
 import br.com.jujuhealth.features.main.exercise.filter.LevelFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main_host.*
@@ -25,11 +27,15 @@ class HostMainActivity : AppCompatActivity(),
             it.background = getDrawable(R.drawable.shape_toolbar_light)
         }
 
-        if (!isFragmentActive<LevelFragment>()) {
-            minimizeApp()
-        } else {
+        if (isFragmentActive<LevelFragment>() || isFragmentActive<ChangePasswordFragment>()){
             super.onBackPressed()
+        } else {
+            minimizeApp()
         }
+    }
+
+    fun setBottomBarVisibility(visible: Boolean){
+        bottom_navigation.visibility = if(visible) View.VISIBLE else View.GONE
     }
 
     private inline fun <reified T> isFragmentActive(): Boolean{
@@ -44,7 +50,7 @@ class HostMainActivity : AppCompatActivity(),
         return result
     }
 
-    fun minimizeApp() {
+    private fun minimizeApp() {
         val startMain = Intent(Intent.ACTION_MAIN)
         startMain.addCategory(Intent.CATEGORY_HOME)
         startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -87,24 +93,31 @@ class HostMainActivity : AppCompatActivity(),
                 navController.navigate(R.id.go_to_star)
             }
             R.id.navigation_profile -> {
-                toolbar.title = getString(R.string.calendar)
+                toolbar.title = getString(R.string.profile)
                 navController.navigate(R.id.go_to_profile)
             }
         }
         return true
     }
 
+    fun findNavController() = navController
+
     fun getLoggedUser(): User? {
         return user
     }
 
-    fun setUpToolbarWithIconAction(title: Int, icon: Int) {
+    fun setUpToolbarWithIconAction(title: Int, icon: Int, action: () -> Unit) {
         setUpToolbarTitle(title)
         toolbar.navigationIcon = getDrawable(icon)
+        toolbar.setNavigationOnClickListener {
+            action()
+        }
+        toolbar.menu?.clear()
     }
 
     fun setUpToolbarWithMenuItem(title: Int, menuItem: Int) {
-        setUpToolbarTitle(title)
+        toolbar.navigationIcon = null
+        toolbar.title = getString(title)
         if (toolbar.menu.isEmpty()) {
             toolbar.inflateMenu(menuItem)
         }
@@ -124,6 +137,8 @@ class HostMainActivity : AppCompatActivity(),
     }
 
     fun setUpToolbarTitle(title: Int) {
+        toolbar.menu?.clear()
+        toolbar.navigationIcon = null
         toolbar.title = getString(title)
     }
 }

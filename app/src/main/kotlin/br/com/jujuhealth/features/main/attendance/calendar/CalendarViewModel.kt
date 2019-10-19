@@ -21,7 +21,7 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
         trainingDiary: TrainingDiary
     ) {
         uid?.let {
-            successInserted.value?.status = BaseModel.Status.LOADING
+            successInserted.value = BaseModel(BaseModel.Status.LOADING, null, null)
             serviceCalendarContract.insertTrainingDiary(uid, date, trainingDiary, {
                 successInserted.value = BaseModel(BaseModel.Status.SUCCESS, true, null)
             }, {
@@ -38,7 +38,7 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
         date: String
     ) {
         uid?.let {
-            diary.value?.status = BaseModel.Status.LOADING
+            diary.value = BaseModel(BaseModel.Status.LOADING, null, null)
             serviceCalendarContract.getTrainingDiaryDay(uid, date, {
                 diary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
             }, {
@@ -56,7 +56,7 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
         endDate: String
     ) {
         uid?.let {
-            collectionDiary.value?.status = BaseModel.Status.LOADING
+            collectionDiary.value = BaseModel(BaseModel.Status.LOADING, null, null)
             serviceCalendarContract.getTrainingDiaryRange(uid, startDate, endDate, {
                 collectionDiary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
             }, {
@@ -70,7 +70,7 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
 
     fun getTrainingAll(uid: String?) {
         uid?.let {
-            collectionAll.value?.status = BaseModel.Status.LOADING
+            collectionAll.value = BaseModel(BaseModel.Status.LOADING, null, null)
             serviceCalendarContract.getTrainingAll(uid, {
                 collectionAll.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
             }, {

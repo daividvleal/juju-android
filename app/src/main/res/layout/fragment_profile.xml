@@ -15,7 +15,7 @@
             app:civ_border_width="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+            app:layout_constraintBottom_toTopOf="@id/guideline_middle"/>
 
     <ImageView
             android:id="@+id/img_profile"
@@ -64,7 +64,6 @@
             android:background="@color/superLightGray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline" />
-
 
     <TextView
             android:id="@+id/settings"
@@ -134,10 +133,10 @@
             android:id="@+id/loading"
             android:layout_width="@dimen/loading_animation_width"
             android:layout_height="@dimen/loading_animation_height"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:lottie_autoPlay="true"
             app:lottie_fileName="loading.json"
             app:lottie_loop="true" />
@@ -148,5 +147,12 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:constraint_referenced_ids="circle_profile,img_profile,txt_name,txt_email" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

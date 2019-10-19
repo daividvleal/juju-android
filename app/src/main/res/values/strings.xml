@@ -67,5 +67,14 @@
     <string name="settings">Configurações</string>
 
     <string name="error_message">Não foi possível carregar os seus dados no momento.</string>
+    <string name="define_new_pwd">Definir nova senha</string>
+    <string name="change_pwd_description">Sua senha deve conter no mínimo 6 caracteres</string>
+    <string name="update">Atualizar</string>
+
+    <string name="pwd">Senha</string>
+    <string name="pwd_actual">Senha Atual</string>
+    <string name="confirm_pwd">Confirmar Senha</string>
+    <string name="error_message_pwd_does_not_match">As senhas não coincidem.</string>
+    <string name="update_success">Senha atualiza!</string>
 
 </resources>

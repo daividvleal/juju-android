@@ -25,7 +25,7 @@
                 android:name=".features.main.HostMainActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme"
-                android:windowSoftInputMode="adjustPan" />
+                android:windowSoftInputMode="adjustResize" />
 
         <activity
                 android:name=".features.auth.HostSignActivity"
