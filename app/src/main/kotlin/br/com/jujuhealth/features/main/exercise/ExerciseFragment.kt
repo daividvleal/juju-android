@@ -61,7 +61,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
         exerciseViewModel.progress.observe(this, Observer {
             if(it >= progress.max){
-
+                (requireActivity() as HostMainActivity).setExerciseFinished(true)
             }
             progress.progress = it
         })

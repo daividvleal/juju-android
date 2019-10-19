@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.jujuhealth.FIREBASE_USER
 import br.com.jujuhealth.R
+import br.com.jujuhealth.data.model.TrainingModel
 import br.com.jujuhealth.data.model.User
 import br.com.jujuhealth.features.main.changepassword.ChangePasswordFragment
 import br.com.jujuhealth.features.main.exercise.filter.LevelFragment
@@ -21,6 +22,7 @@ class HostMainActivity : AppCompatActivity(),
 
     private lateinit var navController: NavController
     private var user: User? = null
+    private var exerciseFinished = false
 
     override fun onBackPressed() {
         toolbar?.let {
@@ -104,6 +106,14 @@ class HostMainActivity : AppCompatActivity(),
 
     fun getLoggedUser(): User? {
         return user
+    }
+
+    fun isExerciseFinished(): Boolean{
+        return exerciseFinished
+    }
+
+    fun setExerciseFinished(boolean: Boolean){
+        exerciseFinished = boolean
     }
 
     fun setUpToolbarWithIconAction(title: Int, icon: Int, action: () -> Unit) {
