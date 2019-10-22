@@ -1,17 +1,11 @@
 package br.com.jujuhealth.data.request.sign
 
 import android.util.Log
-import br.com.jujuhealth.data.model.TrainingDiary
 import br.com.jujuhealth.data.model.User
-import br.com.jujuhealth.data.request.COLLECTION_DIARY
-import br.com.jujuhealth.data.request.COLLECTION_TRAINING_DIARY
 import br.com.jujuhealth.data.request.COLLECTION_USER
-import br.com.jujuhealth.data.request.DATE_FORMAT
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ServiceAuth(private val auth: FirebaseAuth, private val database: FirebaseFirestore) :
     ServiceAuthContract {

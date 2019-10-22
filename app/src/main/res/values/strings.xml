@@ -70,6 +70,7 @@
     <string name="define_new_pwd">Definir nova senha</string>
     <string name="change_pwd_description">Sua senha deve conter no mínimo 6 caracteres</string>
     <string name="update">Atualizar</string>
+    <string name="congrats">Parabéns você completou um exercício diário!</string>
 
     <string name="pwd">Senha</string>
     <string name="pwd_actual">Senha Atual</string>

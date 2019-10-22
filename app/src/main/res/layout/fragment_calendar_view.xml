@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:eventsEnabled="true"
-            app:type="many_days_picker"
+            app:type="classic"
             app:forwardButtonSrc="@drawable/ic_keyboard_arrow_right"
             app:previousButtonSrc="@drawable/ic_keyboard_arrow_left"
             app:headerColor="@android:color/white"
@@ -26,8 +26,16 @@
             app:selectionLabelColor="@android:color/white"
             />
 
-    <include
-            android:id="@+id/loading_included"
-            layout="@layout/loading" />
+    <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading"
+            android:layout_width="@dimen/loading_animation_width"
+            android:layout_height="@dimen/loading_animation_height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loading.json"
+            app:lottie_loop="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

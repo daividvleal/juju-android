@@ -6,11 +6,11 @@ import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.data.model.TrainingDiary
 import br.com.jujuhealth.data.request.calendar.ServiceCalendarContract
 import org.koin.core.KoinComponent
+import java.util.*
 
 class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarContract) : ViewModel(),
     KoinComponent {
 
-    val collectionAll = MutableLiveData<BaseModel<List<TrainingDiary>, Exception>>()
     val collectionDiary = MutableLiveData<BaseModel<List<TrainingDiary>, Exception>>()
     val diary = MutableLiveData<BaseModel<TrainingDiary, Exception>>()
     val successInserted = MutableLiveData<BaseModel<Boolean, Exception>>()
@@ -18,15 +18,19 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
     fun insertTraining(
         uid: String?,
         date: String,
-        trainingDiary: TrainingDiary
+        trainingDiary: TrainingDiary?
     ) {
         uid?.let {
             successInserted.value = BaseModel(BaseModel.Status.LOADING, null, null)
-            serviceCalendarContract.insertTrainingDiary(uid, date, trainingDiary, {
-                successInserted.value = BaseModel(BaseModel.Status.SUCCESS, true, null)
-            }, {
-                successInserted.value = BaseModel(BaseModel.Status.ERROR, false, it)
-            })
+            trainingDiary?.let { itTrainingDiary ->
+                serviceCalendarContract.insertTrainingDiary(uid, date, itTrainingDiary, {
+                    successInserted.value = BaseModel(BaseModel.Status.SUCCESS, true, null)
+                }, {
+                    successInserted.value = BaseModel(BaseModel.Status.SUCCESS, false, it)
+                })
+            } ?: run {
+                successInserted.value = BaseModel(BaseModel.Status.ERROR, false, Exception())
+            }
         } ?: run {
             successInserted.value = BaseModel(BaseModel.Status.ERROR, false, Exception())
         }
@@ -40,7 +44,11 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
         uid?.let {
             diary.value = BaseModel(BaseModel.Status.LOADING, null, null)
             serviceCalendarContract.getTrainingDiaryDay(uid, date, {
-                diary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
+                it?.let {
+                    diary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
+                } ?: run {
+                    diary.value = BaseModel(BaseModel.Status.DEFAULT, null, null)
+                }
             }, {
                 diary.value = BaseModel(BaseModel.Status.ERROR, null, it)
             })
@@ -68,16 +76,15 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
 
     }
 
-    fun getTrainingAll(uid: String?) {
-        uid?.let {
-            collectionAll.value = BaseModel(BaseModel.Status.LOADING, null, null)
-            serviceCalendarContract.getTrainingAll(uid, {
-                collectionAll.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
-            }, {
-                collectionAll.value = BaseModel(BaseModel.Status.ERROR, null, it)
-            })
-        } ?: run {
-            collectionDiary.value = BaseModel(BaseModel.Status.ERROR, null, java.lang.Exception())
-        }
+    fun getActualMonth(uId: String?) {
+        val calendar = Calendar.getInstance()
+        calendar.time = Date()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        getTrainingRange(
+            uId,
+            "${year}-${month}-01",
+            "${year}-${month}-31"
+        )
     }
 }

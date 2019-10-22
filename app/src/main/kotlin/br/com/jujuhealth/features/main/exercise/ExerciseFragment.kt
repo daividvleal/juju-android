@@ -80,6 +80,9 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         exerciseViewModel.countDownTimer?.cancel()
         btn_play.visibility = View.VISIBLE
         btn_stop.visibility = View.GONE
+        if((requireActivity() as HostMainActivity).isExerciseFinished()){
+            (requireActivity() as HostMainActivity).findNavController().navigate(R.id.go_to_attendance)
+        }
     }
 
     private fun flipVisibility() {
