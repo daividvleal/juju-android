@@ -8,8 +8,9 @@ import br.com.jujuhealth.R
 import br.com.jujuhealth.activeMode
 import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.data.model.TrainingDiary
-import br.com.jujuhealth.extension.getTodayFormattedKey
+import br.com.jujuhealth.extension.getFormattedKey
 import br.com.jujuhealth.features.main.HostMainActivity
+import br.com.jujuhealth.features.main.attendance.dialog.dateDialog.DetailsDateDialog
 import com.applandeo.materialcalendarview.EventDay
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_calendar_view.*
@@ -19,7 +20,7 @@ import java.util.*
 class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
 
     private val viewModel: CalendarViewModel by inject()
-    private var seeDetails = false
+    private var selectedDate: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,16 +32,46 @@ class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
         val activity = (requireActivity() as HostMainActivity)
         if (activity.isExerciseFinished()) {
             viewModel.getTrainingDiary(
-                activity.getLoggedUser()?.uId,
-                Calendar.getInstance().getTodayFormattedKey()
+                Calendar.getInstance().getFormattedKey()
             )
         } else {
-            viewModel.getActualMonth(activity.getLoggedUser()?.uId)
+            viewModel.getActualMonth()
+        }
+
+        calendarView.setOnDayClickListener {
+            selectedDate = it.calendar.getFormattedKey()
+            viewModel.getDiaryOnCalendar(selectedDate)
         }
     }
 
     private fun setObservable() {
-        viewModel.collectionDiary.observe(this, Observer {
+        viewModel.diaryOnCalendar.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                BaseModel.Status.LOADING -> {
+                    setVisibility(loadingVisibility = true)
+                }
+                BaseModel.Status.SUCCESS -> {
+                    setVisibility(calendarViewVisibility = true)
+                    seeDetails(it.data)
+                }
+                BaseModel.Status.ERROR -> {
+                    setVisibility(calendarViewVisibility = true)
+                    genericMessage(R.string.error_message)
+                }
+                BaseModel.Status.DEFAULT -> {
+                    setVisibility(calendarViewVisibility = true)
+                    val snackBar = Snackbar.make(
+                        requireView(),
+                        requireContext().getString(R.string.nothing_registered, selectedDate),
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackBar.view.background = requireContext().getDrawable(R.drawable.background_item_filter_dark)
+                    snackBar.show()
+                }
+            }
+        })
+
+        viewModel.collectionDiary.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 BaseModel.Status.LOADING -> {
                     setVisibility(loadingVisibility = true)
@@ -51,9 +82,9 @@ class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
                         val calendar = Calendar.getInstance()
                         calendar.time = trainingDiary.date.toDate()
                         if (trainingDiary.hasExercise() && trainingDiary.hasUrineLoss()) {
-                            events.add(EventDay(calendar, R.drawable.ic_marker_and_drop_calendar))
+                            events.add(EventDay(calendar, R.drawable.ic_circle_drop))
                         } else if(trainingDiary.hasExercise()) {
-                            events.add(EventDay(calendar, R.drawable.ic_marker))
+                            events.add(EventDay(calendar, R.drawable.ic_circle_calendar))
                         } else if (trainingDiary.hasUrineLoss()) {
                             events.add(EventDay(calendar, R.drawable.ic_drop_yellow))
                         }
@@ -71,20 +102,14 @@ class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
             }
         })
 
-        viewModel.diary.observe(this, Observer {
+        viewModel.diary.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 BaseModel.Status.LOADING -> {
                     setVisibility(loadingVisibility = true)
                 }
                 BaseModel.Status.SUCCESS -> {
-                    if (seeDetails) {
-                        seeDetails()
-                        seeDetails = false
-                    } else {
-                        insert(it.data?.addTraining(activeMode))
-                        val activity = (requireActivity() as HostMainActivity)
-                        viewModel.getActualMonth(activity.getLoggedUser()?.uId)
-                    }
+                    insert(it.data?.addTraining(activeMode))
+                    viewModel.getActualMonth()
                 }
                 BaseModel.Status.ERROR -> {
                     setVisibility(calendarViewVisibility = true)
@@ -96,7 +121,7 @@ class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
             }
         })
 
-        viewModel.successInserted.observe(this, Observer {
+        viewModel.successInserted.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 BaseModel.Status.LOADING -> {
                     setVisibility(loadingVisibility = true)
@@ -106,12 +131,12 @@ class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
                     setVisibility(calendarViewVisibility = true)
                     val activity = (requireActivity() as HostMainActivity)
                     activity.setExerciseFinished(false)
-                    viewModel.getActualMonth(activity.getLoggedUser()?.uId)
+                    viewModel.getActualMonth()
                 }
                 BaseModel.Status.ERROR -> {
                     setVisibility(calendarViewVisibility = true)
                     genericMessage(R.string.error_message)
-                    viewModel.getActualMonth((requireActivity() as HostMainActivity).getLoggedUser()?.uId)
+                    viewModel.getActualMonth()
                 }
                 BaseModel.Status.DEFAULT -> {
                     setVisibility(calendarViewVisibility = true)
@@ -120,25 +145,26 @@ class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
         })
     }
 
-    private fun seeDetails() {
-        //TODO SEE DETAILS
+    private fun seeDetails(trainingDiary: TrainingDiary?) {
+        DetailsDateDialog(trainingDiary)
+            .show(requireActivity().supportFragmentManager, "DIALOG")
     }
 
     private fun insert(trainingDiary: TrainingDiary?) {
-        val activity = (requireActivity() as HostMainActivity)
         viewModel.insertTraining(
-            activity.getLoggedUser()?.uId,
-            Calendar.getInstance().getTodayFormattedKey(),
+            Calendar.getInstance().getFormattedKey(),
             trainingDiary
         )
     }
 
     private fun genericMessage(id: Int) {
-        Snackbar.make(
+        val snackBar = Snackbar.make(
             requireView(),
             requireContext().getString(id),
-            Snackbar.LENGTH_SHORT
-        ).show()
+            Snackbar.LENGTH_LONG
+        )
+        snackBar.view.background = requireContext().getDrawable(R.drawable.background_item_filter_dark)
+        snackBar.show()
     }
 
     private fun setVisibility(

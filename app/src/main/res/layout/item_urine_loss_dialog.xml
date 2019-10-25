@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/slow_hard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_small_margin"
+        android:gravity="center"
+        android:orientation="horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/common_small_margin"
+            android:layout_height="@dimen/common_small_margin"
+            android:layout_marginEnd="@dimen/common_small_margin"
+            android:src="@drawable/ic_circle_yellow" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/slow_hard_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_medium_big_button"
+            android:text="@string/urine_loss_text_item" />
+
+</LinearLayout>

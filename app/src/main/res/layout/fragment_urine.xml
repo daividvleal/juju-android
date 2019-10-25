@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/urine_loss_qtd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_medium_margin"
+            android:background="@color/lightGray"
+            android:paddingStart="@dimen/common_medium_margin"
+            android:paddingTop="@dimen/common_tiny_small_margin"
+            android:paddingEnd="@dimen/common_medium_margin"
+            android:paddingBottom="@dimen/common_tiny_small_margin"
+            android:text="@string/urine_loss_qtd"
+            android:textSize="@dimen/font_medium_big_button"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/urine_loss_qtd"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_size_dialog"
+            android:layout_marginTop="@dimen/common_small_margin"
+            app:layout_constraintStart_toStartOf="@id/guideline_series_start"
+            tools:listitem="@layout/item_urine_loss_dialog"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_series_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.20" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

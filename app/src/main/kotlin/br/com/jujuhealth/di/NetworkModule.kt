@@ -14,4 +14,8 @@ val networkModule = module {
     single {
         FirebaseFirestore.getInstance()
     }
+
+    single {
+        FirebaseAuth.getInstance().currentUser
+    }
 }

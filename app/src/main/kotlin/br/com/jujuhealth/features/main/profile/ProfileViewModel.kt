@@ -8,40 +8,37 @@ import br.com.jujuhealth.data.request.main.ServiceMainContract
 import br.com.jujuhealth.data.request.sign.ServiceAuthContract
 import org.koin.core.KoinComponent
 
-class ProfileViewModel(private val serviceMainContract: ServiceMainContract, private val serviceAuthContract: ServiceAuthContract) : ViewModel(),
+class ProfileViewModel(
+    private val serviceMainContract: ServiceMainContract,
+    private val serviceAuthContract: ServiceAuthContract
+) : ViewModel(),
     KoinComponent {
 
     val user = MutableLiveData<BaseModel<User, Exception>>()
 
-    fun getUser(uid: String?) {
-        uid?.let {
+    fun getUser() {
+        user.value = BaseModel(
+            status = BaseModel.Status.LOADING,
+            data = null,
+            error = null
+        )
+        serviceMainContract.getUser({
             user.value = BaseModel(
-                status = BaseModel.Status.LOADING,
-                data = null,
+                status = BaseModel.Status.SUCCESS,
+                data = it,
                 error = null
             )
-            serviceMainContract.getUser(uid, {
-                user.value = BaseModel(
-                    status = BaseModel.Status.SUCCESS,
-                    data = it,
-                    error = null
-                )
-            }, {
-                user.value = BaseModel(
-                    status = BaseModel.Status.ERROR,
-                    data = null,
-                    error = it
-                )
-            })
-        } ?: run {
+        }, {
             user.value = BaseModel(
                 status = BaseModel.Status.ERROR,
-                data = null
+                data = null,
+                error = it
             )
-        }
+        })
     }
 
-    fun signOut(){
+
+    fun signOut() {
         serviceAuthContract.signOut()
     }
 

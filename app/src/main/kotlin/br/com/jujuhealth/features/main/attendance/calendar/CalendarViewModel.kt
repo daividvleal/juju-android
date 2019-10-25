@@ -13,76 +13,64 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
 
     val collectionDiary = MutableLiveData<BaseModel<List<TrainingDiary>, Exception>>()
     val diary = MutableLiveData<BaseModel<TrainingDiary, Exception>>()
+    val diaryOnCalendar = MutableLiveData<BaseModel<TrainingDiary, Exception>>()
     val successInserted = MutableLiveData<BaseModel<Boolean, Exception>>()
 
     fun insertTraining(
-        uid: String?,
         date: String,
         trainingDiary: TrainingDiary?
     ) {
-        uid?.let {
-            successInserted.value = BaseModel(BaseModel.Status.LOADING, null, null)
-            trainingDiary?.let { itTrainingDiary ->
-                serviceCalendarContract.insertTrainingDiary(uid, date, itTrainingDiary, {
-                    successInserted.value = BaseModel(BaseModel.Status.SUCCESS, true, null)
-                }, {
-                    successInserted.value = BaseModel(BaseModel.Status.SUCCESS, false, it)
-                })
-            } ?: run {
-                successInserted.value = BaseModel(BaseModel.Status.ERROR, false, Exception())
-            }
+        successInserted.value = BaseModel(BaseModel.Status.LOADING, null, null)
+        trainingDiary?.let { itTrainingDiary ->
+            serviceCalendarContract.insertTrainingDiary(date, itTrainingDiary, {
+                successInserted.value = BaseModel(BaseModel.Status.SUCCESS, true, null)
+            }, {
+                successInserted.value = BaseModel(BaseModel.Status.SUCCESS, false, it)
+            })
         } ?: run {
             successInserted.value = BaseModel(BaseModel.Status.ERROR, false, Exception())
         }
-
     }
 
-    fun getTrainingDiary(
-        uid: String?,
-        date: String
-    ) {
-        uid?.let {
-            diary.value = BaseModel(BaseModel.Status.LOADING, null, null)
-            serviceCalendarContract.getTrainingDiaryDay(uid, date, {
-                it?.let {
-                    diary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
-                } ?: run {
-                    diary.value = BaseModel(BaseModel.Status.DEFAULT, null, null)
-                }
-            }, {
-                diary.value = BaseModel(BaseModel.Status.ERROR, null, it)
-            })
-        } ?: run {
-            diary.value = BaseModel(BaseModel.Status.ERROR, null, Exception())
-        }
 
+    fun getTrainingDiary(
+        date: String,
+        mutableDiary: MutableLiveData<BaseModel<TrainingDiary, Exception>> = diary
+    ) {
+        mutableDiary.value = BaseModel(BaseModel.Status.LOADING, null, null)
+        serviceCalendarContract.getTrainingDiaryDay(date, {
+            it?.let {
+                mutableDiary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
+            } ?: run {
+                mutableDiary.value = BaseModel(BaseModel.Status.DEFAULT, null, null)
+            }
+        }, {
+            mutableDiary.value = BaseModel(BaseModel.Status.ERROR, null, it)
+        })
     }
 
     fun getTrainingRange(
-        uid: String?,
         startDate: String,
         endDate: String
     ) {
-        uid?.let {
-            collectionDiary.value = BaseModel(BaseModel.Status.LOADING, null, null)
-            serviceCalendarContract.getTrainingDiaryRange(uid, startDate, endDate, {
-                collectionDiary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
-            }, {
-                collectionDiary.value = BaseModel(BaseModel.Status.ERROR, null, it)
-            })
-        } ?: run {
-            collectionDiary.value = BaseModel(BaseModel.Status.ERROR, null, Exception())
-        }
-
+        collectionDiary.value = BaseModel(BaseModel.Status.LOADING, null, null)
+        serviceCalendarContract.getTrainingDiaryRange(startDate, endDate, {
+            collectionDiary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
+        }, {
+            collectionDiary.value = BaseModel(BaseModel.Status.ERROR, null, it)
+        })
     }
 
-    fun getActualMonth(uId: String?) {
+    fun getDiaryOnCalendar(date: String){
+        getTrainingDiary(date, diaryOnCalendar)
+    }
+
+    fun getActualMonth() {
         val calendar = Calendar.getInstance()
         calendar.time = Date()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
         getTrainingRange(
-            uId,
             "${year}-${month}-01",
             "${year}-${month}-31"
         )

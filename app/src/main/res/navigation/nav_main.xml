@@ -18,7 +18,15 @@
     <fragment
             android:id="@+id/exercise"
             android:name="br.com.jujuhealth.features.main.exercise.ExerciseFragment"
-            tools:layout="@layout/fragment_exercise" />
+            tools:layout="@layout/fragment_exercise">
+
+        <action
+                android:id="@+id/go_to_filter"
+                app:destination="@id/select_level"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
 
     <fragment
             android:id="@+id/video"
@@ -47,11 +55,6 @@
         android:name="br.com.jujuhealth.features.main.changepassword.ChangePasswordFragment"
             tools:layout="@layout/fragment_change_password"/>
 
-    <action
-            android:id="@+id/go_to_filter"
-            app:destination="@id/select_level"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
     <action
             android:id="@+id/go_to_attendance"

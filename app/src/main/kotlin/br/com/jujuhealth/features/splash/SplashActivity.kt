@@ -34,9 +34,7 @@ class SplashActivity : AppCompatActivity() {
             .observe(this, Observer {
                 when (it.status) {
                     BaseModel.Status.SUCCESS -> {
-                        val i = Intent(this, MainActivityExercise::class.java)
-                        i.putExtra(FIREBASE_USER, it.data)
-                        startActivity(i)
+                        startActivity(Intent(this, MainActivityExercise::class.java))
                         finish()
                     }
                     else -> {

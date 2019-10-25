@@ -3,12 +3,15 @@ package br.com.jujuhealth.features.main.exercise
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import br.com.jujuhealth.R
 import br.com.jujuhealth.activeMode
+import br.com.jujuhealth.data.model.BaseModel
+import br.com.jujuhealth.extension.getFormattedKey
 import br.com.jujuhealth.features.main.HostMainActivity
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import org.koin.android.ext.android.inject
-import androidx.lifecycle.Observer
+import java.util.*
 
 class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
@@ -16,6 +19,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
     override fun onResume() {
         exerciseViewModel.resetFields()
+        exerciseViewModel.getTrainingDiary(Calendar.getInstance().getFormattedKey())
         startFields()
         super.onResume()
     }
@@ -45,25 +49,44 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
     }
 
     private fun setObservable(){
-        exerciseViewModel.counter.observe(this, Observer {
+
+        exerciseViewModel.diary.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                BaseModel.Status.LOADING -> { }
+                BaseModel.Status.SUCCESS -> {
+                    meta.setSeries(it.data?.getSeries())
+                }
+                BaseModel.Status.ERROR -> {
+                    meta.setSeries(0)
+                }
+                BaseModel.Status.DEFAULT -> { }
+            }
+        })
+
+        exerciseViewModel.counter.observe(viewLifecycleOwner, Observer {
             time_counter.text = it
         })
 
-        exerciseViewModel.whatDoing.observe(this, Observer {
+        exerciseViewModel.whatDoing.observe(viewLifecycleOwner, Observer {
             if(it != -1){
                 what_doing.text = resources.getString(it)
             }
         })
 
-        exerciseViewModel.meta.observe(this, Observer {
+        exerciseViewModel.meta.observe(viewLifecycleOwner, Observer {
             meta.setMeta(it)
         })
 
-        exerciseViewModel.progress.observe(this, Observer {
+        exerciseViewModel.progress.observe(viewLifecycleOwner, Observer {
             if(it >= progress.max){
                 (requireActivity() as HostMainActivity).setExerciseFinished(true)
+                exerciseViewModel.series.value = exerciseViewModel.series.value?.plus(1)
             }
             progress.progress = it
+        })
+
+        exerciseViewModel.series.observe(viewLifecycleOwner, Observer {
+            meta.setSeries(it)
         })
     }
 

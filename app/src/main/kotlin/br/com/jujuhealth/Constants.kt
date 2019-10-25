@@ -3,7 +3,7 @@ package br.com.jujuhealth
 import br.com.jujuhealth.data.model.TrainingModel
 
 const val FIREBASE_USER = "firebase_user"
-const val FIREBASE_USER_UID = "firebase_user_uid"
+
 
 val slowEasy = TrainingModel(
     mode = TrainingModel.Mode.SLOW,

@@ -21,7 +21,6 @@ class HostMainActivity : AppCompatActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var navController: NavController
-    private var user: User? = null
     private var exerciseFinished = false
 
     override fun onBackPressed() {
@@ -62,7 +61,6 @@ class HostMainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_host)
         navController = Navigation.findNavController(this, R.id.nav_main_fragment)
-        user = intent.getSerializableExtra(FIREBASE_USER) as User?
         setUpBottomNavigation()
     }
 
@@ -102,10 +100,6 @@ class HostMainActivity : AppCompatActivity(),
     }
 
     fun findNavController() = navController
-
-    fun getLoggedUser(): User? {
-        return user
-    }
 
     fun isExerciseFinished(): Boolean{
         return exerciseFinished

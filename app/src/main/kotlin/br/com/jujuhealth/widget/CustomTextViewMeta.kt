@@ -24,10 +24,19 @@ class CustomTextViewMeta(
             0
         ) {
             text_meta.text = "0/${activeMode?.repetitions!!}"
+            text_series.text = context.getString(R.string.series, 0)
         }
     }
 
     fun setMeta(meta: String){
         text_meta.text = meta
+    }
+
+    fun setSeries(series: Int?){
+        series?.let {
+            text_series.text = context.getString(R.string.series, series)
+        } ?: run {
+            text_series.text = context.getString(R.string.series, 0)
+        }
     }
 }

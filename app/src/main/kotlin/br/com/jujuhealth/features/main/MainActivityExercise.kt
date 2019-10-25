@@ -10,23 +10,20 @@ import kotlinx.android.synthetic.main.activity_main_exercise.*
 
 class MainActivityExercise : AppCompatActivity(){
 
-    private var user: User? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_exercise)
 
-        user = intent.getSerializableExtra(FIREBASE_USER) as User?
         hard_exercise.setOnClickListener {
-            startActivity(TrainingModel.Mode.FAST, user)
+            startActivity(TrainingModel.Mode.FAST)
         }
 
         soft_exercise.setOnClickListener {
-            startActivity(TrainingModel.Mode.SLOW, user)
+            startActivity(TrainingModel.Mode.SLOW)
         }
     }
 
-    private fun startActivity(mode: TrainingModel.Mode, user: User?){
+    private fun startActivity(mode: TrainingModel.Mode){
         activeMode = when(mode) {
             TrainingModel.Mode.SLOW -> {
                 slowEasy
@@ -35,7 +32,7 @@ class MainActivityExercise : AppCompatActivity(){
                 fastEasy
             }
         }
-        startActivity(Intent(this, HostMainActivity::class.java).putExtra(FIREBASE_USER, user))
+        startActivity(Intent(this, HostMainActivity::class.java))
         finish()
     }
 

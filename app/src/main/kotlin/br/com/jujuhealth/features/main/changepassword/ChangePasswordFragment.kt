@@ -37,7 +37,7 @@ class ChangePasswordFragment: Fragment(R.layout.fragment_change_password){
     }
 
     private fun setUpObservable(){
-        viewModel.successUpdated.observe(this, Observer {
+        viewModel.successUpdated.observe(viewLifecycleOwner, Observer {
             when(it.status){
                 BaseModel.Status.LOADING -> {
                     loading.visibility = View.VISIBLE
@@ -46,11 +46,13 @@ class ChangePasswordFragment: Fragment(R.layout.fragment_change_password){
                 BaseModel.Status.ERROR -> {
                     update.isClickable = true
                     loading.visibility = View.GONE
-                    Snackbar.make(
+                    val snackBar = Snackbar.make(
                         requireView(),
                         it.error?.message.toString(),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackBar.view.background = requireContext().getDrawable(R.drawable.background_item_filter_dark)
+                    snackBar.show()
                 }
                 BaseModel.Status.SUCCESS -> {
                     update.isClickable = true
@@ -79,11 +81,13 @@ class ChangePasswordFragment: Fragment(R.layout.fragment_change_password){
         edt_pwd_actual.text = null
         edt_pwd.text = null
         edt_confirm_pwd.text = null
-        Snackbar.make(
+        val snackBar = Snackbar.make(
             requireView(),
             requireContext().getString(R.string.update_success),
-            Snackbar.LENGTH_SHORT
-        ).show()
+            Snackbar.LENGTH_LONG
+        )
+        snackBar.view.background = requireContext().getDrawable(R.drawable.background_item_filter_dark)
+        snackBar.show()
     }
 
     private fun validateNewPwd(): Boolean{
@@ -97,11 +101,13 @@ class ChangePasswordFragment: Fragment(R.layout.fragment_change_password){
             edt_confirm_pwd.error = getString(R.string.invalid_password)
             return false
         }else if(edt_pwd.text.toString() != edt_confirm_pwd.text.toString()){
-            Snackbar.make(
+            val snackBar = Snackbar.make(
                 requireView(),
                 requireContext().getString(R.string.error_message_pwd_does_not_match),
-                Snackbar.LENGTH_SHORT
-            ).show()
+                Snackbar.LENGTH_LONG
+            )
+            snackBar.view.background = requireContext().getDrawable(R.drawable.background_item_filter_dark)
+            snackBar.show()
             return false
         }
         return true

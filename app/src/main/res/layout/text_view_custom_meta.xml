@@ -8,11 +8,24 @@
         android:theme="@style/AppTheme.Activity">
 
     <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_series"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/font_small_text_size"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Séries: 0" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="@string/daily_meta"
+            android:text="@string/today"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/font_size_button_medium"
             android:textStyle="bold"

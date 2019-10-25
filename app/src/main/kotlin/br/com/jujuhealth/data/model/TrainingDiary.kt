@@ -3,6 +3,7 @@ package br.com.jujuhealth.data.model
 import com.google.firebase.Timestamp
 import java.io.Serializable
 import java.util.*
+import kotlin.collections.ArrayList
 
 data class TrainingDiary(
     var date: Timestamp = Timestamp(Calendar.getInstance().time),
@@ -12,7 +13,7 @@ data class TrainingDiary(
     var seriesFastEasy: Int = 0,
     var seriesFastMedium: Int = 0,
     var seriesFastHard: Int = 0,
-    var urineLoss: Int = 0
+    var urineLoss: ArrayList<Int> = ArrayList()
 ) : Serializable {
 
     fun hasExercise(): Boolean {
@@ -21,6 +22,9 @@ data class TrainingDiary(
         }
         return false
     }
+
+    fun getSeries() = seriesSlowEasy + seriesSlowMedium + seriesSlowHard + seriesFastEasy + seriesFastMedium + seriesFastHard
+
 
     fun addTraining(trainingModel: TrainingModel?): TrainingDiary{
         return trainingModel?.let {
@@ -58,31 +62,9 @@ data class TrainingDiary(
         }
     }
 
-    fun hasUrineLoss() : Boolean{
-        return when(urineLoss){
-            0 -> false
-            else -> true
+    fun hasUrineLoss() = urineLoss.size > 0
 
-        }
-    }
-
-    fun setLoss(urineLoss: UrineLoss){
-        when(urineLoss){
-            UrineLoss.NONE -> {}
-            UrineLoss.LOW -> {}
-            UrineLoss.MODERATE -> {}
-            UrineLoss.HIGH -> {}
-        }
-    }
-
-    fun getLoss(){
-        when(urineLoss){
-            0 -> {UrineLoss.NONE}
-            1 -> {UrineLoss.LOW}
-            2 -> {UrineLoss.MODERATE}
-            3 -> {UrineLoss.HIGH}
-        }
-    }
+    fun getUrineLossSize() = urineLoss.size
 
     enum class UrineLoss {
         NONE, LOW, MODERATE, HIGH

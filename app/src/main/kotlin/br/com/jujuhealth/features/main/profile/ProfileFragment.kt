@@ -25,7 +25,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun setUpView(){
-        viewModel.getUser((requireActivity() as HostMainActivity).getLoggedUser()?.uId)
+        viewModel.getUser()
         signOut(logout)
         signOut(img_logout)
         navigateToChangePWd(img_change_pwd)
@@ -47,7 +47,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun setObservable() {
-        viewModel.user.observe(this, Observer {
+        viewModel.user.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 BaseModel.Status.LOADING -> {
                     loading.visibility = View.VISIBLE
@@ -56,11 +56,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 BaseModel.Status.ERROR -> {
                     loading.visibility = View.GONE
                     group_profile.visibility = View.GONE
-                    Snackbar.make(
+                    val snackBar = Snackbar.make(
                         requireView(),
                         requireContext().getString(R.string.error_message),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackBar.view.background = requireContext().getDrawable(R.drawable.background_item_filter_dark)
+                    snackBar.show()
                 }
                 BaseModel.Status.SUCCESS -> {
                     loading.visibility = View.GONE

@@ -16,9 +16,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.jujuhealth.R
 import br.com.jujuhealth.activeMode
+import br.com.jujuhealth.data.model.BaseModel
+import br.com.jujuhealth.data.model.TrainingDiary
+import br.com.jujuhealth.data.request.calendar.ServiceCalendarContract
 import org.koin.core.KoinComponent
 
-class ExerciseViewModel : ViewModel(), KoinComponent {
+class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarContract) : ViewModel(),
+    KoinComponent {
 
     var doAgain: Boolean = false
     var count = 0
@@ -29,8 +33,10 @@ class ExerciseViewModel : ViewModel(), KoinComponent {
     val whatDoing = MutableLiveData<Int>()
     val meta = MutableLiveData<String>()
     val progress = MutableLiveData<Int>()
+    val series = MutableLiveData<Int>()
+    val diary = MutableLiveData<BaseModel<TrainingDiary, Exception>>()
 
-    fun resetFields(){
+    fun resetFields() {
         doAgain = false
         count = 0
         currentAnimator = null
@@ -42,13 +48,18 @@ class ExerciseViewModel : ViewModel(), KoinComponent {
         progress.value = 0
     }
 
-    private fun resetAnimationAndCount(){
+    private fun resetAnimationAndCount() {
         countDownTimer?.cancel()
         currentAnimator = null
         whatDoing.value = -1
     }
 
-    fun contract(thumbView: View, imageResId: Int, expanded_image: ImageView, container: FrameLayout) {
+    fun contract(
+        thumbView: View,
+        imageResId: Int,
+        expanded_image: ImageView,
+        container: FrameLayout
+    ) {
         // If there's an animation in progress, cancel it
         // immediately and proceed with this one.
         currentAnimator?.cancel()
@@ -158,7 +169,14 @@ class ExerciseViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    private fun relax(thumbView: View, startBounds: RectF, startScale: Float, imageResId: Int, expanded_image: ImageView, container: FrameLayout) {
+    private fun relax(
+        thumbView: View,
+        startBounds: RectF,
+        startScale: Float,
+        imageResId: Int,
+        expanded_image: ImageView,
+        container: FrameLayout
+    ) {
         // Upon clicking the zoomed-in image, it should zoom back down
         // to the original bounds and show the thumbnail instead of
         // the expanded image.
@@ -206,12 +224,12 @@ class ExerciseViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    private fun setCountDown(duration: Long){
+    private fun setCountDown(duration: Long) {
         countDownTimer = object : CountDownTimer(duration, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
-                if(millisUntilFinished < duration){
-                    counter.value = ((millisUntilFinished + 1000)/ 1000).toString()
+                if (millisUntilFinished < duration) {
+                    counter.value = ((millisUntilFinished + 1000) / 1000).toString()
                 }
             }
 
@@ -221,4 +239,21 @@ class ExerciseViewModel : ViewModel(), KoinComponent {
 
         }
     }
+
+    fun getTrainingDiary(
+        date: String
+    ) {
+        diary.value = BaseModel(BaseModel.Status.LOADING, null, null)
+        serviceCalendarContract.getTrainingDiaryDay(date, {
+            it?.let {
+                diary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
+            } ?: run {
+                diary.value = BaseModel(BaseModel.Status.DEFAULT, null, null)
+            }
+        }, {
+            diary.value = BaseModel(BaseModel.Status.ERROR, null, it)
+        })
+
+    }
+
 }
