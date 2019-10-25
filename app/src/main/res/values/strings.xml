@@ -91,7 +91,7 @@
     <string name="slow_training">Treino Lento</string>
     <string name="fast_training">Treino Rápido</string>
 
-    <string name="urine_loss_qtd">Perdas Hoje: %d</string>
+    <string name="urine_loss_qtd">Perdas: %d</string>
 
     <string name="urine_loss_dialog_title">Informe a quantidade de urina que perdeu</string>
     <string-array name="urine_loss_type">
