@@ -15,6 +15,11 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
     val diary = MutableLiveData<BaseModel<TrainingDiary, Exception>>()
     val diaryOnCalendar = MutableLiveData<BaseModel<TrainingDiary, Exception>>()
     val successInserted = MutableLiveData<BaseModel<Boolean, Exception>>()
+    private val calendar = Calendar.getInstance()
+
+    init {
+        calendar.time = Date()
+    }
 
     fun insertTraining(
         date: String,
@@ -49,7 +54,7 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
         })
     }
 
-    fun getTrainingRange(
+    private fun getTrainingRange(
         startDate: String,
         endDate: String
     ) {
@@ -61,13 +66,33 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
         })
     }
 
+    fun getForwardMonth() {
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        if(calendar.get(Calendar.MONTH) == 11){
+            calendar.set(year+1, 0, 1)
+        }else{
+            calendar.set(year, month+1, 1)
+        }
+        getActualMonth()
+    }
+
+    fun getPreviousMonth(){
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        if(calendar.get(Calendar.MONTH) == 0){
+            calendar.set(year-1, 12, 1)
+        }else{
+            calendar.set(year, month-1, 1)
+        }
+        getActualMonth()
+    }
+
     fun getDiaryOnCalendar(date: String){
         getTrainingDiary(date, diaryOnCalendar)
     }
 
     fun getActualMonth() {
-        val calendar = Calendar.getInstance()
-        calendar.time = Date()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
         getTrainingRange(

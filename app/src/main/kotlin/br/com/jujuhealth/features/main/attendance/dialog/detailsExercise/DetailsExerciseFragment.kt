@@ -1,4 +1,4 @@
-package br.com.jujuhealth.features.main.attendance.dialog.dateDialog
+package br.com.jujuhealth.features.main.attendance.dialog.detailsExercise
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,7 @@ import br.com.jujuhealth.R
 import br.com.jujuhealth.data.model.TrainingDiary
 import kotlinx.android.synthetic.main.fragment_series.*
 
-class DetailsFragmentDialog(private val trainingDiary: TrainingDiary?): Fragment(R.layout.fragment_series){
+class DetailsExerciseFragment(private val trainingDiary: TrainingDiary?): Fragment(R.layout.fragment_series){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import br.com.jujuhealth.FIREBASE_USER
 import br.com.jujuhealth.R
 import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.features.main.HostMainActivity
@@ -41,7 +40,6 @@ class HostSignActivity : AppCompatActivity() {
                     BaseModel.Status.SUCCESS -> {
                         progressBar.visibility = View.GONE
                         val i = Intent(this, HostMainActivity::class.java)
-                        i.putExtra(FIREBASE_USER, it.data)
                         startActivity(i)
                         finish()
                     }

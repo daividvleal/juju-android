@@ -10,7 +10,7 @@ import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.data.model.TrainingDiary
 import br.com.jujuhealth.extension.getFormattedKey
 import br.com.jujuhealth.features.main.HostMainActivity
-import br.com.jujuhealth.features.main.attendance.dialog.dateDialog.DetailsDateDialog
+import br.com.jujuhealth.features.main.attendance.dialog.DetailsDateDialog
 import com.applandeo.materialcalendarview.EventDay
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_calendar_view.*
@@ -29,8 +29,7 @@ class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
     }
 
     private fun setUpView() {
-        val activity = (requireActivity() as HostMainActivity)
-        if (activity.isExerciseFinished()) {
+        if ((requireActivity() as HostMainActivity).isExerciseFinished()) {
             viewModel.getTrainingDiary(
                 Calendar.getInstance().getFormattedKey()
             )
@@ -41,6 +40,14 @@ class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
         calendarView.setOnDayClickListener {
             selectedDate = it.calendar.getFormattedKey()
             viewModel.getDiaryOnCalendar(selectedDate)
+        }
+
+        calendarView.setOnForwardPageChangeListener {
+            viewModel.getForwardMonth()
+        }
+
+        calendarView.setOnPreviousPageChangeListener {
+            viewModel.getPreviousMonth()
         }
     }
 
@@ -177,8 +184,10 @@ class CalendarFragmentView : Fragment(R.layout.fragment_calendar_view) {
             View.GONE
         }
         calendarView.visibility = if (calendarViewVisibility) {
+            add_urine_loss.visibility = View.VISIBLE
             View.VISIBLE
         } else {
+            add_urine_loss.visibility = View.GONE
             View.GONE
         }
     }

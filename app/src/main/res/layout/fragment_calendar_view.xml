@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <com.applandeo.materialcalendarview.CalendarView
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="@dimen/common_small_margin"
-            android:background="@drawable/calendar_border"
-            android:padding="@dimen/common_tiny_small_margin"
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_small_margin"
+            android:background="@drawable/calendar_border"
+            android:padding="@dimen/common_tiny_small_margin"
+            android:visibility="gone"
             app:eventsEnabled="true"
-            app:type="classic"
             app:forwardButtonSrc="@drawable/ic_keyboard_arrow_right"
-            app:previousButtonSrc="@drawable/ic_keyboard_arrow_left"
             app:headerColor="@android:color/white"
             app:headerLabelColor="@color/charcoalGrey"
-            app:todayLabelColor="@color/colorPrimaryDark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:previousButtonSrc="@drawable/ic_keyboard_arrow_left"
             app:selectionColor="@color/colorPrimary"
             app:selectionLabelColor="@android:color/white"
-            />
+            app:todayLabelColor="@color/colorPrimaryDark"
+            app:type="classic" />
+
+    <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_urine_loss"
+            style="@style/AppTheme.Button.Medium.Dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_small_margin"
+            android:drawableEnd="@drawable/ic_urine_loss_yellow_circle"
+            android:text="@string/add_urine_loss"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loading"
             android:layout_width="@dimen/loading_animation_width"
             android:layout_height="@dimen/loading_animation_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_fileName="loading.json"
             app:lottie_loop="true" />

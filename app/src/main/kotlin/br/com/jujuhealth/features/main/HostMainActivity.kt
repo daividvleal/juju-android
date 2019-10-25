@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isEmpty
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import br.com.jujuhealth.FIREBASE_USER
 import br.com.jujuhealth.R
-import br.com.jujuhealth.data.model.TrainingModel
-import br.com.jujuhealth.data.model.User
 import br.com.jujuhealth.features.main.changepassword.ChangePasswordFragment
 import br.com.jujuhealth.features.main.exercise.filter.LevelFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

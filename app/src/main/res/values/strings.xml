@@ -62,6 +62,7 @@
 
     <string name="urine_loss">Perda de urina</string>
     <string name="details">Detalhes</string>
+    <string name="series_title_tab">Séries</string>
 
     <string name="attendance">Acompanhamento</string>
 
@@ -119,5 +120,6 @@
     <string name="october">Outubro</string>
     <string name="november">Novembro</string>
     <string name="december">Dezembro</string>
+    <string name="add_urine_loss">Adicionar perda de urina</string>
 
 </resources>

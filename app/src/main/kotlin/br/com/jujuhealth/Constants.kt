@@ -2,9 +2,6 @@ package br.com.jujuhealth
 
 import br.com.jujuhealth.data.model.TrainingModel
 
-const val FIREBASE_USER = "firebase_user"
-
-
 val slowEasy = TrainingModel(
     mode = TrainingModel.Mode.SLOW,
     difficulty = TrainingModel.Difficulty.EASY,

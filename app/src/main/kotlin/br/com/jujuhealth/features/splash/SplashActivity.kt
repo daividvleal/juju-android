@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import br.com.jujuhealth.FIREBASE_USER
 import br.com.jujuhealth.R
 import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.features.auth.HostSignActivity

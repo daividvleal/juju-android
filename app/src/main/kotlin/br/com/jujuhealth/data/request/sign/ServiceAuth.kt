@@ -21,8 +21,6 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    //Log.d("FIREBASE:", "createUserWithEmail:success")
                     val id = auth.currentUser?.uid?.let {
                         it
                     } ?: run { email }
@@ -38,8 +36,6 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
                     )
 
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("FIREBASE:", "createUserWithEmail:failure", task.exception)
                     error(task.exception)
                 }
             }
@@ -54,12 +50,8 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    //Log.d("FIREBASE:", "signInWithEmail:success")
                     success(auth.currentUser)
                 } else {
-                    // If sign in fails, display a message to the user.
-                    //Log.d("FIREBASE:", "signInWithEmail:failure", task.exception)
                     error(task.exception)
                 }
             }
@@ -84,23 +76,15 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
         auth.signInWithEmailAndPassword(auth.currentUser?.email!!, pwdActual)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    //Log.d("FIREBASE:", "signInWithEmail:success")
                     auth.currentUser?.updatePassword(pwd)
                         ?.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                // Sign in success, update UI with the signed-in user's information
-                                //Log.d("FIREBASE:", "signInWithEmail:success")
                                 success()
                             } else {
-                                // If sign in fails, display a message to the user.
-                                //Log.d("FIREBASE:", "signInWithEmail:failure", task.exception)
                                 error(task.exception)
                             }
                         }
                 } else {
-                    // If sign in fails, display a message to the user.
-                    //Log.d("FIREBASE:", "signInWithEmail:failure", task.exception)
                     error(task.exception)
                 }
             }

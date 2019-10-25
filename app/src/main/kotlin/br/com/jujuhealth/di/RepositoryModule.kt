@@ -9,7 +9,6 @@ import br.com.jujuhealth.data.request.sign.ServiceAuthContract
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    //IDLE says that cast not needed but koin injection don't understand/convert this as an interface
     single { ServiceAuth(get(), get()) as ServiceAuthContract }
     single { ServiceMain(get(), get()) as ServiceMainContract }
     single { ServiceCalendar(get(), get()) as ServiceCalendarContract }

@@ -11,7 +11,6 @@ class DialogInsertUrineLoss : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             builder.setTitle(R.string.urine_loss_dialog_title)
             builder.setItems(R.array.urine_loss_type) { _, position ->
