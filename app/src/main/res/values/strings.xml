@@ -106,6 +106,10 @@
     <string name="hard"><b>%d</b> séries <b>Nível Difícil</b></string>
 
     <string name="urine_loss_text_item">Perda de urina <b>%s</b></string>
+    <string name="urine_loss_low">leve</string>
+    <string name="urine_loss_medium">moderada</string>
+    <string name="urine_loss_big">grande</string>
+
     <string name="of">de</string>
 
     <string name="january">Janeiro</string>

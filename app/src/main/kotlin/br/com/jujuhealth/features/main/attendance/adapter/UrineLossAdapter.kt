@@ -1,23 +1,50 @@
 package br.com.jujuhealth.features.main.attendance.adapter
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import br.com.jujuhealth.R
+import br.com.jujuhealth.features.main.attendance.viewholder.UrineLossViewHolder
+import kotlinx.android.synthetic.main.item_urine_loss_dialog.view.*
 
-class UrineLossAdapter (
+class UrineLossAdapter(
     private val context: Context,
     private val elements: ArrayList<Int>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.item_urine_loss_dialog, parent, false)
+        return UrineLossViewHolder(view)
     }
 
     override fun getItemCount() = elements.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (holder is UrineLossViewHolder) {
+            when (elements[position]) {
+                0 -> {}
+                1 -> {
+                    holder.layout.urine_loss_text.text = context.getString(
+                        R.string.urine_loss_text_item,
+                        context.getString(R.string.urine_loss_low)
+                    )
+                }
+                2 -> {
+                    holder.layout.urine_loss_text.text = context.getString(
+                        R.string.urine_loss_text_item,
+                        context.getString(R.string.urine_loss_medium)
+                    )
+                }
+                3 -> {
+                    holder.layout.urine_loss_text.text = context.getString(
+                        R.string.urine_loss_text_item,
+                        context.getString(R.string.urine_loss_big)
+                    )
+                }
+            }
+        }
     }
-
 
 }
