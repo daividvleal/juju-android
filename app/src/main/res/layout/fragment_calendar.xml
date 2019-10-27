@@ -12,7 +12,6 @@
             android:layout_margin="@dimen/common_small_margin"
             android:background="@drawable/calendar_border"
             android:padding="@dimen/common_tiny_small_margin"
-            android:visibility="gone"
             app:eventsEnabled="true"
             app:forwardButtonSrc="@drawable/ic_keyboard_arrow_right"
             app:headerColor="@android:color/white"
@@ -33,18 +32,18 @@
             android:layout_margin="@dimen/common_small_margin"
             android:drawableEnd="@drawable/ic_urine_loss_yellow_circle"
             android:text="@string/add_urine_loss"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loading"
-            android:layout_width="@dimen/loading_animation_width"
-            android:layout_height="@dimen/loading_animation_height"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="@dimen/loading_animation_width_medium"
+            android:layout_height="@dimen/loading_animation_height_medium"
+            app:layout_constraintBottom_toTopOf="@id/add_urine_loss"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calendarView"
             app:lottie_autoPlay="true"
+            android:visibility="gone"
             app:lottie_fileName="loading.json"
             app:lottie_loop="true" />
 

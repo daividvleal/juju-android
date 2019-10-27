@@ -16,7 +16,7 @@ import br.com.jujuhealth.features.main.attendance.dialog.detailsUrineLoss.Detail
 import kotlinx.android.synthetic.main.fragment_dialog_detail.*
 import java.util.*
 
-class DetailsDateDialog(private val trainingDiary: TrainingDiary?) : DialogFragment() {
+class DialogDetails(private val trainingDiary: TrainingDiary?) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +33,7 @@ class DetailsDateDialog(private val trainingDiary: TrainingDiary?) : DialogFragm
         tabAdapter.add(
             DetailsExerciseFragment(
                 trainingDiary
-            ), context?.getString(R.string.series) ?: ""
+            ), context?.getString(R.string.series_tab_title) ?: ""
         )
         tabAdapter.add(
             DetailsUrineLossFragment(

@@ -23,35 +23,36 @@ data class TrainingDiary(
         return false
     }
 
-    fun getSeries() = seriesSlowEasy + seriesSlowMedium + seriesSlowHard + seriesFastEasy + seriesFastMedium + seriesFastHard
+    fun getSeries() =
+        seriesSlowEasy + seriesSlowMedium + seriesSlowHard + seriesFastEasy + seriesFastMedium + seriesFastHard
 
 
-    fun addTraining(trainingModel: TrainingModel?): TrainingDiary{
+    fun addTraining(trainingModel: TrainingModel?, qtd: Int): TrainingDiary {
         return trainingModel?.let {
             when (trainingModel.mode) {
                 TrainingModel.Mode.SLOW -> {
                     when (trainingModel.difficulty) {
                         TrainingModel.Difficulty.EASY -> {
-                            seriesSlowEasy++
+                            seriesSlowEasy += qtd
                         }
                         TrainingModel.Difficulty.MEDIUM -> {
-                            seriesSlowMedium++
+                            seriesSlowMedium += qtd
                         }
                         TrainingModel.Difficulty.HARD -> {
-                            seriesSlowHard++
+                            seriesSlowHard += qtd
                         }
                     }
                 }
                 TrainingModel.Mode.FAST -> {
                     when (trainingModel.difficulty) {
                         TrainingModel.Difficulty.EASY -> {
-                            seriesFastEasy++
+                            seriesFastEasy += qtd
                         }
                         TrainingModel.Difficulty.MEDIUM -> {
-                            seriesFastMedium++
+                            seriesFastMedium += qtd
                         }
                         TrainingModel.Difficulty.HARD -> {
-                            seriesFastHard++
+                            seriesFastHard += qtd
                         }
                     }
                 }
@@ -66,7 +67,4 @@ data class TrainingDiary(
 
     fun getUrineLossSize() = urineLoss.size
 
-    enum class UrineLoss {
-        NONE, LOW, MODERATE, HIGH
-    }
 }

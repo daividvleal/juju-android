@@ -19,6 +19,7 @@ class HostMainActivity : AppCompatActivity(),
 
     private lateinit var navController: NavController
     private var exerciseFinished = false
+    private var series = 0
 
     override fun onBackPressed() {
         toolbar?.let {
@@ -68,6 +69,11 @@ class HostMainActivity : AppCompatActivity(),
         bottom_navigation.selectedItemId = R.id.navigation_exercise
     }
 
+    fun goToCalendar(){
+        bottom_navigation.selectedItemId = R.id.navigation_calendar
+        navController.navigate(R.id.go_to_attendance)
+    }
+
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         toolbar.menu?.clear()
         toolbar.navigationIcon = null
@@ -104,6 +110,16 @@ class HostMainActivity : AppCompatActivity(),
 
     fun setExerciseFinished(boolean: Boolean){
         exerciseFinished = boolean
+    }
+
+    fun getSeries() = series
+
+    fun addSeries(){
+        series++
+    }
+
+    fun setSeries(qtd: Int){
+        series = qtd
     }
 
     fun setUpToolbarWithIconAction(title: Int, icon: Int, action: () -> Unit) {

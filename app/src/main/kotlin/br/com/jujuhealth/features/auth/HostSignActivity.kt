@@ -44,6 +44,7 @@ class HostSignActivity : AppCompatActivity() {
                         finish()
                     }
                     BaseModel.Status.DEFAULT -> {
+                        progressBar.visibility = View.GONE
                         it.error = null
                     }
                 }

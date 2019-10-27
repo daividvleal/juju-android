@@ -16,4 +16,6 @@
     <color name="superLightGray">#F8F8F8</color>
     <color name="lightGray">#E3E7EA</color>
     <color name="lightGrayPwd">#BEBEC4</color>
+
+    <color name="yellow_selected">#FBE8A1</color>
 </resources>

@@ -38,8 +38,8 @@ class ServiceCalendar(private val database: FirebaseFirestore, private val user:
             .collection(COLLECTION_TRAINING_DIARY)
             .document(user.uid)
             .collection(COLLECTION_DIARY)
-            .whereGreaterThan(FieldPath.documentId(), startDate)
-            .whereLessThan(FieldPath.documentId(), endDate)
+            .whereGreaterThanOrEqualTo(FieldPath.documentId(), startDate)
+            .whereLessThanOrEqualTo(FieldPath.documentId(), endDate)
             .get()
             .addOnSuccessListener {
                 success(it.toObjects(TrainingDiary::class.java))

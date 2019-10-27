@@ -13,7 +13,7 @@ val slowEasy = TrainingModel(
 val slowMedium = TrainingModel(
     mode = TrainingModel.Mode.SLOW,
     difficulty = TrainingModel.Difficulty.MEDIUM,
-    repetitions = 10,
+    repetitions = 1,
     contractionDuration = 6000,
     relaxDuration = 6000
 )
@@ -21,7 +21,7 @@ val slowMedium = TrainingModel(
 val slowHard = TrainingModel(
     mode = TrainingModel.Mode.SLOW,
     difficulty = TrainingModel.Difficulty.HARD,
-    repetitions = 10,
+    repetitions = 1,
     contractionDuration = 10000,
     relaxDuration = 10000
 )

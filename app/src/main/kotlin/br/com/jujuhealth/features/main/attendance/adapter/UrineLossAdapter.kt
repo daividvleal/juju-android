@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_urine_loss_dialog.view.*
 
 class UrineLossAdapter(
     private val context: Context,
-    private val elements: ArrayList<Int>
+    private val elements: ArrayList<Int>?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -19,29 +19,31 @@ class UrineLossAdapter(
         return UrineLossViewHolder(view)
     }
 
-    override fun getItemCount() = elements.size
+    override fun getItemCount() = elements?.size ?: 0
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is UrineLossViewHolder) {
-            when (elements[position]) {
-                0 -> {}
-                1 -> {
-                    holder.layout.urine_loss_text.text = context.getString(
-                        R.string.urine_loss_text_item,
-                        context.getString(R.string.urine_loss_low)
-                    )
-                }
-                2 -> {
-                    holder.layout.urine_loss_text.text = context.getString(
-                        R.string.urine_loss_text_item,
-                        context.getString(R.string.urine_loss_medium)
-                    )
-                }
-                3 -> {
-                    holder.layout.urine_loss_text.text = context.getString(
-                        R.string.urine_loss_text_item,
-                        context.getString(R.string.urine_loss_big)
-                    )
+            elements?.let{
+                when (it[position]) {
+                    0 -> {}
+                    1 -> {
+                        holder.layout.urine_loss_text.text = context.getString(
+                            R.string.urine_loss_text_item,
+                            context.getString(R.string.urine_loss_low)
+                        )
+                    }
+                    2 -> {
+                        holder.layout.urine_loss_text.text = context.getString(
+                            R.string.urine_loss_text_item,
+                            context.getString(R.string.urine_loss_medium)
+                        )
+                    }
+                    3 -> {
+                        holder.layout.urine_loss_text.text = context.getString(
+                            R.string.urine_loss_text_item,
+                            context.getString(R.string.urine_loss_big)
+                        )
+                    }
                 }
             }
         }

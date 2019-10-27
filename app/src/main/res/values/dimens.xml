@@ -44,4 +44,10 @@
 
     <dimen name="loading_animation_width">150dp</dimen>
     <dimen name="loading_animation_height">150dp</dimen>
+
+    <dimen name="loading_animation_width_medium">100dp</dimen>
+    <dimen name="loading_animation_height_medium">100dp</dimen>
+
+    <dimen name="loading_animation_width_tiny">50dp</dimen>
+    <dimen name="loading_animation_height_tint">50dp</dimen>
 </resources>

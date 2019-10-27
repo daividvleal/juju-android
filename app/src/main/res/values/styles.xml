@@ -10,6 +10,12 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.RadioButton" parent="AppTheme">
+        <item name="colorAccent">@color/yellow_selected</item>
+        <item name="android:textSize">@dimen/font_medium_big_button</item>
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+
     <style name="AppTheme.Text.Header" parent="Widget.AppCompat.TextView">
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/header_margin</item>

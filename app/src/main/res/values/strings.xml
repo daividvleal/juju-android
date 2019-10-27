@@ -95,20 +95,19 @@
     <string name="urine_loss_qtd">Perdas: %d</string>
 
     <string name="urine_loss_dialog_title">Informe a quantidade de urina que perdeu</string>
-    <string-array name="urine_loss_type">
-        <item>Perda leve</item>
-        <item>Perda moderada</item>
-        <item>Perda grande</item>
-    </string-array>
+    <string name="low_loss">Perda leve</string>
+    <string name="medium_loss">Perda moderada</string>
+    <string name="big_loss">Perda grande</string>
+
 
     <string name="easy"><b>%d</b> séries <b>Nível Fácil</b></string>
     <string name="medium"><b>%d</b> séries <b>Nível Médio</b></string>
     <string name="hard"><b>%d</b> séries <b>Nível Difícil</b></string>
 
-    <string name="urine_loss_text_item">Perda de urina <b>%s</b></string>
-    <string name="urine_loss_low">leve</string>
-    <string name="urine_loss_medium">moderada</string>
-    <string name="urine_loss_big">grande</string>
+    <string name="urine_loss_text_item">Perda de urina %s</string>
+    <string name="urine_loss_low"><b>leve</b></string>
+    <string name="urine_loss_medium"><b>moderada</b></string>
+    <string name="urine_loss_big"><b>grande</b></string>
 
     <string name="of">de</string>
 

@@ -16,6 +16,8 @@ import java.util.*
 class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
     private val exerciseViewModel: ExerciseViewModel by inject()
+    private lateinit var activityHost: HostMainActivity
+    private var progressMax = false
 
     override fun onResume() {
         exerciseViewModel.resetFields()
@@ -27,7 +29,8 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as HostMainActivity).setUpToolbarWithMenuItem(
+        activityHost = (requireActivity() as HostMainActivity)
+        activityHost.setUpToolbarWithMenuItem(
             R.string.exercise,
             R.menu.toolbar_exercise_menu
         )
@@ -78,11 +81,16 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         })
 
         exerciseViewModel.progress.observe(viewLifecycleOwner, Observer {
-            if(it >= progress.max){
-                (requireActivity() as HostMainActivity).setExerciseFinished(true)
-                exerciseViewModel.series.value = exerciseViewModel.series.value?.plus(1)
+            if (!progressMax){
+                progress.progress = it
             }
-            progress.progress = it
+            if(it >= progress.max){
+                activityHost.setExerciseFinished(true)
+                activityHost.addSeries()
+                exerciseViewModel.addSeries()
+                exerciseViewModel.progress.value = 0
+                progressMax = true
+            }
         })
 
         exerciseViewModel.series.observe(viewLifecycleOwner, Observer {
@@ -103,8 +111,8 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         exerciseViewModel.countDownTimer?.cancel()
         btn_play.visibility = View.VISIBLE
         btn_stop.visibility = View.GONE
-        if((requireActivity() as HostMainActivity).isExerciseFinished()){
-            (requireActivity() as HostMainActivity).findNavController().navigate(R.id.go_to_attendance)
+        if(activityHost.isExerciseFinished()){
+            activityHost.goToCalendar()
         }
     }
 

@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/attendance"
-            android:name="br.com.jujuhealth.features.main.attendance.calendar.CalendarFragmentView"
+            android:name="br.com.jujuhealth.features.main.attendance.calendar.CalendarFragment"
             tools:layout="@layout/fragment_attendance" />
 
     <fragment

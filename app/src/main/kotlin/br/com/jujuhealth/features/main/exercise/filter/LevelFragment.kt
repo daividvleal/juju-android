@@ -12,11 +12,13 @@ import org.koin.android.ext.android.inject
 class LevelFragment : Fragment(R.layout.fragment_level) {
 
     private val levelViewModel: LevelViewModel by inject()
+    private lateinit var activityHost: HostMainActivity
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as HostMainActivity).setUpToolbarTitle(R.string.exercise_level)
+        activityHost = (activity as HostMainActivity)
+        activityHost.setUpToolbarTitle(R.string.exercise_level)
 
         back.setOnClickListener {
             activity?.onBackPressed()
@@ -28,6 +30,7 @@ class LevelFragment : Fragment(R.layout.fragment_level) {
                 hard, CustomLevel.LEVEL.HARD,
                 medium, CustomLevel.LEVEL.MEDIUM
             )
+            activityHost.setSeries(0)
             levelViewModel.setActivatedMode(CustomLevel.LEVEL.EASY)
         }
 
@@ -37,6 +40,7 @@ class LevelFragment : Fragment(R.layout.fragment_level) {
                 easy, CustomLevel.LEVEL.EASY,
                 hard, CustomLevel.LEVEL.HARD
             )
+            activityHost.setSeries(0)
             levelViewModel.setActivatedMode(CustomLevel.LEVEL.MEDIUM)
         }
 
@@ -46,6 +50,7 @@ class LevelFragment : Fragment(R.layout.fragment_level) {
                 medium, CustomLevel.LEVEL.MEDIUM,
                 easy, CustomLevel.LEVEL.EASY
             )
+            activityHost.setSeries(0)
             levelViewModel.setActivatedMode(CustomLevel.LEVEL.HARD)
         }
 

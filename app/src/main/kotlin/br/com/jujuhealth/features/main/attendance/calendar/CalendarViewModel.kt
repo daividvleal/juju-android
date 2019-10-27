@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.data.model.TrainingDiary
 import br.com.jujuhealth.data.request.calendar.ServiceCalendarContract
+import br.com.jujuhealth.extension.getFormattedKey
 import org.koin.core.KoinComponent
 import java.util.*
 
@@ -15,10 +16,26 @@ class CalendarViewModel(private val serviceCalendarContract: ServiceCalendarCont
     val diary = MutableLiveData<BaseModel<TrainingDiary, Exception>>()
     val diaryOnCalendar = MutableLiveData<BaseModel<TrainingDiary, Exception>>()
     val successInserted = MutableLiveData<BaseModel<Boolean, Exception>>()
+    val successUpdated = MutableLiveData<BaseModel<Boolean, Exception>>()
     private val calendar = Calendar.getInstance()
 
     init {
         calendar.time = Date()
+    }
+
+    fun updateTraining(trainingDiary: TrainingDiary?){
+        successUpdated.value = BaseModel(BaseModel.Status.LOADING, null, null)
+        trainingDiary?.let { itTrainingDiary ->
+            val calendar = Calendar.getInstance()
+            calendar.time = itTrainingDiary.date.toDate()
+            serviceCalendarContract.insertTrainingDiary(calendar.getFormattedKey(), itTrainingDiary, {
+                successUpdated.value = BaseModel(BaseModel.Status.SUCCESS, true, null)
+            }, {
+                successUpdated.value = BaseModel(BaseModel.Status.SUCCESS, false, it)
+            })
+        } ?: run {
+            successUpdated.value = BaseModel(BaseModel.Status.ERROR, false, Exception())
+        }
     }
 
     fun insertTraining(

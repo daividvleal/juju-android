@@ -212,6 +212,7 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
         diary.value = BaseModel(BaseModel.Status.LOADING, null, null)
         serviceCalendarContract.getTrainingDiaryDay(date, {
             it?.let {
+                series.value = it.getSeries()
                 diary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
             } ?: run {
                 diary.value = BaseModel(BaseModel.Status.DEFAULT, null, null)
@@ -219,7 +220,10 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
         }, {
             diary.value = BaseModel(BaseModel.Status.ERROR, null, it)
         })
+    }
 
+    fun addSeries(){
+        series.value = series.value?.plus(1)
     }
 
 }

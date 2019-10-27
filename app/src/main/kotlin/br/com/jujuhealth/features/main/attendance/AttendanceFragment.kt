@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import br.com.jujuhealth.R
 import br.com.jujuhealth.features.main.attendance.adapter.TabAdapter
-import br.com.jujuhealth.features.main.attendance.calendar.CalendarFragmentView
-import br.com.jujuhealth.features.main.attendance.urineloss.UrineLossView
+import br.com.jujuhealth.features.main.attendance.calendar.CalendarFragment
+import br.com.jujuhealth.features.main.attendance.urineloss.UrineLoss
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_attendance.*
 
@@ -34,8 +34,8 @@ class CreateTabViews(
 
     override fun run() {
         val tabAdapter = TabAdapter(childFragmentManager)
-        tabAdapter.add(CalendarFragmentView(), context?.getString(R.string.calendar) ?: "")
-        tabAdapter.add(UrineLossView(), context?.getString(R.string.urine_loss) ?: "")
+        tabAdapter.add(CalendarFragment(), context?.getString(R.string.calendar) ?: "")
+        tabAdapter.add(UrineLoss(), context?.getString(R.string.urine_loss) ?: "")
         tabs_view_pager.adapter = tabAdapter
         tabs.setupWithViewPager(tabs_view_pager)
         super.run()
