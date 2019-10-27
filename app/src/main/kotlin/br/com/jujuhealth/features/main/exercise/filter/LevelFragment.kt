@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import br.com.jujuhealth.R
+import br.com.jujuhealth.activeMode
+import br.com.jujuhealth.data.model.TrainingModel
 import br.com.jujuhealth.features.main.HostMainActivity
 import br.com.jujuhealth.widget.CustomLevel
 import kotlinx.android.synthetic.main.fragment_level.*
@@ -22,6 +24,30 @@ class LevelFragment : Fragment(R.layout.fragment_level) {
 
         back.setOnClickListener {
             activity?.onBackPressed()
+        }
+
+        when(activeMode?.difficulty){
+            TrainingModel.Difficulty.EASY -> {
+                CustomLevel.setSelectedLevel(
+                    easy, CustomLevel.LEVEL.EASY,
+                    hard, CustomLevel.LEVEL.HARD,
+                    medium, CustomLevel.LEVEL.MEDIUM
+                )
+            }
+            TrainingModel.Difficulty.MEDIUM -> {
+                CustomLevel.setSelectedLevel(
+                    medium, CustomLevel.LEVEL.MEDIUM,
+                    easy, CustomLevel.LEVEL.EASY,
+                    hard, CustomLevel.LEVEL.HARD
+                )
+            }
+            TrainingModel.Difficulty.HARD -> {
+                CustomLevel.setSelectedLevel(
+                    hard, CustomLevel.LEVEL.HARD,
+                    medium, CustomLevel.LEVEL.MEDIUM,
+                    easy, CustomLevel.LEVEL.EASY
+                )
+            }
         }
 
         easy.setOnClickListener {

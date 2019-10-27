@@ -36,15 +36,17 @@ class DialogInsertUrineLoss(val trainingDiary: TrainingDiary?) : DialogFragment(
             when(radio_group.checkedRadioButtonId){
                 R.id.low -> {
                     trainingDiary?.urineLoss?.add(1)
+                    viewModel.updateTraining(trainingDiary)
                 }
                 R.id.medium -> {
                     trainingDiary?.urineLoss?.add(2)
+                    viewModel.updateTraining(trainingDiary)
                 }
                 R.id.big -> {
                     trainingDiary?.urineLoss?.add(3)
+                    viewModel.updateTraining(trainingDiary)
                 }
             }
-            viewModel.updateTraining(trainingDiary)
             dismiss()
         }
     }

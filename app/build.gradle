@@ -66,6 +66,10 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$firebase_core"
     implementation "com.google.firebase:firebase-analytics:$firebase_analytics"
     implementation "com.google.firebase:firebase-firestore:$firebase_firestore"
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
+    //Worker
+    implementation 'android.arch.work:work-runtime:1.0.1'
 
     //Picasso
     implementation "com.squareup.picasso:picasso:$picasso"

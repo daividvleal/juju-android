@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Juju</string>
+    <string name="default_notification_channel_id">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">Exercise</string>
+    <string name="fcm_message">Nova Mensagem</string>
 
     <!-- region home sign -->
     <string name="welcome_text">Sou um aplicativo que vai ajudar você\na realizar exercícios pélvicos!</string>

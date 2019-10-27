@@ -1,6 +1,5 @@
 package br.com.jujuhealth.data.request.sign
 
-import android.util.Log
 import br.com.jujuhealth.data.model.User
 import br.com.jujuhealth.data.request.COLLECTION_USER
 import com.google.firebase.auth.FirebaseAuth
@@ -70,6 +69,7 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
 
     override fun signOut() {
         auth.signOut()
+        database.clearPersistence()
     }
 
     override fun updatePassword(pwdActual: String, pwd: String, success: () -> Unit, error: (Exception?) -> Unit) {

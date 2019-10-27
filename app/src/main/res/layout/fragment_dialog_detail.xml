@@ -43,7 +43,7 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_medium_margin"
+            android:layout_marginTop="@dimen/common_big_margin"
             android:textSize="@dimen/font_medium_big_button"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

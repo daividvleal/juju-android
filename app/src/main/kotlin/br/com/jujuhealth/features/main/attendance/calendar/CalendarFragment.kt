@@ -67,6 +67,24 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     }
 
     private fun setObservable() {
+        viewModel.successUpdated.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                BaseModel.Status.LOADING -> {
+                    setVisibility()
+                }
+                BaseModel.Status.SUCCESS -> {
+                    setVisibility()
+                    viewModel.getActualMonth()
+                }
+                BaseModel.Status.ERROR -> {
+                    setVisibility()
+                }
+                BaseModel.Status.DEFAULT -> {
+                    setVisibility()
+                }
+            }
+        })
+
         viewModel.diaryOnCalendar.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 BaseModel.Status.LOADING -> {
@@ -85,8 +103,8 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                     genericMessage(R.string.error_message)
                 }
                 BaseModel.Status.DEFAULT -> {
+                    setVisibility()
                     if(seeDetails){
-                        setVisibility()
                         val snackBar = Snackbar.make(
                             requireView(),
                             requireContext().getString(R.string.nothing_registered, selectedDate),
