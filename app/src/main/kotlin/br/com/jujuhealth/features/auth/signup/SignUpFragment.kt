@@ -57,9 +57,9 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), DatePickerDialog.OnD
 
     private fun openDatePickerDialog(){
         val calendar = Calendar.getInstance()
-        var year = calendar.get(Calendar.YEAR) - 14
-        var month = calendar.get(Calendar.MONTH)
-        var  day = calendar.get(Calendar.DAY_OF_MONTH)
+        val year = calendar.get(Calendar.YEAR) - 10
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
         calendar.set(year, month, day)
         val dialogDatePicker = DatePickerDialog(requireContext(),this,year,month,day)
         dialogDatePicker.datePicker.maxDate = calendar.time.time

@@ -11,7 +11,6 @@ import androidx.core.content.withStyledAttributes
 import br.com.jujuhealth.R
 import kotlinx.android.synthetic.main.text_view_custom.view.*
 
-
 class CustomTextView(
     context: Context,
     attrs: AttributeSet

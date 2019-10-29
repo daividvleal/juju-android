@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         setObservable()
 
-        Handler().postDelayed(Runnable {
+        Handler().postDelayed({
             viewModel.isUserLogged()
         }, SPLASH_TIME)
 

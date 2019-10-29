@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.jujuhealth.*
 import br.com.jujuhealth.data.model.TrainingModel
-import br.com.jujuhealth.data.model.User
 import kotlinx.android.synthetic.main.activity_main_exercise.*
 
 class MainActivityExercise : AppCompatActivity(){
