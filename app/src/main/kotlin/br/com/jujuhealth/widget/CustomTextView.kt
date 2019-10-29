@@ -5,10 +5,12 @@ import android.text.InputType
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.withStyledAttributes
 import br.com.jujuhealth.R
 import kotlinx.android.synthetic.main.text_view_custom.view.*
+
 
 class CustomTextView(
     context: Context,
@@ -34,6 +36,7 @@ class CustomTextView(
 
             text_info.text = textInfo
             edit_text.hint = hintText
+            edit_text.inputType = InputType.TYPE_CLASS_TEXT
             if(drawable != 0){
                 edit_text.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,drawable,0)
                 setRightIconClickListener()
@@ -41,8 +44,30 @@ class CustomTextView(
         }
     }
 
+    fun setClick(onClickListener: () -> Unit){
+        edit_text.inputType = InputType.TYPE_NULL
+        edit_text.setOnClickListener {
+            onClickListener()
+            hideKeyboard(it)
+        }
+        edit_text.setOnFocusChangeListener { view, hasFocus ->
+            if(hasFocus){
+                onClickListener()
+                hideKeyboard(view)
+            }
+        }
+    }
+
+    private fun hideKeyboard(view: View){
+        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?)?.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
     fun getText(): String {
         return edit_text.text.toString()
+    }
+
+    fun setText(text: String) {
+        edit_text.setText(text)
     }
 
     private fun setRightIconClickListener(){

@@ -28,6 +28,7 @@
             app:layout_constraintTop_toTopOf="@id/circle_profile" />
 
     <TextView
+            android:padding="@dimen/common_medium_margin"
             android:id="@+id/txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,6 +41,7 @@
             tools:text="Joana Maria" />
 
     <TextView
+            android:padding="@dimen/common_small_margin"
             android:id="@+id/txt_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
