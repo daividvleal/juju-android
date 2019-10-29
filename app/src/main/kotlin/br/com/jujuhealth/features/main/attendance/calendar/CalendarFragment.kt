@@ -1,5 +1,6 @@
 package br.com.jujuhealth.features.main.attendance.calendar
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -194,7 +195,11 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     }
 
     private fun addUrineLoss(trainingDiary: TrainingDiary?) {
-        DialogInsertUrineLoss(trainingDiary).show(
+        val urineLossDialog = DialogInsertUrineLoss(trainingDiary)
+        urineLossDialog.setOnDismissListener(
+            DialogInterface.OnDismissListener { viewModel.getActualMonth() }
+        )
+        urineLossDialog.show(
                 activityHost.supportFragmentManager,
                 "DIALOG_URINE_LOSS"
         )

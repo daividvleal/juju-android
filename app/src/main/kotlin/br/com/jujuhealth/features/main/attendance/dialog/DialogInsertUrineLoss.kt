@@ -1,6 +1,7 @@
 package br.com.jujuhealth.features.main.attendance.dialog
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,25 @@ import androidx.fragment.app.DialogFragment
 import br.com.jujuhealth.R
 import br.com.jujuhealth.data.model.TrainingDiary
 import br.com.jujuhealth.features.main.attendance.calendar.CalendarViewModel
-import kotlinx.android.synthetic.main.fragment_change_password.*
 import kotlinx.android.synthetic.main.fragment_insert_urine_loss.*
 import org.koin.android.ext.android.inject
 
-class DialogInsertUrineLoss(private val trainingDiary: TrainingDiary?) : DialogFragment() {
+class DialogInsertUrineLoss(private val trainingDiary: TrainingDiary?) : DialogFragment(){
 
     private val viewModel: CalendarViewModel by inject()
+
+    private var onDismissListener: DialogInterface.OnDismissListener? = null
+
+    fun setOnDismissListener(onDismissListener: DialogInterface.OnDismissListener) {
+        this.onDismissListener = onDismissListener
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDismissListener?.let {
+            it.onDismiss(dialog)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +62,6 @@ class DialogInsertUrineLoss(private val trainingDiary: TrainingDiary?) : DialogF
                 }
             }
             dismiss()
-            viewModel.getActualMonth()
         }
     }
 
