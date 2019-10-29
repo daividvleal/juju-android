@@ -37,17 +37,17 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
     }
 
     private fun validateEmailAndPassword(): Boolean{
-        if(!txt_email.getText().isEmail()){
-            txt_email.setError(CustomTextView.Companion.TYPETEXT.EMAIL)
-            return false
-        }else if(!txt_pwd.getText().isPassword()){
-            txt_pwd.setError(CustomTextView.Companion.TYPETEXT.PASSWORD)
-            return false
-        }else if(txt_name.getText().isEmpty()){
+        if(txt_name.getText().isEmpty()){
             txt_name.setError(CustomTextView.Companion.TYPETEXT.OBEY)
             return false
         }else if(txt_birthday.getText().isEmpty()){
             txt_birthday.setError(CustomTextView.Companion.TYPETEXT.OBEY)
+            return false
+        }else if(!txt_email.getText().isEmail()){
+            txt_email.setError(CustomTextView.Companion.TYPETEXT.EMAIL)
+            return false
+        }else if(!txt_pwd.getText().isPassword()){
+            txt_pwd.setError(CustomTextView.Companion.TYPETEXT.PASSWORD)
             return false
         }
         return true

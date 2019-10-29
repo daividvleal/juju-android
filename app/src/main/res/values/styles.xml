@@ -66,12 +66,12 @@
     </style>
 
     <style name="AppTheme.TextViewInfoInput" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">@dimen/font_small_text_size</item>
+        <item name="android:textSize">@dimen/font_middle_text_size</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="AppTheme.AppCompatEditText" parent="Widget.AppCompat.EditText">
-        <item name="android:textSize">@dimen/font_middle_text_size</item>
+        <item name="android:textSize">@dimen/font_medium_big_button</item>
         <item name="android:textColorHint">@color/colorTextNotFilled</item>
         <item name="android:textColor">@color/colorTextFilled</item>
     </style>
