@@ -223,7 +223,11 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
     }
 
     fun addSeries(){
-        series.value = series.value?.plus(1)
+        series.value?.let {
+            series.value = series.value?.plus(1)
+        } ?: run {
+            series.value = 1
+        }
     }
 
 }

@@ -15,7 +15,7 @@ class DetailsUrineLossFragment (private val trainingDiary: TrainingDiary?): Frag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        urine_loss_qtd.text = getString(R.string.urine_loss_qtd, trainingDiary?.getUrineLossSize())
+        urine_loss_qtd.text = getString(R.string.urine_loss_qtd, trainingDiary?.urineLossSize())
 
         val layoutManager = LinearLayoutManager(activity)
         urine_loss_recycler_view.layoutManager = layoutManager

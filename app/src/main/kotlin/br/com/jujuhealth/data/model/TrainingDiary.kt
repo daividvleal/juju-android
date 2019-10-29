@@ -65,6 +65,6 @@ data class TrainingDiary(
 
     fun hasUrineLoss() = urineLoss.size > 0
 
-    fun getUrineLossSize() = urineLoss.size
+    fun urineLossSize() = urineLoss.size
 
 }

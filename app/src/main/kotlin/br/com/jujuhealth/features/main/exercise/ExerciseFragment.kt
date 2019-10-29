@@ -62,7 +62,9 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
                 BaseModel.Status.ERROR -> {
                     meta.setSeries(0)
                 }
-                BaseModel.Status.DEFAULT -> { }
+                BaseModel.Status.DEFAULT -> {
+                    meta.setSeries(0)
+                }
             }
         })
 
