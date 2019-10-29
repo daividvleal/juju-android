@@ -32,8 +32,11 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
                             providerId = auth.currentUser?.providerId,
                             uId = auth.currentUser?.uid
                         )
-                    )
-
+                    ).addOnSuccessListener {
+                        success(auth.currentUser)
+                    }.addOnFailureListener{
+                        error(it)
+                    }
                 } else {
                     error(task.exception)
                 }

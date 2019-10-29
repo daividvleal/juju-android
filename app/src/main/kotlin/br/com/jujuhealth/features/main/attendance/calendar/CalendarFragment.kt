@@ -195,8 +195,8 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
     private fun addUrineLoss(trainingDiary: TrainingDiary?) {
         DialogInsertUrineLoss(trainingDiary).show(
-            activityHost.supportFragmentManager,
-            "DIALOG_URINE_LOSS"
+                activityHost.supportFragmentManager,
+                "DIALOG_URINE_LOSS"
         )
     }
 

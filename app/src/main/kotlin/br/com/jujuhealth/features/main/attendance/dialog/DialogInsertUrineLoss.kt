@@ -10,10 +10,11 @@ import androidx.fragment.app.DialogFragment
 import br.com.jujuhealth.R
 import br.com.jujuhealth.data.model.TrainingDiary
 import br.com.jujuhealth.features.main.attendance.calendar.CalendarViewModel
+import kotlinx.android.synthetic.main.fragment_change_password.*
 import kotlinx.android.synthetic.main.fragment_insert_urine_loss.*
 import org.koin.android.ext.android.inject
 
-class DialogInsertUrineLoss(val trainingDiary: TrainingDiary?) : DialogFragment() {
+class DialogInsertUrineLoss(private val trainingDiary: TrainingDiary?) : DialogFragment() {
 
     private val viewModel: CalendarViewModel by inject()
 
@@ -48,6 +49,7 @@ class DialogInsertUrineLoss(val trainingDiary: TrainingDiary?) : DialogFragment(
                 }
             }
             dismiss()
+            viewModel.getActualMonth()
         }
     }
 
