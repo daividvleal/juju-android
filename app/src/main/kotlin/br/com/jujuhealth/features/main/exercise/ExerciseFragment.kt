@@ -7,6 +7,9 @@ import androidx.lifecycle.Observer
 import br.com.jujuhealth.R
 import br.com.jujuhealth.activeMode
 import br.com.jujuhealth.data.model.BaseModel
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_RESUME_EXERCISE
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_START_EXERCISE
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_STOP_EXERCISE
 import br.com.jujuhealth.extension.getFormattedKey
 import br.com.jujuhealth.features.main.HostMainActivity
 import br.com.jujuhealth.features.main.exercise.animator.ProgressBarAnimation
@@ -23,13 +26,13 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
     override fun onResume() {
         exerciseViewModel.resetFields()
         exerciseViewModel.getTrainingDiary(Calendar.getInstance().getFormattedKey())
+        activityHost.log(FIREBASE_EVENT_PRESSED_RESUME_EXERCISE)
         startFields()
         super.onResume()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         activityHost = (requireActivity() as HostMainActivity)
         activityHost.setUpToolbarWithMenuItem(
             R.string.exercise,
@@ -41,10 +44,12 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         }
 
         btn_play.setOnClickListener {
+            activityHost.log(FIREBASE_EVENT_PRESSED_START_EXERCISE)
             start()
         }
 
         btn_stop.setOnClickListener {
+            activityHost.log(FIREBASE_EVENT_PRESSED_STOP_EXERCISE)
             cancel()
         }
 
@@ -89,7 +94,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
                 anim.duration = 1500
                 progress.startAnimation(anim)
             }
-            if(it >= progress.max){
+            if(it >= (progress.max/100)){
                 activityHost.setExerciseFinished(true)
                 activityHost.addSeries()
                 exerciseViewModel.addSeries()

@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import br.com.jujuhealth.R
 import br.com.jujuhealth.activeMode
 import br.com.jujuhealth.data.model.TrainingModel
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_EASY_LEVEL
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_HARD_LEVEL
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_MEDIUM_LEVEL
 import br.com.jujuhealth.features.main.HostMainActivity
 import br.com.jujuhealth.widget.CustomLevel
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -58,6 +61,7 @@ class LevelFragment : Fragment(R.layout.fragment_level) {
                 medium, CustomLevel.LEVEL.MEDIUM
             )
             activityHost.setSeries(0)
+            activityHost.log(FIREBASE_EVENT_PRESSED_EASY_LEVEL)
             levelViewModel.setActivatedMode(CustomLevel.LEVEL.EASY)
         }
 
@@ -68,6 +72,7 @@ class LevelFragment : Fragment(R.layout.fragment_level) {
                 hard, CustomLevel.LEVEL.HARD
             )
             activityHost.setSeries(0)
+            activityHost.log(FIREBASE_EVENT_PRESSED_MEDIUM_LEVEL)
             levelViewModel.setActivatedMode(CustomLevel.LEVEL.MEDIUM)
         }
 
@@ -78,6 +83,7 @@ class LevelFragment : Fragment(R.layout.fragment_level) {
                 easy, CustomLevel.LEVEL.EASY
             )
             activityHost.setSeries(0)
+            activityHost.log(FIREBASE_EVENT_PRESSED_HARD_LEVEL)
             levelViewModel.setActivatedMode(CustomLevel.LEVEL.HARD)
         }
 

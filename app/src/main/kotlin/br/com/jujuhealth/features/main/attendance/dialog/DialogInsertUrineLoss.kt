@@ -10,6 +10,9 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import br.com.jujuhealth.R
 import br.com.jujuhealth.data.model.TrainingDiary
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_BACK_ADD_URINE_LOSS
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_CONFIRM_ADD_URINE_LOSS
+import br.com.jujuhealth.features.main.HostMainActivity
 import br.com.jujuhealth.features.main.attendance.calendar.CalendarViewModel
 import kotlinx.android.synthetic.main.fragment_insert_urine_loss.*
 import org.koin.android.ext.android.inject
@@ -17,6 +20,7 @@ import org.koin.android.ext.android.inject
 class DialogInsertUrineLoss(private val trainingDiary: TrainingDiary?, private val update: () -> Unit) : DialogFragment(){
 
     private val viewModel: CalendarViewModel by inject()
+    private lateinit var activityHost: HostMainActivity
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
@@ -33,12 +37,14 @@ class DialogInsertUrineLoss(private val trainingDiary: TrainingDiary?, private v
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        activityHost = (requireActivity() as HostMainActivity)
         back.setOnClickListener {
+            activityHost.log(FIREBASE_EVENT_PRESSED_BACK_ADD_URINE_LOSS)
             dismiss()
         }
 
         confirm.setOnClickListener {
+            activityHost.log(FIREBASE_EVENT_PRESSED_CONFIRM_ADD_URINE_LOSS)
             when(radio_group.checkedRadioButtonId){
                 R.id.low -> {
                     trainingDiary?.urineLoss?.add(1)

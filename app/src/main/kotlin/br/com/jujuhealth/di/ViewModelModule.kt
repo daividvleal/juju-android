@@ -1,5 +1,6 @@
 package br.com.jujuhealth.di
 
+import br.com.jujuhealth.features.main.MainViewModel
 import br.com.jujuhealth.features.auth.AuthViewModel
 import br.com.jujuhealth.features.main.attendance.calendar.CalendarViewModel
 import br.com.jujuhealth.features.main.changepassword.ChangePasswordViewModel
@@ -18,4 +19,5 @@ val viewModelModule = module {
     viewModel { ProfileViewModel(get(), get()) }
     viewModel { CalendarViewModel(get()) }
     viewModel { ChangePasswordViewModel(get()) }
+    viewModel { MainViewModel(get()) }
 }

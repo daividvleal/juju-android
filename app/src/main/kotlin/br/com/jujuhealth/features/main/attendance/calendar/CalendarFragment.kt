@@ -8,6 +8,8 @@ import br.com.jujuhealth.R
 import br.com.jujuhealth.activeMode
 import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.data.model.TrainingDiary
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_ADD_URINE_LOSS
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_CALENDAR_CELL
 import br.com.jujuhealth.extension.getFormattedKey
 import br.com.jujuhealth.features.main.HostMainActivity
 import br.com.jujuhealth.features.main.attendance.dialog.DialogDetails
@@ -45,6 +47,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
         }
 
         calendarView.setOnDayClickListener {
+            activityHost.log(FIREBASE_EVENT_PRESSED_CALENDAR_CELL)
             seeDetails = true
             selectedDate = it.calendar.getFormattedKey()
             viewModel.getDiaryOnCalendar(selectedDate)
@@ -59,6 +62,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
         }
 
         add_urine_loss.setOnClickListener {
+            activityHost.log(FIREBASE_EVENT_PRESSED_ADD_URINE_LOSS)
             seeDetails = false
             viewModel.getDiaryOnCalendar(
                 Calendar.getInstance().getFormattedKey()

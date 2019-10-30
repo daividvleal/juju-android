@@ -9,17 +9,27 @@ import androidx.core.view.isEmpty
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.jujuhealth.R
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_BAR_ICON
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_CALENDAR_TAB_ICON_
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_EXERCISE_TAB_ICON
+import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_PROFILE_TAB_ICON
 import br.com.jujuhealth.features.main.changepassword.ChangePasswordFragment
 import br.com.jujuhealth.features.main.exercise.filter.LevelFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main_host.*
+import org.koin.android.ext.android.inject
 
 class HostMainActivity : AppCompatActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private val mainViewModel: MainViewModel by inject()
     private lateinit var navController: NavController
     private var exerciseFinished = false
     private var series = 0
+
+    fun log(name: String){
+        mainViewModel.log(name)
+    }
 
     override fun onBackPressed() {
         toolbar?.let {
@@ -79,6 +89,7 @@ class HostMainActivity : AppCompatActivity(),
         toolbar.navigationIcon = null
         when (menuItem.itemId) {
             R.id.navigation_calendar -> {
+                log(FIREBASE_EVENT_PRESSED_CALENDAR_TAB_ICON_)
                 toolbar.title = getString(R.string.attendance)
                 navController.navigate(R.id.go_to_attendance)
             }
@@ -87,6 +98,7 @@ class HostMainActivity : AppCompatActivity(),
                 navController.navigate(R.id.go_to_video)
             }
             R.id.navigation_exercise -> {
+                log(FIREBASE_EVENT_PRESSED_EXERCISE_TAB_ICON)
                 toolbar.title = getString(R.string.exercise)
                 navController.navigate(R.id.go_to_exercise)
             }
@@ -95,6 +107,7 @@ class HostMainActivity : AppCompatActivity(),
                 navController.navigate(R.id.go_to_star)
             }
             R.id.navigation_profile -> {
+                log(FIREBASE_EVENT_PRESSED_PROFILE_TAB_ICON)
                 toolbar.title = getString(R.string.profile)
                 navController.navigate(R.id.go_to_profile)
             }
@@ -140,6 +153,7 @@ class HostMainActivity : AppCompatActivity(),
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.navigation_level -> {
+                    log(FIREBASE_EVENT_PRESSED_BAR_ICON)
                     if(!isFragmentActive<LevelFragment>()){
                         navController.navigate(R.id.go_to_filter)
                         toolbar.title = getString(R.string.exercise_level)
