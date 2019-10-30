@@ -79,9 +79,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:$navigation"
     implementation "androidx.navigation:navigation-ui:$navigation"
 
-    //Shimmer
-    implementation "com.facebook.shimmer:shimmer:$shimmer"
-
     //Koin
     implementation "org.koin:koin-core:$koin"
     implementation "org.koin:koin-android:$koin"

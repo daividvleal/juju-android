@@ -9,6 +9,7 @@ import br.com.jujuhealth.activeMode
 import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.extension.getFormattedKey
 import br.com.jujuhealth.features.main.HostMainActivity
+import br.com.jujuhealth.features.main.exercise.animator.ProgressBarAnimation
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import org.koin.android.ext.android.inject
 import java.util.*
@@ -84,7 +85,9 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
         exerciseViewModel.progress.observe(viewLifecycleOwner, Observer {
             if (!progressMax){
-                progress.progress = it
+                val anim = ProgressBarAnimation(progress, progress.progress, it)
+                anim.duration = 1500
+                progress.startAnimation(anim)
             }
             if(it >= progress.max){
                 activityHost.setExerciseFinished(true)
@@ -136,7 +139,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         meta.setMeta("0/${activeMode?.repetitions}")
         what_doing.text = ""
         progress.progress = 0
-        progress.max = activeMode?.repetitions!!
+        progress.max = activeMode?.repetitions!!*100
     }
 
 }
