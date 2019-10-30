@@ -31,6 +31,8 @@ const val FIREBASE_EVENT_PRESSED_PROFILE_TAB_ICON = "pressed_profile_tab_icon"
 
 fun FirebaseAnalytics.log(name: String){
     val bundle = Bundle()
+    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, name)
     bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name)
+    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, name)
     logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
 }
