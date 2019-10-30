@@ -6,26 +6,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageButton
             android:id="@+id/circle_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_elipse"
-            app:civ_border_color="@color/lightGray"
-            app:civ_border_width="8dp"
+            android:src="@drawable/ic_profile"
+            android:contentDescription="@string/profile"
+            android:background="@drawable/background_transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/guideline_middle"/>
-
-    <ImageView
-            android:id="@+id/img_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_profile_picture"
-            app:layout_constraintBottom_toBottomOf="@id/circle_profile"
-            app:layout_constraintEnd_toEndOf="@id/circle_profile"
-            app:layout_constraintStart_toStartOf="@id/circle_profile"
-            app:layout_constraintTop_toTopOf="@id/circle_profile" />
 
     <TextView
             android:padding="@dimen/common_medium_margin"
@@ -84,6 +74,7 @@
             android:id="@+id/img_change_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/change_pwd"
             android:layout_marginStart="@dimen/common_big_big_margin"
             android:src="@drawable/ic_change_pwd"
             app:layout_constraintBottom_toBottomOf="@id/view"
@@ -109,6 +100,7 @@
             android:layout_marginStart="@dimen/common_big_big_margin"
             android:layout_marginTop="@dimen/common_big_margin"
             android:src="@drawable/ic_logout"
+            android:contentDescription="@string/logout"
             app:layout_constraintStart_toStartOf="@id/view"
             app:layout_constraintTop_toBottomOf="@id/img_change_pwd" />
 
@@ -148,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="circle_profile,img_profile,txt_name,txt_email" />
+            app:constraint_referenced_ids="circle_profile,txt_name,txt_email" />
 
     <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_middle"

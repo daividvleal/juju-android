@@ -5,7 +5,7 @@ import br.com.jujuhealth.data.model.TrainingModel
 val slowEasy = TrainingModel(
     mode = TrainingModel.Mode.SLOW,
     difficulty = TrainingModel.Difficulty.EASY,
-    repetitions = 2,
+    repetitions = 10,
     contractionDuration = 4000,
     relaxDuration = 4000
 )
@@ -13,7 +13,7 @@ val slowEasy = TrainingModel(
 val slowMedium = TrainingModel(
     mode = TrainingModel.Mode.SLOW,
     difficulty = TrainingModel.Difficulty.MEDIUM,
-    repetitions = 1,
+    repetitions = 10,
     contractionDuration = 6000,
     relaxDuration = 6000
 )
@@ -21,7 +21,7 @@ val slowMedium = TrainingModel(
 val slowHard = TrainingModel(
     mode = TrainingModel.Mode.SLOW,
     difficulty = TrainingModel.Difficulty.HARD,
-    repetitions = 1,
+    repetitions = 10,
     contractionDuration = 10000,
     relaxDuration = 10000
 )
