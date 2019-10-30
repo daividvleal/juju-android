@@ -42,6 +42,8 @@ buildscript {
         firebase_core="17.2.1"
         firebase_database="19.2.0"
         firebase_firestore="21.2.1"
+        firebase_messaging="20.0.0"
+        worker="1.0.1"
         google_services = "4.3.1"
 
     }

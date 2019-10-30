@@ -8,6 +8,7 @@ import br.com.jujuhealth.activeMode
 import br.com.jujuhealth.data.model.TrainingModel
 import br.com.jujuhealth.features.main.HostMainActivity
 import br.com.jujuhealth.widget.CustomLevel
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_level.*
 import org.koin.android.ext.android.inject
 
