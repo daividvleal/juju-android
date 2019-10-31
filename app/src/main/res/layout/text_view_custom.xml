@@ -12,7 +12,6 @@
             style="@style/AppTheme.TextViewInfoInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:editable="false"
             android:inputType="textAutoComplete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -26,6 +25,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/text_box_underline_selector"
             android:lines="1"
+            android:inputType="textLongMessage"
             app:layout_constraintTop_toBottomOf="@id/text_info"
             tools:hint="Qual seu e-mail?" />
 

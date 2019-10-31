@@ -38,3 +38,27 @@ fun TextView.setTextAndMakePartClickble(
     this.movementMethod = LinkMovementMethod.getInstance()
     this.highlightColor = Color.TRANSPARENT
 }
+
+fun TextView.setTextAndMarkNumberAndLevel(
+    text: String
+) {
+    val strings = text.split(" ")
+    val startNumber = 0
+    val endNumber = strings[0].length
+    val startLevel = endNumber + 8
+    val endLevel = text.length
+    val spannableString = SpannableString(text)
+    spannableString.setSpan(StyleSpan(Typeface.BOLD), startNumber, endNumber, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    spannableString.setSpan(StyleSpan(Typeface.BOLD),  startLevel, endLevel, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    this.text = spannableString
+}
+
+fun TextView.setMarkLevel(
+    text: String
+) {
+    val startLevel = 15
+    val endLevel = text.length
+    val spannableString = SpannableString(text)
+    spannableString.setSpan(StyleSpan(Typeface.BOLD),  startLevel, endLevel, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    this.text = spannableString
+}

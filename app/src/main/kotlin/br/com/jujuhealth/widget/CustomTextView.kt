@@ -6,9 +6,11 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.withStyledAttributes
 import br.com.jujuhealth.R
+import br.com.jujuhealth.extension.isName
 import kotlinx.android.synthetic.main.text_view_custom.view.*
 
 class CustomTextView(
@@ -95,6 +97,7 @@ class CustomTextView(
             TYPETEXT.EMAIL -> { context.getString(R.string.invalid_email) }
             TYPETEXT.PASSWORD -> { context.getString(R.string.invalid_password) }
             TYPETEXT.OBEY -> { context.getString(R.string.obey) }
+            TYPETEXT.INVALID -> { context.getString(R.string.invalid_field) }
         }
         edit_text.requestFocus()
         edit_text.error = message
@@ -104,7 +107,8 @@ class CustomTextView(
         enum class TYPETEXT{
             EMAIL,
             PASSWORD,
-            OBEY
+            OBEY,
+            INVALID
         }
     }
 

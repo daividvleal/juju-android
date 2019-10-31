@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.jujuhealth.R
+import br.com.jujuhealth.extension.setMarkLevel
 import br.com.jujuhealth.features.main.attendance.viewholder.UrineLossViewHolder
 import kotlinx.android.synthetic.main.item_urine_loss_dialog.view.*
 
@@ -27,22 +28,22 @@ class UrineLossAdapter(
                 when (it[position]) {
                     0 -> {}
                     1 -> {
-                        holder.layout.urine_loss_text.text = context.getString(
+                        holder.layout.urine_loss_text.setMarkLevel(context.getString(
                             R.string.urine_loss_text_item,
                             context.getString(R.string.urine_loss_low)
-                        )
+                        ))
                     }
                     2 -> {
-                        holder.layout.urine_loss_text.text = context.getString(
+                        holder.layout.urine_loss_text.setMarkLevel(context.getString(
                             R.string.urine_loss_text_item,
                             context.getString(R.string.urine_loss_medium)
-                        )
+                        ))
                     }
                     3 -> {
-                        holder.layout.urine_loss_text.text = context.getString(
+                        holder.layout.urine_loss_text.setMarkLevel(context.getString(
                             R.string.urine_loss_text_item,
                             context.getString(R.string.urine_loss_big)
-                        )
+                        ))
                     }
                 }
             }

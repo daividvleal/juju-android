@@ -44,4 +44,8 @@ class CustomButton(
         }
     }
 
+    fun setEndText(text: String){
+        btn_text_end.text = text
+    }
+
 }

@@ -3,12 +3,10 @@ package br.com.jujuhealth.features.auth.signup
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import br.com.jujuhealth.R
-import br.com.jujuhealth.extension.isEmail
-import br.com.jujuhealth.extension.isPassword
-import br.com.jujuhealth.extension.setTextAndMakePartClickble
-import br.com.jujuhealth.extension.toDateDetailDialogFormat
+import br.com.jujuhealth.extension.*
 import br.com.jujuhealth.features.auth.HostSignActivity
 import br.com.jujuhealth.widget.CustomTextView
 import kotlinx.android.synthetic.main.fragment_sign_up.*
@@ -69,6 +67,9 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), DatePickerDialog.OnD
     private fun validateEmailAndPassword(): Boolean{
         if(txt_name.getText().isEmpty()){
             txt_name.setError(CustomTextView.Companion.TYPETEXT.OBEY)
+            return false
+        }else if(!txt_name.getText().isName()){
+            txt_name.setError(CustomTextView.Companion.TYPETEXT.INVALID)
             return false
         }else if(txt_birthday.getText().isEmpty()){
             txt_birthday.setError(CustomTextView.Companion.TYPETEXT.OBEY)

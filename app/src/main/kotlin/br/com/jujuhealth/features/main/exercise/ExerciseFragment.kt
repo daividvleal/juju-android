@@ -1,5 +1,6 @@
 package br.com.jujuhealth.features.main.exercise
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -7,11 +8,13 @@ import androidx.lifecycle.Observer
 import br.com.jujuhealth.R
 import br.com.jujuhealth.activeMode
 import br.com.jujuhealth.data.model.BaseModel
+import br.com.jujuhealth.data.model.TrainingModel
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_RESUME_EXERCISE
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_START_EXERCISE
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_STOP_EXERCISE
 import br.com.jujuhealth.extension.getFormattedKey
 import br.com.jujuhealth.features.main.HostMainActivity
+import br.com.jujuhealth.features.main.MainActivityExercise
 import br.com.jujuhealth.features.main.exercise.animator.ProgressBarAnimation
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import org.koin.android.ext.android.inject
@@ -38,10 +41,28 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
             R.string.exercise,
             R.menu.toolbar_exercise_menu
         )
+        activityHost.setNavigationIcon(R.drawable.ic_arrow_back){
+            activityHost.startActivity(Intent(requireActivity(), MainActivityExercise::class.java))
+            activityHost.finish()
+        }
+
+        when(activeMode?.difficulty){
+            TrainingModel.Difficulty.EASY -> {
+                btn_start.setEndText(getString(R.string.level, getString(R.string.level_easy)))
+            }
+            TrainingModel.Difficulty.MEDIUM -> {
+                btn_start.setEndText(getString(R.string.level, getString(R.string.level_medium)))
+            }
+            TrainingModel.Difficulty.HARD -> {
+                btn_start.setEndText(getString(R.string.level, getString(R.string.level_hard)))
+            }
+        }
 
         btn_start.setOnClick {
             flipVisibility()
+            start()
         }
+
 
         btn_play.setOnClickListener {
             activityHost.log(FIREBASE_EVENT_PRESSED_START_EXERCISE)

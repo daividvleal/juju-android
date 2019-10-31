@@ -15,3 +15,11 @@ fun String?.isPassword(): Boolean{
         false
     }
 }
+
+fun String?.isName(): Boolean{
+    return this?.let {
+        this.contains(Regex("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$"))
+    } ?: run {
+        false
+    }
+}

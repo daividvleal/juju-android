@@ -135,6 +135,13 @@ class HostMainActivity : AppCompatActivity(),
         series = qtd
     }
 
+    fun setNavigationIcon(icon: Int, navigate: () -> Unit){
+        toolbar.navigationIcon = getDrawable(icon)
+        toolbar.setNavigationOnClickListener {
+            navigate()
+        }
+    }
+
     fun setUpToolbarWithIconAction(title: Int, icon: Int, action: () -> Unit) {
         setUpToolbarTitle(title)
         toolbar.navigationIcon = getDrawable(icon)
