@@ -8,7 +8,7 @@ class ProgressBarAnimation(
     private val progressBar: ProgressBar,
     private val from: Int,
     private val to: Int
-) : Animation() {
+) : Animation(){
 
     override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
         super.applyTransformation(interpolatedTime, t)

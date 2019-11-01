@@ -18,7 +18,8 @@
             app:layout_constraintBottom_toTopOf="@id/guideline_middle"/>
 
     <TextView
-            android:padding="@dimen/common_medium_margin"
+            android:paddingLeft="@dimen/common_small_margin"
+            android:paddingRight="@dimen/common_small_margin"
             android:id="@+id/txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +32,6 @@
             tools:text="Joana Maria" />
 
     <TextView
-            android:padding="@dimen/common_small_margin"
             android:id="@+id/txt_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
             android:id="@+id/group_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             app:constraint_referenced_ids="circle_profile,txt_name,txt_email" />
 
     <androidx.constraintlayout.widget.Guideline

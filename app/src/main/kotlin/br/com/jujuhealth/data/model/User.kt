@@ -1,14 +1,16 @@
 package br.com.jujuhealth.data.model
 
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
 import java.io.Serializable
+import java.util.*
 
 data class User(
     val name: String? = "",
     val uId: String? = "",
     val email: String? = "",
     val providerId: String? = "",
-    val birthday: String? = ""
+    val birthday: Timestamp? = Timestamp(Date())
 ): Serializable{
 
     companion object{
@@ -18,7 +20,7 @@ data class User(
                 uId = currentUser?.uid,
                 email = currentUser?.email,
                 providerId = currentUser?.providerId,
-                birthday = ""
+                birthday = Timestamp(Date())
             )
         }
     }

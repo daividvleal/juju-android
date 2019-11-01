@@ -2,6 +2,7 @@ package br.com.jujuhealth.data.request.sign
 
 import br.com.jujuhealth.data.model.User
 import br.com.jujuhealth.data.request.COLLECTION_USER
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -11,7 +12,7 @@ class ServiceAuth(private val auth: FirebaseAuth, private val database: Firebase
 
     override fun signUp(
         name: String,
-        birthday: String,
+        birthday: Timestamp,
         email: String,
         password: String,
         success: (FirebaseUser?) -> Unit,

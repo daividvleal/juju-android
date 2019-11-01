@@ -1,6 +1,8 @@
 package br.com.jujuhealth.data.request.sign
 
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
+
 
 interface ServiceAuthContract {
 
@@ -13,7 +15,7 @@ interface ServiceAuthContract {
 
     fun signUp(
         name: String,
-        birthday: String,
+        birthday: Timestamp,
         email: String,
         password: String,
         success: (FirebaseUser?) -> Unit,

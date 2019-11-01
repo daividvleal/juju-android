@@ -9,6 +9,7 @@ import br.com.jujuhealth.R
 import br.com.jujuhealth.extension.*
 import br.com.jujuhealth.features.auth.HostSignActivity
 import br.com.jujuhealth.widget.CustomTextView
+import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.progress_bar
 import kotlinx.android.synthetic.main.fragment_sign_up.text_bottom
@@ -18,6 +19,8 @@ import java.util.*
 
 class SignUpFragment : Fragment(R.layout.fragment_sign_up), DatePickerDialog.OnDateSetListener{
 
+    private lateinit var birthDay: Timestamp
+
     override fun onDateSet(
         view: android.widget.DatePicker?,
         year: Int,
@@ -26,6 +29,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), DatePickerDialog.OnD
     ) {
         val calendar = Calendar.getInstance()
         calendar.set(year,month,dayOfMonth)
+        birthDay = Timestamp(calendar.time)
         txt_birthday.setText(calendar.toDateDetailDialogFormat(requireContext()))
     }
 
@@ -37,7 +41,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up), DatePickerDialog.OnD
         hostActivity.setObservable(progress_bar)
         sign_up.setOnClickListener {
             if(validateEmailAndPassword()){
-                hostActivity.viewModel.signUp(txt_name.getText(), txt_birthday.getText(), txt_email.getText(), txt_pwd.getText())
+                hostActivity.viewModel.signUp(txt_name.getText(), birthDay, txt_email.getText(), txt_pwd.getText())
             }
         }
         text_bottom.setTextAndMakePartClickble(getString(R.string.go_back),

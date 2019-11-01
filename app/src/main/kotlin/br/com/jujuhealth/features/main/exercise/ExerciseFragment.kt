@@ -3,6 +3,7 @@ package br.com.jujuhealth.features.main.exercise
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import br.com.jujuhealth.R
@@ -110,16 +111,11 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         })
 
         exerciseViewModel.progress.observe(viewLifecycleOwner, Observer {
-            if (!progressMax){
-                val anim = ProgressBarAnimation(progress, progress.progress, it)
-                anim.duration = 1500
-                progress.startAnimation(anim)
-            }
-            if(it >= (progress.max/100)){
+            animateProgressBar(progress.progress, it)
+            if(it == (progress.max/100)){
                 activityHost.setExerciseFinished(true)
                 activityHost.addSeries()
                 exerciseViewModel.addSeries()
-                exerciseViewModel.progress.value = 0
                 progressMax = true
             }
         })
@@ -129,11 +125,46 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         })
     }
 
+    private fun animateProgressBar(start: Int, end: Int){
+        val anim = ProgressBarAnimation(progress, start, end)
+        anim.setAnimationListener(object : Animation.AnimationListener{
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                if(end == (progress.max/100)){
+                    val anim = ProgressBarAnimation(progress, progress.max, 0)
+                    anim.setAnimationListener(object : Animation.AnimationListener{
+                        override fun onAnimationRepeat(animation: Animation?) {
+                        }
+
+                        override fun onAnimationEnd(animation: Animation?) {
+                            progress.progress = 0
+                            exerciseViewModel.progress.value = 0
+                        }
+
+                        override fun onAnimationStart(animation: Animation?) {
+                        }
+
+                    })
+                    anim.duration = 700
+                    progress.startAnimation(anim)
+                }
+            }
+
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+        })
+        anim.duration = 1500
+        progress.startAnimation(anim)
+    }
+
     private fun start() {
         btn_play.visibility = View.GONE
         btn_stop.visibility = View.VISIBLE
         exerciseViewModel.doAgain = true
-        exerciseViewModel.contract(circle, R.drawable.ic_exercicio_animation_complete, expanded_image, container)
+        exerciseViewModel.contract(circle, R.drawable.ic_exercicio_animation_complete, expanded_image, container, activeMode?.repetitions!!)
     }
 
     private fun cancel() {

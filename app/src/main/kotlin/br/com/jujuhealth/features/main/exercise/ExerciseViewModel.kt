@@ -58,7 +58,8 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
         thumbView: View,
         imageResId: Int,
         expanded_image: ImageView,
-        container: FrameLayout
+        container: FrameLayout,
+        progressMax: Int
     ) {
         currentAnimator?.cancel()
         countDownTimer?.cancel()
@@ -128,7 +129,7 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
 
                 override fun onAnimationEnd(animation: Animator) {
                     resetAnimationAndCount()
-                    relax(thumbView, startBounds, startScale, imageResId, expanded_image, container)
+                    relax(thumbView, startBounds, startScale, imageResId, expanded_image, container, progressMax)
                 }
 
                 override fun onAnimationCancel(animation: Animator) {
@@ -146,7 +147,8 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
         startScale: Float,
         imageResId: Int,
         expanded_image: ImageView,
-        container: FrameLayout
+        container: FrameLayout,
+        progressMax: Int
     ) {
         currentAnimator?.cancel()
         countDownTimer?.cancel()
@@ -176,8 +178,9 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
                     if (doAgain) {
                         meta.value = "$count/${activeMode?.repetitions!!}"
                         progress.value = progress.value?.plus(1)
-                        contract(thumbView, imageResId, expanded_image, container)
+                        contract(thumbView, imageResId, expanded_image, container, progressMax)
                     }
+                    //todo verify max progress bar
                 }
 
                 override fun onAnimationCancel(animation: Animator) {
