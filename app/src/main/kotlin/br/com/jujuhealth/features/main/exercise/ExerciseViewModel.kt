@@ -180,7 +180,10 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
                         progress.value = progress.value?.plus(1)
                         contract(thumbView, imageResId, expanded_image, container, progressMax)
                     }
-                    //todo verify max progress bar
+
+                    if(progress.value == progressMax){
+                        addSeries()
+                    }
                 }
 
                 override fun onAnimationCancel(animation: Animator) {

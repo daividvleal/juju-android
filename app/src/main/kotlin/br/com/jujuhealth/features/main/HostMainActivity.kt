@@ -127,12 +127,12 @@ class HostMainActivity : AppCompatActivity(),
 
     fun getSeries() = series
 
-    fun addSeries(){
-        series++
-    }
-
-    fun setSeries(qtd: Int){
-        series = qtd
+    fun setSeries(qtd: Int?){
+        qtd?.let {
+            series = qtd
+        } ?: run {
+            series = 0
+        }
     }
 
     fun setNavigationIcon(icon: Int, navigate: () -> Unit){

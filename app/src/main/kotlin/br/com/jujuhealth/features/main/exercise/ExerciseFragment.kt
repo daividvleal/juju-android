@@ -25,7 +25,6 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
     private val exerciseViewModel: ExerciseViewModel by inject()
     private lateinit var activityHost: HostMainActivity
-    private var progressMax = false
 
     override fun onResume() {
         exerciseViewModel.resetFields()
@@ -85,7 +84,9 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
             when (it.status) {
                 BaseModel.Status.LOADING -> { }
                 BaseModel.Status.SUCCESS -> {
-                    meta.setSeries(it.data?.getSeries())
+                    val series = it.data?.getSeries()
+                    meta.setSeries(series)
+                    activityHost.setSeries(series)
                 }
                 BaseModel.Status.ERROR -> {
                     meta.setSeries(0)
@@ -112,51 +113,38 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
         exerciseViewModel.progress.observe(viewLifecycleOwner, Observer {
             animateProgressBar(progress.progress, it)
-            if(it == (progress.max/100)){
-                activityHost.setExerciseFinished(true)
-                activityHost.addSeries()
-                exerciseViewModel.addSeries()
-                progressMax = true
-            }
         })
 
         exerciseViewModel.series.observe(viewLifecycleOwner, Observer {
             meta.setSeries(it)
+            activityHost.setExerciseFinished(true)
+            activityHost.setSeries(it)
         })
     }
 
     private fun animateProgressBar(start: Int, end: Int){
         val anim = ProgressBarAnimation(progress, start, end)
         anim.setAnimationListener(object : Animation.AnimationListener{
-            override fun onAnimationRepeat(animation: Animation?) {
-            }
-
-            override fun onAnimationEnd(animation: Animation?) {
-                if(end == (progress.max/100)){
-                    val anim = ProgressBarAnimation(progress, progress.max, 0)
-                    anim.setAnimationListener(object : Animation.AnimationListener{
-                        override fun onAnimationRepeat(animation: Animation?) {
-                        }
-
-                        override fun onAnimationEnd(animation: Animation?) {
-                            progress.progress = 0
-                            exerciseViewModel.progress.value = 0
-                        }
-
-                        override fun onAnimationStart(animation: Animation?) {
-                        }
-
-                    })
-                    anim.duration = 700
-                    progress.startAnimation(anim)
-                }
-            }
-
-            override fun onAnimationStart(animation: Animation?) {
-            }
+            override fun onAnimationRepeat(animation: Animation?) {}
+            override fun onAnimationEnd(animation: Animation?) { if(end == (progress.max/100)){animationProgressBarToReset()} }
+            override fun onAnimationStart(animation: Animation?) { }
 
         })
         anim.duration = 1500
+        progress.startAnimation(anim)
+    }
+
+    private fun animationProgressBarToReset(){
+        val anim = ProgressBarAnimation(progress, progress.max, 0)
+        anim.setAnimationListener(object : Animation.AnimationListener{
+            override fun onAnimationRepeat(animation: Animation?) { }
+            override fun onAnimationEnd(animation: Animation?) {
+                progress.progress = 0
+                exerciseViewModel.progress.value = 0
+            }
+            override fun onAnimationStart(animation: Animation?) {}
+        })
+        anim.duration = 700
         progress.startAnimation(anim)
     }
 

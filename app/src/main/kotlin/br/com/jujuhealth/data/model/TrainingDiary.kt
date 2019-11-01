@@ -33,26 +33,26 @@ data class TrainingDiary(
                 TrainingModel.Mode.SLOW -> {
                     when (trainingModel.difficulty) {
                         TrainingModel.Difficulty.EASY -> {
-                            seriesSlowEasy += qtd
+                            seriesSlowEasy = qtd
                         }
                         TrainingModel.Difficulty.MEDIUM -> {
-                            seriesSlowMedium += qtd
+                            seriesSlowMedium = qtd
                         }
                         TrainingModel.Difficulty.HARD -> {
-                            seriesSlowHard += qtd
+                            seriesSlowHard = qtd
                         }
                     }
                 }
                 TrainingModel.Mode.FAST -> {
                     when (trainingModel.difficulty) {
                         TrainingModel.Difficulty.EASY -> {
-                            seriesFastEasy += qtd
+                            seriesFastEasy = qtd
                         }
                         TrainingModel.Difficulty.MEDIUM -> {
-                            seriesFastMedium += qtd
+                            seriesFastMedium = qtd
                         }
                         TrainingModel.Difficulty.HARD -> {
-                            seriesFastHard += qtd
+                            seriesFastHard = qtd
                         }
                     }
                 }
