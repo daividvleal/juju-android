@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.AppCompatEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/font_medium_big_button</item>
+        <item name="android:textColorHint">@color/colorTextNotFilled</item>
+        <item name="android:textColor">@color/colorTextFilled</item>
+        <item name="android:autofilledHighlight">@drawable/background_transparent</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+
+    </style>
+</resources>

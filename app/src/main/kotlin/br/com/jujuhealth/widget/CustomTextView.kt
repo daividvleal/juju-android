@@ -83,7 +83,7 @@ class CustomTextView(
                     }else{
                         edit_text.inputType = InputType.TYPE_CLASS_TEXT
                     }
-                    result = true
+                    result = false
                 }else{
                     requestFocus()
                 }

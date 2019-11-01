@@ -19,7 +19,9 @@
 
     <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/edit_text"
+            android:padding="@dimen/common_small_margin"
             android:imeOptions="actionNext"
+            android:shadowColor="@android:color/transparent"
             style="@style/AppTheme.AppCompatEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
