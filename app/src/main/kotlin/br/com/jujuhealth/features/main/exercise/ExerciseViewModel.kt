@@ -49,8 +49,8 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
     }
 
     private fun resetAnimationAndCount() {
-        countDownTimer?.cancel()
         currentAnimator = null
+        countDownTimer?.cancel()
         whatDoing.value = -1
     }
 
@@ -218,7 +218,7 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
         diary.value = BaseModel(BaseModel.Status.LOADING, null, null)
         serviceCalendarContract.getTrainingDiaryDay(date, {
             it?.let {
-                series.value = it.getSeries()
+                series.value = it.returnSpecifySerieFromMode(activeMode)
                 diary.value = BaseModel(BaseModel.Status.SUCCESS, it, null)
             } ?: run {
                 diary.value = BaseModel(BaseModel.Status.DEFAULT, null, null)

@@ -29,7 +29,7 @@ val slowHard = TrainingModel(
 val fastEasy = TrainingModel(
     mode = TrainingModel.Mode.FAST,
     difficulty = TrainingModel.Difficulty.EASY,
-    repetitions = 2,
+    repetitions = 10,
     contractionDuration = 1000,
     relaxDuration = 3000
 )

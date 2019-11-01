@@ -23,9 +23,40 @@ data class TrainingDiary(
         return false
     }
 
-    fun getSeries() =
-        seriesSlowEasy + seriesSlowMedium + seriesSlowHard + seriesFastEasy + seriesFastMedium + seriesFastHard
-
+    fun returnSpecifySerieFromMode(trainingModel: TrainingModel?): Int{
+        return trainingModel?.let {
+            when (trainingModel.mode) {
+                TrainingModel.Mode.SLOW -> {
+                    when (trainingModel.difficulty) {
+                        TrainingModel.Difficulty.EASY -> {
+                            seriesSlowEasy
+                        }
+                        TrainingModel.Difficulty.MEDIUM -> {
+                            seriesSlowMedium
+                        }
+                        TrainingModel.Difficulty.HARD -> {
+                            seriesSlowHard
+                        }
+                    }
+                }
+                TrainingModel.Mode.FAST -> {
+                    when (trainingModel.difficulty) {
+                        TrainingModel.Difficulty.EASY -> {
+                            seriesFastEasy
+                        }
+                        TrainingModel.Difficulty.MEDIUM -> {
+                            seriesFastMedium
+                        }
+                        TrainingModel.Difficulty.HARD -> {
+                            seriesFastHard
+                        }
+                    }
+                }
+            }
+        } ?: run {
+            0
+        }
+    }
 
     fun addTraining(trainingModel: TrainingModel?, qtd: Int): TrainingDiary {
         return trainingModel?.let {

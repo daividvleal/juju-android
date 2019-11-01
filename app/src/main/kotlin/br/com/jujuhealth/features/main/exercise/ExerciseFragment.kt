@@ -84,7 +84,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
             when (it.status) {
                 BaseModel.Status.LOADING -> { }
                 BaseModel.Status.SUCCESS -> {
-                    val series = it.data?.getSeries()
+                    val series = it.data?.returnSpecifySerieFromMode(activeMode)
                     meta.setSeries(series)
                     activityHost.setSeries(series)
                 }
@@ -113,12 +113,14 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
         exerciseViewModel.progress.observe(viewLifecycleOwner, Observer {
             animateProgressBar(progress.progress, it)
+            if((progress.max/100) == it){
+                activityHost.setExerciseFinished(true)
+            }
         })
 
         exerciseViewModel.series.observe(viewLifecycleOwner, Observer {
-            meta.setSeries(it)
-            activityHost.setExerciseFinished(true)
             activityHost.setSeries(it)
+            meta.setSeries(it)
         })
     }
 
