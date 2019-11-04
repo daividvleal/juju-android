@@ -2,6 +2,7 @@ package br.com.jujuhealth.features.main.attendance.calendar
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import br.com.jujuhealth.R
@@ -115,7 +116,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                             Snackbar.LENGTH_LONG
                         )
                         snackBar.view.background =
-                            requireContext().getDrawable(R.drawable.background_item_filter_dark)
+                            ContextCompat.getDrawable(requireContext(), R.drawable.background_item_filter_dark)
                         snackBar.show()
                     }else{
                         addUrineLoss(TrainingDiary())
@@ -225,7 +226,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             Snackbar.LENGTH_LONG
         )
         snackBar.view.background =
-            requireContext().getDrawable(R.drawable.background_item_filter_dark)
+            ContextCompat.getDrawable(requireContext(), R.drawable.background_item_filter_dark)
         snackBar.show()
     }
 

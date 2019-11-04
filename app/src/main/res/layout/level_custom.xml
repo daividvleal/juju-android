@@ -17,12 +17,13 @@
             android:id="@+id/levels_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_small_margin"
+            android:gravity="bottom"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:gravity="bottom"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline9">
 
         <ImageView
                 android:id="@+id/lvl_1"
@@ -33,9 +34,9 @@
 
         <ImageView
                 android:id="@+id/lvl_2"
-                android:layout_marginBottom="@dimen/common_small_margin"
                 android:layout_width="@dimen/common_medium_margin"
                 android:layout_height="@dimen/common_medium_high_bar"
+                android:layout_marginBottom="@dimen/common_small_margin"
                 android:src="@drawable/background_item_filter_soft_pink" />
 
         <ImageView
@@ -50,12 +51,34 @@
             android:id="@+id/level_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_small_margin"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/font_medium_button"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/levels_container"
+            app:layout_constraintBottom_toTopOf="@id/repetitions_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/levels_container"
             tools:text="Fácil" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/repetitions_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_medium_margin"
+            android:layout_marginBottom="@dimen/common_medium_margin"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_medium_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/levels_container"
+            tools:text="3 Repetições" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

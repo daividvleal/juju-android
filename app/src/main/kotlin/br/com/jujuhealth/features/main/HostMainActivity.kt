@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isEmpty
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -33,7 +34,7 @@ class HostMainActivity : AppCompatActivity(),
 
     override fun onBackPressed() {
         toolbar?.let {
-            it.background = getDrawable(R.drawable.shape_toolbar_light)
+            it.background = ContextCompat.getDrawable(baseContext, R.drawable.shape_toolbar_light)
         }
 
         if (isFragmentActive<LevelFragment>() || isFragmentActive<ChangePasswordFragment>()){
@@ -136,7 +137,7 @@ class HostMainActivity : AppCompatActivity(),
     }
 
     fun setNavigationIcon(icon: Int, navigate: () -> Unit){
-        toolbar.navigationIcon = getDrawable(icon)
+        toolbar.navigationIcon =  ContextCompat.getDrawable(baseContext, icon)
         toolbar.setNavigationOnClickListener {
             navigate()
         }
@@ -144,7 +145,7 @@ class HostMainActivity : AppCompatActivity(),
 
     fun setUpToolbarWithIconAction(title: Int, icon: Int, action: () -> Unit) {
         setUpToolbarTitle(title)
-        toolbar.navigationIcon = getDrawable(icon)
+        toolbar.navigationIcon = ContextCompat.getDrawable(baseContext, icon)
         toolbar.setNavigationOnClickListener {
             action()
         }
@@ -165,7 +166,7 @@ class HostMainActivity : AppCompatActivity(),
                         navController.navigate(R.id.go_to_filter)
                         toolbar.title = getString(R.string.exercise_level)
                         toolbar.background =
-                            getDrawable(R.drawable.shape_toolbar_light_no_corners)
+                            ContextCompat.getDrawable(baseContext, R.drawable.shape_toolbar_light_no_corners)
                     }
                 }
             }

@@ -131,6 +131,8 @@
     <string name="december">Dezembro</string>
     <string name="add_urine_loss">Adicionar perda de urina</string>
 
+    <string name="repetitions">%d Repetições</string>
+
     <string name="material_calendar_monday">S</string>
     <string name="material_calendar_tuesday">T</string>
     <string name="material_calendar_wednesday">Q</string>

@@ -94,14 +94,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.28" />
+            app:layout_constraintGuide_percent="0.35" />
 
     <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.53" />
+            app:layout_constraintGuide_percent="0.70" />
 
     <ImageButton
             android:id="@+id/back"

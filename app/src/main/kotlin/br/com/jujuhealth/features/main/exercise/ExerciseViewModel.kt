@@ -7,7 +7,9 @@ import android.animation.ObjectAnimator
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
+import android.os.Build
 import android.os.CountDownTimer
+import android.os.Handler
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
@@ -28,6 +30,7 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
     var count = 0
     var currentAnimator: Animator? = null
     var countDownTimer: CountDownTimer? = null
+    var animationEnd = false
 
     val counter = MutableLiveData<String>()
     val whatDoing = MutableLiveData<Int>()
@@ -37,6 +40,7 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
     val diary = MutableLiveData<BaseModel<TrainingDiary, Exception>>()
 
     fun resetFields() {
+        animationEnd = false
         doAgain = false
         count = 0
         currentAnimator = null
@@ -129,7 +133,15 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
 
                 override fun onAnimationEnd(animation: Animator) {
                     resetAnimationAndCount()
-                    relax(thumbView, startBounds, startScale, imageResId, expanded_image, container, progressMax)
+                    relax(
+                        thumbView,
+                        startBounds,
+                        startScale,
+                        imageResId,
+                        expanded_image,
+                        container,
+                        progressMax
+                    )
                 }
 
                 override fun onAnimationCancel(animation: Animator) {
@@ -172,17 +184,22 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
                 }
 
                 override fun onAnimationEnd(animation: Animator) {
-                    thumbView.alpha = 1f
-                    expanded_image.visibility = View.GONE
-                    count++
-                    if (doAgain) {
-                        meta.value = "$count/${activeMode?.repetitions!!}"
-                        progress.value = progress.value?.plus(1)
-                        contract(thumbView, imageResId, expanded_image, container, progressMax)
-                    }
+                    if(animationEnd && Build.VERSION_CODES.O > Build.VERSION.SDK_INT){
+                        animationEnd = false
+                    }else{
+                        animationEnd = true
+                        thumbView.alpha = 1f
+                        expanded_image.visibility = View.GONE
+                        count++
+                        if (doAgain) {
+                            meta.value = "$count/${activeMode?.repetitions!!}"
+                            progress.value = progress.value?.plus(1)
+                            contract(thumbView, imageResId, expanded_image, container, progressMax)
+                        }
 
-                    if(progress.value == progressMax){
-                        addSeries()
+                        if (progress.value == progressMax) {
+                            addSeries()
+                        }
                     }
                 }
 
@@ -199,15 +216,21 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
     private fun setCountDown(duration: Long) {
         countDownTimer = object : CountDownTimer(duration, 1000) {
 
-            override fun onTick(millisUntilFinished: Long) {
-                if (millisUntilFinished < duration) {
-                    counter.value = ((millisUntilFinished + 1000) / 1000).toString()
+            fun setTime(millisUntilFinished: Long) {
+                if (Build.VERSION_CODES.O > Build.VERSION.SDK_INT && millisUntilFinished <= 2000L) {
+                    counter.value = "2"
+                    Handler().postDelayed({
+                        counter.value = "1"
+                    }, 800)
                 }
+                counter.value =  ((millisUntilFinished + 1000) / 1000).toString()
             }
 
-            override fun onFinish() {
-                counter.value = (duration / 1000).toString()
+            override fun onTick(millisUntilFinished: Long) {
+                setTime(millisUntilFinished)
             }
+
+            override fun onFinish() { }
 
         }
     }
@@ -228,7 +251,7 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
         })
     }
 
-    fun addSeries(){
+    fun addSeries() {
         series.value?.let {
             series.value = series.value?.plus(1)
         } ?: run {

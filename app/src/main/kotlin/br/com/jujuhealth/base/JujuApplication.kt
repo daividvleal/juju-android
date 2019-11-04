@@ -1,9 +1,9 @@
 package br.com.jujuhealth.base
 
-import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import androidx.multidex.MultiDexApplication
 import br.com.jujuhealth.BuildConfig
 import br.com.jujuhealth.R
 import br.com.jujuhealth.di.PROPERTY_BASE_URL
@@ -17,7 +17,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class JujuApplication : Application(){
+class JujuApplication : MultiDexApplication(){
 
     override fun onCreate() {
         super.onCreate()

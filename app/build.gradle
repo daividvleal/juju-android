@@ -12,8 +12,9 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName '0.00.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -60,6 +61,7 @@ dependencies {
     implementation "com.applandeo:material-calendar-view:$material_calendar_view"
     implementation "de.hdodenhof:circleimageview:$circle_image_view"
     implementation "com.airbnb.android:lottie:$lottie"
+    implementation "com.android.support:multidex:$multidexVersion"
 
     //Firebase
     implementation "com.google.firebase:firebase-auth:$firebase_auth"

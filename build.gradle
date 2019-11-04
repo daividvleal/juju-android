@@ -7,6 +7,7 @@ buildscript {
         
     }
     ext{
+        multidexVersion="1.0.3"
         lottie = "3.0.7"
         material_calendar_view = '1.7.0'
         circle_image_view = '3.0.1'

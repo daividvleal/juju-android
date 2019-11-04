@@ -1,8 +1,12 @@
 package br.com.jujuhealth.features.main.exercise
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -75,6 +79,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         }
 
         startFields()
+        Log.d("CREATE? ", " passou aqui ")
         setObservable()
     }
 
@@ -132,7 +137,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
             override fun onAnimationStart(animation: Animation?) { }
 
         })
-        anim.duration = 1500
+        anim.duration = 400
         progress.startAnimation(anim)
     }
 
@@ -146,7 +151,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
             }
             override fun onAnimationStart(animation: Animation?) {}
         })
-        anim.duration = 700
+        anim.duration = 250
         progress.startAnimation(anim)
     }
 
@@ -158,6 +163,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
     }
 
     private fun cancel() {
+        exerciseViewModel.animationEnd = false
         exerciseViewModel.doAgain = false
         exerciseViewModel.currentAnimator?.cancel()
         exerciseViewModel.countDownTimer?.cancel()

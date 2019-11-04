@@ -35,56 +35,62 @@ class LevelFragment : Fragment(R.layout.fragment_level) {
                 CustomLevel.setSelectedLevel(
                     easy, CustomLevel.LEVEL.EASY,
                     hard, CustomLevel.LEVEL.HARD,
-                    medium, CustomLevel.LEVEL.MEDIUM
+                    medium, CustomLevel.LEVEL.MEDIUM,
+                    activeMode?.repetitions ?: 0
                 )
             }
             TrainingModel.Difficulty.MEDIUM -> {
                 CustomLevel.setSelectedLevel(
                     medium, CustomLevel.LEVEL.MEDIUM,
                     easy, CustomLevel.LEVEL.EASY,
-                    hard, CustomLevel.LEVEL.HARD
+                    hard, CustomLevel.LEVEL.HARD,
+                    activeMode?.repetitions ?: 0
                 )
             }
             TrainingModel.Difficulty.HARD -> {
                 CustomLevel.setSelectedLevel(
                     hard, CustomLevel.LEVEL.HARD,
                     medium, CustomLevel.LEVEL.MEDIUM,
-                    easy, CustomLevel.LEVEL.EASY
+                    easy, CustomLevel.LEVEL.EASY,
+                    activeMode?.repetitions ?: 0
                 )
             }
         }
 
         easy.setOnClickListener {
-            CustomLevel.setSelectedLevel(
-                easy, CustomLevel.LEVEL.EASY,
-                hard, CustomLevel.LEVEL.HARD,
-                medium, CustomLevel.LEVEL.MEDIUM
-            )
             activityHost.setSeries(0)
             activityHost.log(FIREBASE_EVENT_PRESSED_EASY_LEVEL)
             levelViewModel.setActivatedMode(CustomLevel.LEVEL.EASY)
+            CustomLevel.setSelectedLevel(
+                easy, CustomLevel.LEVEL.EASY,
+                hard, CustomLevel.LEVEL.HARD,
+                medium, CustomLevel.LEVEL.MEDIUM,
+                activeMode?.repetitions ?: 0
+            )
         }
 
         medium.setOnClickListener {
-            CustomLevel.setSelectedLevel(
-                medium, CustomLevel.LEVEL.MEDIUM,
-                easy, CustomLevel.LEVEL.EASY,
-                hard, CustomLevel.LEVEL.HARD
-            )
             activityHost.setSeries(0)
             activityHost.log(FIREBASE_EVENT_PRESSED_MEDIUM_LEVEL)
             levelViewModel.setActivatedMode(CustomLevel.LEVEL.MEDIUM)
+            CustomLevel.setSelectedLevel(
+                medium, CustomLevel.LEVEL.MEDIUM,
+                easy, CustomLevel.LEVEL.EASY,
+                hard, CustomLevel.LEVEL.HARD,
+                activeMode?.repetitions ?: 0
+            )
         }
 
         hard.setOnClickListener {
-            CustomLevel.setSelectedLevel(
-                hard, CustomLevel.LEVEL.HARD,
-                medium, CustomLevel.LEVEL.MEDIUM,
-                easy, CustomLevel.LEVEL.EASY
-            )
             activityHost.setSeries(0)
             activityHost.log(FIREBASE_EVENT_PRESSED_HARD_LEVEL)
             levelViewModel.setActivatedMode(CustomLevel.LEVEL.HARD)
+            CustomLevel.setSelectedLevel(
+                hard, CustomLevel.LEVEL.HARD,
+                medium, CustomLevel.LEVEL.MEDIUM,
+                easy, CustomLevel.LEVEL.EASY,
+                activeMode?.repetitions ?: 0
+            )
         }
 
     }
