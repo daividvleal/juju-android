@@ -1,12 +1,7 @@
 package br.com.jujuhealth.features.main.exercise
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,7 +14,6 @@ import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_START_EXERCISE
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_STOP_EXERCISE
 import br.com.jujuhealth.extension.getFormattedKey
 import br.com.jujuhealth.features.main.HostMainActivity
-import br.com.jujuhealth.features.main.MainActivityExercise
 import br.com.jujuhealth.features.main.exercise.animator.ProgressBarAnimation
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import org.koin.android.ext.android.inject
@@ -46,8 +40,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
             R.menu.toolbar_exercise_menu
         )
         activityHost.setNavigationIcon(R.drawable.ic_arrow_back){
-            activityHost.startActivity(Intent(requireActivity(), MainActivityExercise::class.java))
-            activityHost.finish()
+            activityHost.findNavController().navigateUp()
         }
 
         when(activeMode?.difficulty){
@@ -79,7 +72,6 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         }
 
         startFields()
-        Log.d("CREATE? ", " passou aqui ")
         setObservable()
     }
 
@@ -118,9 +110,6 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
         exerciseViewModel.progress.observe(viewLifecycleOwner, Observer {
             animateProgressBar(progress.progress, it)
-            if((progress.max/100) == it){
-                activityHost.setExerciseFinished(true)
-            }
         })
 
         exerciseViewModel.series.observe(viewLifecycleOwner, Observer {
@@ -133,7 +122,11 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         val anim = ProgressBarAnimation(progress, start, end)
         anim.setAnimationListener(object : Animation.AnimationListener{
             override fun onAnimationRepeat(animation: Animation?) {}
-            override fun onAnimationEnd(animation: Animation?) { if(end == (progress.max/100)){animationProgressBarToReset()} }
+            override fun onAnimationEnd(animation: Animation?) {
+                if(end == (progress.max/100)){
+                    animationProgressBarToReset()
+                }
+            }
             override fun onAnimationStart(animation: Animation?) { }
 
         })
@@ -148,6 +141,8 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
             override fun onAnimationEnd(animation: Animation?) {
                 progress.progress = 0
                 exerciseViewModel.progress.value = 0
+                activityHost.setExerciseFinished(true)
+                activityHost.goToCalendar()
             }
             override fun onAnimationStart(animation: Animation?) {}
         })
@@ -159,7 +154,7 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         btn_play.visibility = View.GONE
         btn_stop.visibility = View.VISIBLE
         exerciseViewModel.doAgain = true
-        exerciseViewModel.contract(circle, R.drawable.ic_exercicio_animation_complete, expanded_image, container, activeMode?.repetitions!!)
+        exerciseViewModel.contract(circle, R.drawable.ic_exercicio_animation_complete, expanded_image, container, activeMode?.repetitions!!, ::cancel)
     }
 
     private fun cancel() {
@@ -169,9 +164,6 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         exerciseViewModel.countDownTimer?.cancel()
         btn_play.visibility = View.VISIBLE
         btn_stop.visibility = View.GONE
-        if(activityHost.isExerciseFinished()){
-            activityHost.goToCalendar()
-        }
     }
 
     private fun flipVisibility() {

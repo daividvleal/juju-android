@@ -3,7 +3,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
             android:id="@+id/navigation_level"
-            android:icon="@drawable/subtract"
-            android:title="@string/empty_menu_title"
+            android:title="@string/levels_menu"
             app:showAsAction="always"/>
 </menu>

@@ -63,7 +63,8 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
         imageResId: Int,
         expanded_image: ImageView,
         container: FrameLayout,
-        progressMax: Int
+        progressMax: Int,
+        finish: () -> Unit
     ) {
         currentAnimator?.cancel()
         countDownTimer?.cancel()
@@ -140,7 +141,8 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
                         imageResId,
                         expanded_image,
                         container,
-                        progressMax
+                        progressMax,
+                        finish
                     )
                 }
 
@@ -160,7 +162,8 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
         imageResId: Int,
         expanded_image: ImageView,
         container: FrameLayout,
-        progressMax: Int
+        progressMax: Int,
+        finish: () -> Unit
     ) {
         currentAnimator?.cancel()
         countDownTimer?.cancel()
@@ -191,14 +194,15 @@ class ExerciseViewModel(private val serviceCalendarContract: ServiceCalendarCont
                         thumbView.alpha = 1f
                         expanded_image.visibility = View.GONE
                         count++
-                        if (doAgain) {
+                        if (doAgain && count < activeMode?.repetitions!!) {
                             meta.value = "$count/${activeMode?.repetitions!!}"
                             progress.value = progress.value?.plus(1)
-                            contract(thumbView, imageResId, expanded_image, container, progressMax)
-                        }
-
-                        if (progress.value == progressMax) {
+                            contract(thumbView, imageResId, expanded_image, container, progressMax, finish)
+                        }else if(doAgain && count == activeMode?.repetitions!!){
+                            meta.value = "$count/${activeMode?.repetitions!!}"
+                            progress.value = progress.value?.plus(1)
                             addSeries()
+                            finish()
                         }
                     }
                 }

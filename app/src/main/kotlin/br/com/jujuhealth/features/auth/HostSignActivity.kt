@@ -10,8 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.jujuhealth.R
 import br.com.jujuhealth.data.model.BaseModel
-import br.com.jujuhealth.features.main.HostMainActivity
-import br.com.jujuhealth.features.main.MainActivityExercise
+import br.com.jujuhealth.features.main.exercise.MainExerciseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HostSignActivity : AppCompatActivity() {
@@ -40,7 +39,7 @@ class HostSignActivity : AppCompatActivity() {
                     }
                     BaseModel.Status.SUCCESS -> {
                         progressBar.visibility = View.GONE
-                        val i = Intent(this, MainActivityExercise::class.java)
+                        val i = Intent(this, MainExerciseFragment::class.java)
                         startActivity(i)
                         finish()
                     }

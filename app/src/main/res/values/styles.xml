@@ -89,4 +89,9 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="ThemeOverlay.MyToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>

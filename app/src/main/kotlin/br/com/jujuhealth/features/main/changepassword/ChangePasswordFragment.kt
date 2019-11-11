@@ -69,11 +69,11 @@ class ChangePasswordFragment: Fragment(R.layout.fragment_change_password){
 
     override fun onResume() {
         super.onResume()
-        activity.setBottomBarVisibility(false)
+//        activity.setBottomBarVisibility(false)
     }
 
     override fun onStop(){
-        activity.setBottomBarVisibility(true)
+//        activity.setBottomBarVisibility(true)
         super.onStop()
     }
 

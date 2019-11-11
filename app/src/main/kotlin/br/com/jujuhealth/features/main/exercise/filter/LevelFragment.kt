@@ -11,7 +11,6 @@ import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_HARD_LEVEL
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_MEDIUM_LEVEL
 import br.com.jujuhealth.features.main.HostMainActivity
 import br.com.jujuhealth.widget.CustomLevel
-import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_level.*
 import org.koin.android.ext.android.inject
 
@@ -27,7 +26,7 @@ class LevelFragment : Fragment(R.layout.fragment_level) {
         activityHost.setUpToolbarTitle(R.string.exercise_level)
 
         back.setOnClickListener {
-            activity?.onBackPressed()
+            activityHost.onBackPressed()
         }
 
         when(activeMode?.difficulty){

@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/nav_graph"
-        app:startDestination="@id/exercise">
+        app:startDestination="@id/main_exercise">
 
     <fragment
             android:id="@+id/attendance"
@@ -14,6 +14,19 @@
             android:id="@+id/star"
             android:name="br.com.jujuhealth.features.main.star.StarFragment"
             tools:layout="@layout/fragment_star" />
+
+    <fragment
+            android:id="@+id/main_exercise"
+            android:name="br.com.jujuhealth.features.main.exercise.MainExerciseFragment"
+            tools:layout="@layout/fragment_main_exercise">
+
+        <action
+                android:id="@+id/go_to_exercise"
+                app:destination="@id/exercise"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
 
     <fragment
             android:id="@+id/exercise"
@@ -69,8 +82,8 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
     <action
-            android:id="@+id/go_to_exercise"
-            app:destination="@id/exercise"
+            android:id="@+id/go_to_main_exercise"
+            app:destination="@id/main_exercise"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 

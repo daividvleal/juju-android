@@ -8,7 +8,8 @@ import androidx.lifecycle.Observer
 import br.com.jujuhealth.R
 import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.features.auth.HostSignActivity
-import br.com.jujuhealth.features.main.MainActivityExercise
+import br.com.jujuhealth.features.main.HostMainActivity
+import br.com.jujuhealth.features.main.exercise.MainExerciseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val SPLASH_TIME = 1500L
@@ -33,7 +34,7 @@ class SplashActivity : AppCompatActivity() {
             .observe(this, Observer {
                 when (it.status) {
                     BaseModel.Status.SUCCESS -> {
-                        startActivity(Intent(this, MainActivityExercise::class.java))
+                        startActivity(Intent(this, HostMainActivity::class.java))
                         finish()
                     }
                     else -> {

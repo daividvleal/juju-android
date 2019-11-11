@@ -39,12 +39,6 @@
                 android:theme="@style/AppTheme"
                 android:windowSoftInputMode="adjustResize" />
 
-        <activity
-                android:name=".features.main.MainActivityExercise"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme"
-                android:windowSoftInputMode="adjustPan" />
-
         <service
                 android:name="br.com.jujuhealth.data.notification.JujuFirebaseMessagingService"
                 android:exported="false">
