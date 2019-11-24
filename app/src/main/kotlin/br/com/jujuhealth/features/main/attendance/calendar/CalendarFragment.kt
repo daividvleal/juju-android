@@ -183,7 +183,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                 BaseModel.Status.SUCCESS -> {
                     genericMessage(R.string.congrats)
                     setVisibility()
-                    activityHost.setExerciseFinished(false)
+                    //activityHost.setExerciseFinished(false)
                     viewModel.getActualMonth()
                 }
                 BaseModel.Status.ERROR -> {

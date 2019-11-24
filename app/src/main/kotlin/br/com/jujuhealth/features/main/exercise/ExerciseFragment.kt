@@ -3,18 +3,22 @@ package br.com.jujuhealth.features.main.exercise
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import br.com.jujuhealth.R
 import br.com.jujuhealth.activeMode
 import br.com.jujuhealth.data.model.BaseModel
+import br.com.jujuhealth.data.model.TrainingDiary
 import br.com.jujuhealth.data.model.TrainingModel
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_RESUME_EXERCISE
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_START_EXERCISE
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_STOP_EXERCISE
 import br.com.jujuhealth.extension.getFormattedKey
 import br.com.jujuhealth.features.main.HostMainActivity
+import br.com.jujuhealth.features.main.attendance.calendar.CalendarViewModel
 import br.com.jujuhealth.features.main.exercise.animator.ProgressBarAnimation
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import org.koin.android.ext.android.inject
 import java.util.*
@@ -22,6 +26,7 @@ import java.util.*
 class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
 
     private val exerciseViewModel: ExerciseViewModel by inject()
+    private val calendarViewModel: CalendarViewModel by inject()
     private lateinit var activityHost: HostMainActivity
 
     override fun onResume() {
@@ -75,7 +80,44 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         setObservable()
     }
 
+    private fun insert(trainingDiary: TrainingDiary?) {
+        calendarViewModel.insertTraining(
+            Calendar.getInstance().getFormattedKey(),
+            trainingDiary
+        )
+    }
+
+    private fun genericMessage(id: Int) {
+        val snackBar = Snackbar.make(
+            requireView(),
+            requireContext().getString(id),
+            Snackbar.LENGTH_LONG
+        )
+        snackBar.view.background =
+            ContextCompat.getDrawable(requireContext(), R.drawable.background_item_filter_dark)
+        snackBar.show()
+    }
+
     private fun setObservable(){
+
+        calendarViewModel.diary.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                BaseModel.Status.LOADING -> {
+                }
+                BaseModel.Status.SUCCESS -> {
+                    it.data?.addTraining(activeMode, activityHost.getSeries())
+                    insert(it.data)
+                    calendarViewModel.getActualMonth()
+                }
+                BaseModel.Status.ERROR -> {
+                    genericMessage(R.string.error_message)
+                }
+                BaseModel.Status.DEFAULT -> {
+                    var training = TrainingDiary().addTraining(activeMode, activityHost.getSeries())
+                    insert(training)
+                }
+            }
+        })
 
         exerciseViewModel.diary.observe(viewLifecycleOwner, Observer {
             when (it.status) {
@@ -139,11 +181,13 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
         anim.setAnimationListener(object : Animation.AnimationListener{
             override fun onAnimationRepeat(animation: Animation?) { }
             override fun onAnimationEnd(animation: Animation?) {
-                progress.progress = 0
-                exerciseViewModel.progress.value = 0
-                // if want to go to exercise, just uncomment it.
+                startFields()
+                // if want to go to exercise, just switch comment it.
                 //activityHost.setExerciseFinished(true)
-                activityHost.goToCalendar()
+                //activityHost.goToCalendar()
+                calendarViewModel.getTrainingDiary(
+                    Calendar.getInstance().getFormattedKey()
+                )
             }
             override fun onAnimationStart(animation: Animation?) {}
         })
