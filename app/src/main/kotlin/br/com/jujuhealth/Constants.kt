@@ -5,7 +5,7 @@ import br.com.jujuhealth.data.model.TrainingModel
 val slowEasy = TrainingModel(
     mode = TrainingModel.Mode.SLOW,
     difficulty = TrainingModel.Difficulty.EASY,
-    repetitions = 3,
+    repetitions = 10,
     contractionDuration = 4000,
     relaxDuration = 4000
 )

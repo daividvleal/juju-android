@@ -141,7 +141,8 @@ class ExerciseFragment : Fragment(R.layout.fragment_exercise) {
             override fun onAnimationEnd(animation: Animation?) {
                 progress.progress = 0
                 exerciseViewModel.progress.value = 0
-                activityHost.setExerciseFinished(true)
+                // if want to go to exercise, just uncomment it.
+                //activityHost.setExerciseFinished(true)
                 activityHost.goToCalendar()
             }
             override fun onAnimationStart(animation: Animation?) {}

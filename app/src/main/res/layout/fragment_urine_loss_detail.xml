@@ -28,17 +28,11 @@
             android:id="@+id/urine_loss_recycler_view"
             android:scrollbars="none"
             app:layout_constraintTop_toBottomOf="@id/urine_loss_qtd"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/height_size_dialog"
             android:layout_marginTop="@dimen/common_small_margin"
-            app:layout_constraintStart_toStartOf="@id/guideline_series_start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/item_urine_loss_dialog"/>
-
-    <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_series_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,7 +34,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/common_small_margin"
-                app:layout_constraintStart_toStartOf="@id/guideline_series_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/training_slow">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -60,7 +61,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/common_small_margin"
-                app:layout_constraintStart_toStartOf="@id/guideline_series_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/slow_easy">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -86,7 +88,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/common_small_margin"
-                app:layout_constraintStart_toStartOf="@id/guideline_series_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/slow_medium">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -129,7 +132,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/common_small_margin"
-                app:layout_constraintStart_toStartOf="@id/guideline_series_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/training_fast">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -155,7 +159,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/common_small_margin"
-                app:layout_constraintStart_toStartOf="@id/guideline_series_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fast_easy">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -181,7 +186,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/common_small_margin"
-                app:layout_constraintStart_toStartOf="@id/guideline_series_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fast_medium">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -198,13 +204,6 @@
                     android:textSize="@dimen/font_medium_big_button" />
 
         </LinearLayout>
-
-        <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_series_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
