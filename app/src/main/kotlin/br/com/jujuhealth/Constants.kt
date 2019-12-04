@@ -6,16 +6,16 @@ val slowEasy = TrainingModel(
     mode = TrainingModel.Mode.SLOW,
     difficulty = TrainingModel.Difficulty.EASY,
     repetitions = 10,
-    contractionDuration = 4000,
-    relaxDuration = 4000
+    contractionDuration = 6000,
+    relaxDuration = 6000
 )
 
 val slowMedium = TrainingModel(
     mode = TrainingModel.Mode.SLOW,
     difficulty = TrainingModel.Difficulty.MEDIUM,
     repetitions = 10,
-    contractionDuration = 6000,
-    relaxDuration = 6000
+    contractionDuration = 8000,
+    relaxDuration = 8000
 )
 
 val slowHard = TrainingModel(
@@ -38,7 +38,7 @@ val fastMedium = TrainingModel(
     mode = TrainingModel.Mode.FAST,
     difficulty = TrainingModel.Difficulty.MEDIUM,
     repetitions = 10,
-    contractionDuration = 2000,
+    contractionDuration = 1000,
     relaxDuration = 2000
 )
 
@@ -46,8 +46,8 @@ val fastHard = TrainingModel(
     mode = TrainingModel.Mode.FAST,
     difficulty = TrainingModel.Difficulty.HARD,
     repetitions = 10,
-    contractionDuration = 3000,
-    relaxDuration = 6000
+    contractionDuration = 1000,
+    relaxDuration = 1000
 )
 
 var activeMode : TrainingModel? = slowEasy.copy()
