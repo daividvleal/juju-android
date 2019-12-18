@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/sign_up"
         android:name="br.com.jujuhealth.features.auth.signup.SignUpFragment"
-        tools:layout="@layout/fragment_sign_in" >
+        tools:layout="@layout/fragment_sign_up" >
 
         <action
             android:id="@+id/go_to_sign_in_from_sign_up"
