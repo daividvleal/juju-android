@@ -231,7 +231,6 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     }
 
     private fun setVisibility() {
-        calendarView.visibility = if(loading.visibility == View.VISIBLE) View.VISIBLE else View.GONE
         loading.visibility = if(loading.visibility == View.VISIBLE) View.GONE else View.VISIBLE
     }
 
