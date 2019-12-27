@@ -75,6 +75,7 @@
 
     <string name="logout">Sair da conta</string>
     <string name="change_pwd">Alterar senha</string>
+    <string name="profile_photo">Tirar foto</string>
     <string name="settings">Configurações</string>
     <string name="nothing_registered">Não existe exercício ou perda de urina cadastrada para o dia %s.</string>
 
@@ -170,5 +171,7 @@
     <string name="material_calendar_today_button">Hoje</string>
     <string name="material_calendar_positive_button">OK</string>
     <string name="material_calendar_negative_button">Cancel</string>
+    <string name="take_pic">Tirar Foto</string>
+    <string name="save">Salvar</string>
 
 </resources>

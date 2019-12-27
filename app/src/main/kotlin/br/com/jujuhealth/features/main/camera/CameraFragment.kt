@@ -22,6 +22,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import br.com.jujuhealth.R
+import br.com.jujuhealth.features.main.HostMainActivity
 import kotlinx.android.synthetic.main.fragment_camera.*
 import java.io.*
 import java.util.*
@@ -96,13 +97,13 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         texture.surfaceTextureListener = textureListener
-        takepicture.setOnClickListener{
+        take_picture.setOnClickListener{
             takePicture()
         }
-        save.setOnClickListener {
-
+        save.setOnClickListener {  }
+        (requireActivity() as HostMainActivity).setUpToolbarWithIconAction(R.string.change_pwd, R.drawable.ic_arrow_back){
+            (requireActivity() as HostMainActivity).findNavController().navigateUp()
         }
-
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -132,26 +133,24 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         val manager = requireActivity().getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
             val characteristics = manager.getCameraCharacteristics(cameraDevice!!.id)
-            var jpegSizes: Array<Size>? = null
-            if (characteristics != null) {
-                jpegSizes =
-                    characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!.getOutputSizes(
-                        ImageFormat.JPEG
-                    )
-            }
+            val jpegSizes: Array<Size> =
+                characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!.getOutputSizes(
+                    ImageFormat.JPEG
+                )
+
             var width = 640
             var height = 480
-            if (jpegSizes != null && 0 < jpegSizes.size) {
-                width = jpegSizes[0].getWidth()
-                height = jpegSizes[0].getHeight()
+            if (jpegSizes.isEmpty()) {
+                width = jpegSizes[0].width
+                height = jpegSizes[0].height
             }
             val reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 1)
             val outputSurfaces = ArrayList<Surface>(2)
-            outputSurfaces.add(reader.getSurface())
+            outputSurfaces.add(reader.surface)
             outputSurfaces.add(Surface(texture.surfaceTexture))
             val captureBuilder =
                 cameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
-            captureBuilder.addTarget(reader.getSurface())
+            captureBuilder.addTarget(reader.surface)
             captureBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
             // Orientation
             val rotation = requireActivity().windowManager.defaultDisplay.rotation
@@ -198,8 +197,9 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                     result: TotalCaptureResult
                 ) {
                     super.onCaptureCompleted(session, request, result)
-                    Toast.makeText(context, "Saved:$file", Toast.LENGTH_SHORT).show()
-                    createCameraPreview()
+
+//                    Toast.makeText(context, "Saved:$file", Toast.LENGTH_SHORT).show()
+//                    createCameraPreview()
                 }
             }
             cameraDevice!!.createCaptureSession(

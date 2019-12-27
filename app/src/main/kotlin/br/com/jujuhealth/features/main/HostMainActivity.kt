@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isEmpty
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
 import br.com.jujuhealth.R
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_BAR_ICON
@@ -16,9 +15,7 @@ import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_CALENDAR_TAB_ICON_
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_EXERCISE_TAB_ICON
 import br.com.jujuhealth.extension.FIREBASE_EVENT_PRESSED_PROFILE_TAB_ICON
 import br.com.jujuhealth.features.main.changepassword.ChangePasswordFragment
-import br.com.jujuhealth.features.main.exercise.MainExerciseFragment
 import br.com.jujuhealth.features.main.exercise.filter.LevelFragment
-import br.com.jujuhealth.features.main.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main_host.*
 import org.koin.android.ext.android.inject
@@ -99,6 +96,11 @@ class HostMainActivity : AppCompatActivity(),
                 R.id.change_password -> {
                     hideToolbar(false)
                     setBackgroundRoundedToolbar()
+                    setBottomBarVisibility(false)
+                }
+                R.id.camera -> {
+                    hideToolbar(false)
+                    setBackgroundRoundedToolbar(false)
                     setBottomBarVisibility(false)
                 }
                 else -> {
