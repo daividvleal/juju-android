@@ -56,6 +56,11 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:popExitAnim="@anim/nav_default_exit_anim"/>
 
+        <action android:id="@+id/go_to_camera"
+                app:destination="@id/camera"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:popExitAnim="@anim/nav_default_exit_anim"/>
+
     </fragment>
 
     <fragment
@@ -67,6 +72,10 @@
     <fragment android:id="@+id/change_password"
         android:name="br.com.jujuhealth.features.main.changepassword.ChangePasswordFragment"
             tools:layout="@layout/fragment_change_password"/>
+
+    <fragment android:id="@+id/camera"
+        android:name="br.com.jujuhealth.features.main.camera.CameraFragment"
+        tools:layout="@layout/fragment_camera" />
 
 
     <action

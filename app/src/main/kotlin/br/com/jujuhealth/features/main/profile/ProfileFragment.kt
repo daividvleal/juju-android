@@ -11,6 +11,7 @@ import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.features.auth.HostSignActivity
 import br.com.jujuhealth.features.main.HostMainActivity
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.button_custom.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.android.ext.android.inject
 
@@ -29,13 +30,20 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         viewModel.getUser()
         signOut(logout)
         signOut(img_logout)
-        navigateToChangePWd(img_change_pwd)
-        navigateToChangePWd(change_pwd)
+        navigateToChangePwd(img_change_pwd)
+        navigateToChangePwd(change_pwd)
+        navigateToTakePic(circle_profile)
     }
 
-    private fun navigateToChangePWd(view: View){
+    private fun navigateToChangePwd(view: View){
         view.setOnClickListener {
             (requireContext() as HostMainActivity).findNavController().navigate(R.id.go_to_change_pwd)
+        }
+    }
+
+    private fun navigateToTakePic(view: View){
+        view.setOnClickListener {
+            (requireContext() as HostMainActivity).findNavController().navigate(R.id.go_to_camera)
         }
     }
 
