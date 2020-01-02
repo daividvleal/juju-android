@@ -1,8 +1,11 @@
 package br.com.jujuhealth.features.main.profile
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -11,7 +14,6 @@ import br.com.jujuhealth.data.model.BaseModel
 import br.com.jujuhealth.features.auth.HostSignActivity
 import br.com.jujuhealth.features.main.HostMainActivity
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.button_custom.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.android.ext.android.inject
 
@@ -22,8 +24,41 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as HostMainActivity).setUpToolbarTitle(R.string.profile)
+        arguments?.let {
+            it["imageUri"]?.let { uri ->
+                performCrop(uri as Uri)
+            }
+        }
         setObservable()
         setUpView()
+    }
+
+    private fun performCrop(picUri: Uri) {
+        try {
+            val cropIntent = Intent("com.android.camera.action.CROP")
+            cropIntent.setDataAndType(picUri, "image/*")
+            cropIntent.putExtra("crop", true)
+            cropIntent.putExtra("aspectX", 1)
+            cropIntent.putExtra("aspectY", 1)
+            cropIntent.putExtra("outputX", 128)
+            cropIntent.putExtra("outputY", 128)
+            cropIntent.putExtra("return-data", true)
+            startActivityForResult(cropIntent, Companion.PIC_CROP)
+        } catch (e: Exception) {
+            val errorMessage = "Whoops - something went wrong!"
+            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Companion.PIC_CROP) {
+            if (data != null) {
+                val extras = data.extras
+                val selectedBitmap = extras?.getParcelable<Bitmap>("data")
+                circle_profile.setImageBitmap(selectedBitmap)
+            }
+        }
     }
 
     private fun setUpView(){
@@ -85,6 +120,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 }
             }
         })
+    }
+
+    companion object {
+        const val PIC_CROP = 1
     }
 
 }

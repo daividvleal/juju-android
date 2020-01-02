@@ -36,9 +36,10 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     private var captureRequestBuilder: CaptureRequest.Builder? = null
     private var imageDimension: Size? = null
     private var imageReader: ImageReader? = null
-    private val file: File? = null
     private var mBackgroundHandler: Handler? = null
     private var mBackgroundThread: HandlerThread? = null
+    private var byteArray: ByteArray? = null
+
 
     private var textureListener: TextureView.SurfaceTextureListener =
         object : TextureView.SurfaceTextureListener {
@@ -82,6 +83,12 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         }
     }
 
+    private fun setVisibility() {
+        save.visibility = if (save.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+        take_picture.visibility =
+            if (take_picture.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+    }
+
     internal val captureCallbackListener: CameraCaptureSession.CaptureCallback =
         object : CameraCaptureSession.CaptureCallback() {
             override fun onCaptureCompleted(
@@ -90,30 +97,39 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                 result: TotalCaptureResult
             ) {
                 super.onCaptureCompleted(session, request, result)
-                Toast.makeText(context, "Saved:" + file!!, Toast.LENGTH_SHORT).show()
-                createCameraPreview()
+                setVisibility()
             }
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         texture.surfaceTextureListener = textureListener
-        take_picture.setOnClickListener{
+        take_picture.setOnClickListener {
             takePicture()
         }
-        save.setOnClickListener {  }
-        (requireActivity() as HostMainActivity).setUpToolbarWithIconAction(R.string.change_pwd, R.drawable.ic_arrow_back){
+        save.setOnClickListener {
             (requireActivity() as HostMainActivity).findNavController().navigateUp()
+        }
+        (requireActivity() as HostMainActivity).setUpToolbarWithIconAction(
+            R.string.change_pwd,
+            R.drawable.ic_arrow_back
+        ) {
+            if (save.visibility == View.VISIBLE) {
+                setVisibility()
+                createCameraPreview()
+            } else {
+                (requireActivity() as HostMainActivity).findNavController().navigateUp()
+            }
         }
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun startBackgroundThread() {
+    private fun startBackgroundThread() {
         mBackgroundThread = HandlerThread("Camera Background")
         mBackgroundThread!!.start()
         mBackgroundHandler = Handler(mBackgroundThread!!.looper)
     }
 
-    fun stopBackgroundThread() {
+    private fun stopBackgroundThread() {
         mBackgroundThread!!.quitSafely()
         try {
             mBackgroundThread!!.join()
@@ -122,10 +138,22 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
-
     }
 
-    fun takePicture() {
+    @Throws(IOException::class)
+    private fun save(bytes: ByteArray) {
+        val file =
+            File(Environment.getExternalStorageDirectory().toString() + "/" + Calendar.getInstance().time.time.toString() + ".jpg")
+        var output: OutputStream? = null
+        try {
+            output = FileOutputStream(file)
+            output?.write(bytes)
+        } finally {
+            output?.close()
+        }
+    }
+
+    private fun takePicture() {
         if (null == cameraDevice) {
             Log.e(TAG, "cameraDevice is null")
             return
@@ -155,53 +183,23 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             // Orientation
             val rotation = requireActivity().windowManager.defaultDisplay.rotation
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation))
-            val file = File(Environment.getExternalStorageDirectory().toString() + "/"+ Calendar.getInstance().time.time.toString() + ".jpg")
-            val readerListener = object : ImageReader.OnImageAvailableListener {
-                override fun onImageAvailable(reader: ImageReader) {
-                    var image: Image? = null
-                    try {
-                        image = reader.acquireLatestImage()
-                        val buffer = image!!.planes[0].buffer
-                        val bytes = ByteArray(buffer.capacity())
-                        buffer.get(bytes)
-                        save(bytes)
-                    } catch (e: FileNotFoundException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    } finally {
-                        if (image != null) {
-                            image!!.close()
-                        }
-                    }
-                }
 
-                @Throws(IOException::class)
-                private fun save(bytes: ByteArray) {
-                    var output: OutputStream? = null
-                    try {
-                        output = FileOutputStream(file)
-                        output!!.write(bytes)
-                    } finally {
-                        if (null != output) {
-                            output!!.close()
-                        }
-                    }
+            val readerListener = ImageReader.OnImageAvailableListener { reader ->
+                var image: Image? = null
+                try {
+                    image = reader.acquireLatestImage()
+                    val buffer = image!!.planes[0].buffer
+                    val bytes = ByteArray(buffer.capacity())
+                    buffer.get(bytes)
+                    byteArray = bytes
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    e.printStackTrace()
                 }
             }
             reader.setOnImageAvailableListener(readerListener, mBackgroundHandler)
-            val captureListener = object : CameraCaptureSession.CaptureCallback() {
-                override fun onCaptureCompleted(
-                    session: CameraCaptureSession,
-                    request: CaptureRequest,
-                    result: TotalCaptureResult
-                ) {
-                    super.onCaptureCompleted(session, request, result)
 
-//                    Toast.makeText(context, "Saved:$file", Toast.LENGTH_SHORT).show()
-//                    createCameraPreview()
-                }
-            }
             cameraDevice!!.createCaptureSession(
                 outputSurfaces,
                 object : CameraCaptureSession.StateCallback() {
@@ -209,7 +207,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                         try {
                             session.capture(
                                 captureBuilder.build(),
-                                captureListener,
+                                captureCallbackListener,
                                 mBackgroundHandler
                             )
                         } catch (e: CameraAccessException) {
@@ -232,7 +230,8 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             val texture = texture.surfaceTexture!!
             texture.setDefaultBufferSize(imageDimension!!.width, imageDimension!!.height)
             val surface = Surface(texture)
-            val capRequestBuilder = cameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+            val capRequestBuilder =
+                cameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
             capRequestBuilder.addTarget(surface)
             captureRequestBuilder = capRequestBuilder
 
@@ -350,9 +349,13 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         }
     }
 
+    override fun onDestroy() {
+        closeCamera()
+        super.onDestroy()
+    }
+
     override fun onPause() {
         Log.e(TAG, "onPause")
-        //closeCamera();
         stopBackgroundThread()
         super.onPause()
     }

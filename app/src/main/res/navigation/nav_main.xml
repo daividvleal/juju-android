@@ -61,6 +61,10 @@
                 app:enterAnim="@anim/nav_default_enter_anim"
                 app:popExitAnim="@anim/nav_default_exit_anim"/>
 
+        <argument android:name="imageUri"
+            app:argType="android.net.Uri"
+            app:nullable="true"/>
+
     </fragment>
 
     <fragment
