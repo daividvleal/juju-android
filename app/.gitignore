@@ -1,4 +1,3 @@
 /build
-/release/google-services.json
-/debug/google-services.json
-google-services.json
+debug/google-services.json
+release/google-services.json
