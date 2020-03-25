@@ -97,7 +97,6 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                 result: TotalCaptureResult
             ) {
                 super.onCaptureCompleted(session, request, result)
-                setVisibility()
             }
         }
 
@@ -147,7 +146,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         var output: OutputStream? = null
         try {
             output = FileOutputStream(file)
-            output?.write(bytes)
+            output.write(bytes)
         } finally {
             output?.close()
         }
