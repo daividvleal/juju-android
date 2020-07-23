@@ -2,6 +2,7 @@ package br.com.jujuhealth.features.main.camera
 
 import android.Manifest
 import android.content.Context
+import android.content.Context.CAMERA_SERVICE
 import android.content.pm.PackageManager
 import android.graphics.ImageFormat
 import android.graphics.SurfaceTexture
@@ -19,6 +20,7 @@ import android.view.Surface
 import android.view.TextureView
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.UiThread
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import br.com.jujuhealth.R
@@ -39,7 +41,6 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     private var mBackgroundHandler: Handler? = null
     private var mBackgroundThread: HandlerThread? = null
     private var byteArray: ByteArray? = null
-
 
     private var textureListener: TextureView.SurfaceTextureListener =
         object : TextureView.SurfaceTextureListener {
@@ -83,10 +84,9 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         }
     }
 
-    private fun setVisibility() {
-        save.visibility = if (save.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-        take_picture.visibility =
-            if (take_picture.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+    private fun setVisibility(savePicture: Boolean = false, takePicture: Boolean = false) {
+        save.visibility = if (savePicture) View.VISIBLE else View.GONE
+        take_picture.visibility = if (takePicture) View.VISIBLE else View.GONE
     }
 
     internal val captureCallbackListener: CameraCaptureSession.CaptureCallback =
@@ -96,6 +96,9 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                 request: CaptureRequest,
                 result: TotalCaptureResult
             ) {
+                activity?.runOnUiThread {
+                    setVisibility(savePicture = true)
+                }
                 super.onCaptureCompleted(session, request, result)
             }
         }
@@ -106,6 +109,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             takePicture()
         }
         save.setOnClickListener {
+            save()
             (requireActivity() as HostMainActivity).findNavController().navigateUp()
         }
         (requireActivity() as HostMainActivity).setUpToolbarWithIconAction(
@@ -113,7 +117,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             R.drawable.ic_arrow_back
         ) {
             if (save.visibility == View.VISIBLE) {
-                setVisibility()
+                setVisibility(takePicture = true)
                 createCameraPreview()
             } else {
                 (requireActivity() as HostMainActivity).findNavController().navigateUp()
@@ -140,13 +144,14 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     }
 
     @Throws(IOException::class)
-    private fun save(bytes: ByteArray) {
+    private fun save() {
+        val path = Environment.getExternalStorageDirectory().toString() + "/" + Calendar.getInstance().time.time.toString() + ".jpg"
         val file =
-            File(Environment.getExternalStorageDirectory().toString() + "/" + Calendar.getInstance().time.time.toString() + ".jpg")
+            File(path)
         var output: OutputStream? = null
         try {
             output = FileOutputStream(file)
-            output.write(bytes)
+            output.write(byteArray)
         } finally {
             output?.close()
         }
@@ -227,7 +232,9 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
     fun createCameraPreview() {
         try {
             val texture = texture.surfaceTexture!!
-            texture.setDefaultBufferSize(imageDimension!!.width, imageDimension!!.height)
+
+            //texture.setDefaultBufferSize(imageDimension!!.width, imageDimension!!.height)
+
             val surface = Surface(texture)
             val capRequestBuilder =
                 cameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
@@ -296,6 +303,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             Log.e(TAG, "UpdatePreview error, return!")
         }
         captureRequestBuilder!!.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
+
         try {
             cameraCaptureSessions!!.setRepeatingRequest(
                 captureRequestBuilder!!.build(),
@@ -372,4 +380,5 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
         private val REQUEST_CAMERA_PERMISSION = 200
     }
+
 }

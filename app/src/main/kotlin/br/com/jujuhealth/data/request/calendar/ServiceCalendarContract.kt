@@ -12,4 +12,6 @@ interface ServiceCalendarContract {
 
     fun insertTrainingDiary(date: String, trainingDiary: TrainingDiary, success: () -> Unit, error: (Exception?) -> Unit)
 
+    fun deleteTrainingDiary(date: String, trainingDiary: TrainingDiary, success: () -> Unit, error: (Exception?) -> Unit)
+
 }

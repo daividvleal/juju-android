@@ -44,14 +44,16 @@ buildscript {
         firebase_database="19.2.0"
         firebase_firestore="21.2.1"
         firebase_messaging="20.0.0"
+        firebase_storage="19.1.0"
         worker="1.0.1"
         google_services = "4.3.1"
-
+        navigation_args="2.2.2"
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:$google_services"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_args"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
