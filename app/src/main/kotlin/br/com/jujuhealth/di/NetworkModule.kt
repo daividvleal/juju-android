@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import com.google.firebase.firestore.FirebaseFirestoreSettings
-
+import com.google.firebase.storage.FirebaseStorage
 
 
 const val PROPERTY_BASE_URL = "PROPERTY_BASE_URL"
@@ -26,6 +26,10 @@ val networkModule = module {
 
     single{
        FirebaseAnalytics.getInstance(androidContext())
+    }
+
+    single{
+        FirebaseStorage.getInstance()
     }
 
 }

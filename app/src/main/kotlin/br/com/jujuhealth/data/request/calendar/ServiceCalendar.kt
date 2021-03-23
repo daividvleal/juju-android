@@ -101,5 +101,27 @@ class ServiceCalendar(private val database: FirebaseFirestore, private val auth:
         }
     }
 
+    override fun deleteTrainingDiary(
+        date: String,
+        trainingDiary: TrainingDiary,
+        success: () -> Unit,
+        error: (Exception?) -> Unit
+    ) {
+        auth.currentUser?.uid?.let { uid ->
+            database.collection(COLLECTION_TRAINING_DIARY)
+            .document(uid)
+            .collection(COLLECTION_DIARY)
+            .document(date).delete()
+            .addOnSuccessListener {
+                success()
+            }
+            .addOnFailureListener {
+                error(it)
+            }
+        } ?: run {
+            error(Exception())
+        }
+    }
+
 
 }

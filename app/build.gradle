@@ -4,17 +4,21 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "br.com.jujuhealth"
-        minSdkVersion 21
+        minSdkVersion 28
         targetSdkVersion 29
         versionCode 2
         versionName '0.00.2'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        buildConfigField "String", "BASE_URL", '"https://jujuhealth.com.br"'
+        buildConfigField "String", "PHOTO_END_POINT", '"perfil/"'
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -24,13 +28,10 @@ android {
     }
     buildTypes {
         debug {
-
-            buildConfigField "String", "BASE_URL", '"https://jujuhealth.com.br"'
             applicationIdSuffix ".debug"
             testCoverageEnabled true
         }
         release {
-            buildConfigField "String", "BASE_URL", '"https://jujuhealth.com.br"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -69,6 +70,7 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics:$firebase_analytics"
     implementation "com.google.firebase:firebase-firestore:$firebase_firestore"
     implementation "com.google.firebase:firebase-messaging:$firebase_messaging"
+    implementation "com.google.firebase:firebase-storage:$firebase_storage"
 
     //Worker
     implementation "android.arch.work:work-runtime:$worker"

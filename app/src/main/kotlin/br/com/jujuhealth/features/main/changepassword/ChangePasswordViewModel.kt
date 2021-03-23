@@ -3,6 +3,7 @@ package br.com.jujuhealth.features.main.changepassword
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.jujuhealth.data.model.BaseModel
+import br.com.jujuhealth.data.request.sign.ServiceAuth
 import br.com.jujuhealth.data.request.sign.ServiceAuthContract
 import org.koin.core.KoinComponent
 
